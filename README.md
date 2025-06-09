@@ -1,5 +1,5 @@
 # 2025 씨앗 프로그램 파이널 프로젝트 - 타코야키 팀 백엔드 레포
 
 # 개발 환경
-JAVA 17/spring boot 3.5.0
-gradle 8.14
+- JAVA 17/spring boot 3.5.0
+- gradle 8.14
