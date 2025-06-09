@@ -1,0 +1,18 @@
+server:
+  port: 8087
+spring:
+  application:
+    name: backend
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    call-setters-on-nulls: true
+    jdbc-type-for-null: varchar
+    default-fetch-size: 500
+    auto-mapping-unknown-column-behavior: none
+  mapper-locations: mapper/*.xml
