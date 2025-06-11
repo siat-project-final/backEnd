@@ -39,7 +39,6 @@ public class AuthServiceImpl implements AuthService{
         loginResponseDto.setRefreshToken(tokenInfo.getRefreshToken());
         loginResponseDto.setMessage("로그인 성공");
 
-
         return loginResponseDto;
     }
 

@@ -6,6 +6,7 @@
     <mapper namespace="com.takoyakki.backend.domain.member.repository.MemberMapper">
 
     <resultMap id="MemberResponseMap" type="MemberResponseDto">
+        <result property="memberId" column="member_id" />
         <result property="memberName" column="member_name" />
     </resultMap>
 
