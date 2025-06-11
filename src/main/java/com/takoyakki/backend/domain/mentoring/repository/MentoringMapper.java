@@ -15,10 +15,10 @@ public interface MentoringMapper {
     List<Mentoring> findAllMentorings();
 
     Mentoring selectMentoringById(@Param("id") Long id);
-    // 멘토의 예약 목록 조회
+
     List<Mentoring> findReservationsByMentorId(@Param("mentorId") Long mentorId);
 
-    // 멘토링 예약 취소
+
     void cancelReservation(@Param("id") Long id, @Param("cancelReason") String cancelReason);
 
 
