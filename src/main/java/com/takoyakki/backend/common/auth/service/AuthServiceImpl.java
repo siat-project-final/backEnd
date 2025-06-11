@@ -8,11 +8,13 @@ import com.takoyakki.backend.common.auth.dto.LoginResponseDto;
 import com.takoyakki.backend.common.exception.UnauthorizedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class AuthServiceImpl implements AuthService{
 
     private final AuthMapper authMapper;
@@ -47,6 +49,7 @@ public class AuthServiceImpl implements AuthService{
     }
 
     @Override
+    @Transactional
     public int signUp(SignUpRequestDto requestDto) {
         try {
             return authMapper.signUp(requestDto);
