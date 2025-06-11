@@ -1,0 +1,8 @@
+-- 1 DDL
+
+CREATE TABLE BOARD_TBL (
+    board_idx SERIAL PRIMARY KEY
+);
+
+
+

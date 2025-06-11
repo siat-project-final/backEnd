@@ -1,12 +1,16 @@
 server:
   port: 8087
 spring:
+  sql:
+    init:
+      schema-locations: classpath:schema.sql
+      encoding: UTF-8
   application:
     name: backend
   datasource:
-    driverClassName:
-    url:
-    username:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
     password:
 mybatis:
   configuration:
