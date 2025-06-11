@@ -9,6 +9,7 @@
         <result property="memberName" column="member_name" />
     </resultMap>
 
+
         <select id="selectUserInfo" parameterType="java.lang.String" resultMap="loginResponseMap">
             SELECT
                 id,
@@ -18,4 +19,9 @@
             FROM members
             WHERE id = #{id}
         </select>
+
+        <insert id="signUp" parameterType="SignUpRequestDto">
+            INSERT INTO members (id, member_name, password, phone, nickname, role)
+            VALUES (#{id}, #{memberName}, #{password}, #{phone}, #{nickname}, 'TRAINEE')
+        </insert>
     </mapper>

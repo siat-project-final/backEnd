@@ -1,6 +1,7 @@
 package com.takoyakki.backend.common.auth.service;
 
 import com.takoyakki.backend.common.auth.JwtTokenProvider;
+import com.takoyakki.backend.common.auth.dto.SignUpRequestDto;
 import com.takoyakki.backend.common.auth.mapper.AuthMapper;
 import com.takoyakki.backend.common.auth.dto.LoginRequestDto;
 import com.takoyakki.backend.common.auth.dto.LoginResponseDto;
@@ -43,5 +44,14 @@ public class AuthServiceImpl implements AuthService{
     @Override
     public void logout(String id) {
         jwtTokenProvider.removeRefreshToken(id);
+    }
+
+    @Override
+    public int signUp(SignUpRequestDto requestDto) {
+        try {
+            return authMapper.signUp(requestDto);
+        } catch (Exception e) {
+            throw new UnauthorizedException("회원가입에 실패했습니다.");
+        }
     }
 }

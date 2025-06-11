@@ -1,6 +1,7 @@
 package com.takoyakki.backend.common.auth.controller;
 
 import com.takoyakki.backend.common.auth.JwtTokenProvider;
+import com.takoyakki.backend.common.auth.dto.SignUpRequestDto;
 import com.takoyakki.backend.common.auth.service.AuthService;
 import com.takoyakki.backend.common.auth.dto.LoginRequestDto;
 import com.takoyakki.backend.common.auth.dto.LoginResponseDto;
@@ -11,17 +12,30 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/v1/auth")
 @Tag(name = "인증", description = "인증 관련 API")
 public class AuthController {
     private final AuthService authService;
     private final JwtTokenProvider jwtTokenProvider;
+
+    @Operation(
+            summary = "회원가입",
+            description = "최초 접속시 회원가입을 수행합니다."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "로그인 성공"),
+            @ApiResponse(responseCode = "401", description = "인증 실패"),
+            @ApiResponse(responseCode = "500", description = "서버 오류")
+    })
+    @PostMapping("/signUp")
+    public ResponseEntity<?> signUp(@Valid @RequestBody SignUpRequestDto requestDto) {
+        int response = authService.signUp(requestDto);
+        return ResponseEntity.ok().build();
+    }
 
     @Operation(
             summary = "로그인",
@@ -33,8 +47,8 @@ public class AuthController {
             @ApiResponse(responseCode = "500", description = "서버 오류")
     })
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDto request) {
-        LoginResponseDto response = authService.login(request);
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDto requestDto) {
+        LoginResponseDto response = authService.login(requestDto);
         return ResponseEntity.ok()
                 .header("Authorization", "Bearer " + response.getAccessToken())
                 .header("Refresh-Token", response.getRefreshToken())
