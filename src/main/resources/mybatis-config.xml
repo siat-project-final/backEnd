@@ -3,5 +3,7 @@
 
 <configuration>
     <typeAliases>
+        <typeAlias alias="LoginRequestDto" type="com.takoyakki.backend.common.auth.dto.LoginRequestDto"/>
+        <typeAlias alias="LoginResponseDto" type="com.takoyakki.backend.common.auth.dto.LoginResponseDto"/>
     </typeAliases>
 </configuration>

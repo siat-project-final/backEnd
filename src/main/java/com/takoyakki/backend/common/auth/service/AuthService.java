@@ -1,10 +1,10 @@
-package com.takoyakki.backend.domain.user.repository;
+package com.takoyakki.backend.common.auth.service;
 
 import com.takoyakki.backend.common.auth.dto.LoginRequestDto;
 import com.takoyakki.backend.common.auth.dto.LoginResponseDto;
-import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
-public interface UserMapper {
+public interface AuthService {
     LoginResponseDto login(LoginRequestDto request);
+
+    void logout(String accountId);
 }
