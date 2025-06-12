@@ -5,11 +5,11 @@
 
     <mapper namespace="com.takoyakki.backend.common.auth.mapper.AuthMapper">
 
-    <resultMap id="loginResponseMap" type="LoginResponseDto">
+    <resultMap id="LoginAuthCheckMap" type="LoginAuthCheckDto">
         <result property="memberName" column="member_name" />
     </resultMap>
 
-        <select id="selectUserInfo" parameterType="java.lang.String" resultMap="loginResponseMap">
+        <select id="selectUserInfo" parameterType="java.lang.String" resultMap="LoginAuthCheckMap">
             SELECT
                 id,
                 member_name,

@@ -1,5 +1,6 @@
 package com.takoyakki.backend.common.auth;
 
+import com.takoyakki.backend.common.auth.dto.LoginAuthCheckDto;
 import com.takoyakki.backend.common.auth.dto.LoginResponseDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -42,20 +43,20 @@ public class JwtTokenProvider {
         private String refreshToken;
     }
 
-    public TokenInfo createToken(LoginResponseDto loginResponseDto) {
+    public TokenInfo createToken(LoginAuthCheckDto loginAuthCheckDto) {
         // Access Token 생성
-        String accessToken = createAccessToken(loginResponseDto);
+        String accessToken = createAccessToken(loginAuthCheckDto);
         // Refresh Token 생성
-        String refreshToken = createRefreshToken(loginResponseDto);
+        String refreshToken = createRefreshToken(loginAuthCheckDto);
 
         // Refresh Token 저장
-        refreshTokenStore.put(loginResponseDto.getId(), refreshToken);
+        refreshTokenStore.put(loginAuthCheckDto.getId(), refreshToken);
 
         return new TokenInfo(accessToken, refreshToken);
     }
 
 
-    public String createAccessToken(LoginResponseDto loginResponseDto) {
+    public String createAccessToken(LoginAuthCheckDto loginAuthCheckDto) {
         Map<String, Object> header = new HashMap<>();
         header.put("typ", "JWT");
 
@@ -64,9 +65,9 @@ public class JwtTokenProvider {
         ext.setTime(ext.getTime() + expTime);
 
         Map<String, Object> payload = new HashMap<>();
-        payload.put("id", loginResponseDto.getId());
-        payload.put("memberName", loginResponseDto.getMemberName());
-        payload.put("role", loginResponseDto.getRole());
+        payload.put("id", loginAuthCheckDto.getId());
+        payload.put("memberName", loginAuthCheckDto.getMemberName());
+        payload.put("role", loginAuthCheckDto.getRole());
 
         return Jwts.builder()
                 .setHeader(header)
@@ -77,13 +78,13 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    private String createRefreshToken(LoginResponseDto loginResponseDto) {
+    private String createRefreshToken(LoginAuthCheckDto loginAuthCheckDto) {
         Long refreshExpTime = 1000 * 60L * 60L * 24L * 14L; // 14일
         Date refreshExt = new Date();
         refreshExt.setTime(refreshExt.getTime() + refreshExpTime);
 
         return Jwts.builder()
-                .setSubject(loginResponseDto.getId())
+                .setSubject(loginAuthCheckDto.getId())
                 .setExpiration(refreshExt)
                 .signWith(key)
                 .compact();

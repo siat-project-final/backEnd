@@ -1,5 +1,6 @@
 package com.takoyakki.backend.common.auth.service;
 
+import com.takoyakki.backend.common.auth.dto.LoginAuthCheckDto;
 import com.takoyakki.backend.common.auth.dto.LoginRequestDto;
 import com.takoyakki.backend.common.auth.dto.LoginResponseDto;
 
