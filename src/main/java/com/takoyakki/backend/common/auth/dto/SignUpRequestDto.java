@@ -22,8 +22,8 @@ public class SignUpRequestDto {
     private String memberName;
 
     @NotBlank
-    @Schema(description = "phone")
-    private String phone;
+    @Schema(description = "phone_number")
+    private String phoneNumber;
 
     @Schema(description = "email")
     private String email;

@@ -1,6 +1,7 @@
 package com.takoyakki.backend.common.auth.service;
 
 import com.takoyakki.backend.common.auth.JwtTokenProvider;
+import com.takoyakki.backend.common.auth.dto.SignUpAuthCheckDto;
 import com.takoyakki.backend.common.auth.dto.SignUpRequestDto;
 import com.takoyakki.backend.common.auth.mapper.AuthMapper;
 import com.takoyakki.backend.common.auth.dto.LoginRequestDto;
@@ -48,10 +49,23 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public int signUp(SignUpRequestDto requestDto) {
+        int registeredYn = checkStudentList(requestDto);
+
+        if (registeredYn == 0) {
+            throw new UnauthorizedException("인증 실패 : 명단에 등록되지 않은 학생입니다.");
+        }
+
         try {
             return authMapper.signUp(requestDto);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new UnauthorizedException("회원가입에 실패했습니다.");
         }
+    }
+
+    @Override
+    public int checkStudentList(SignUpRequestDto requestDto) {
+        int retVal = authMapper.selectStudentInfo(requestDto.getMemberName(), requestDto.getPhoneNumber());
+        return Math.max(retVal, 0);
     }
 }

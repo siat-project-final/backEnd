@@ -84,7 +84,7 @@ CREATE TABLE members (
 	password VARCHAR(255) NOT NULL,
 	member_name VARCHAR(255) NULL,
 	email VARCHAR(255) NULL,
-	phone VARCHAR(255) NOT NULL,
+	phone_number VARCHAR(255) NOT NULL,
 	nickname VARCHAR(255) NOT NULL,
 	role VARCHAR(255) DEFAULT 'TRAINEE' NOT NULL,
 	status VARCHAR(255) DEFAULT 'ACTIVE' NOT NULL,
@@ -202,6 +202,12 @@ CREATE TABLE difficulty_configs (
 	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
 );
 
+CREATE TABLE students (
+	student_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	student_name VARCHAR(255) NOT NULL,
+	phone_number VARCHAR(255) NOT NULL
+);
+
 ALTER TABLE todos ADD CONSTRAINT PK_TODOS PRIMARY KEY (todo_date_id);
 ALTER TABLE refresh_tokens ADD CONSTRAINT PK_REFRESH_TOKENS PRIMARY KEY (refresh_token_id);
 ALTER TABLE problem_solving ADD CONSTRAINT PK_PROBLEM_SOLVING PRIMARY KEY (problem_solving_id);
@@ -224,7 +230,7 @@ ALTER TABLE difficulty_configs ADD CONSTRAINT PK_DIFFICULTY_CONFIGS PRIMARY KEY 
 ALTER TABLE todo_item ADD CONSTRAINT FK_todos_TO_todo_item_1 FOREIGN KEY (todo_date_id) REFERENCES todos (todo_date_id);
 
 INSERT INTO members (
-    id, password, member_name, email, phone, nickname, role, status,
+    id, password, member_name, email, phone_number, nickname, role, status,
     total_xp, usable_points, current_level, created_at, updated_at, is_deleted
 ) VALUES
 (
@@ -240,3 +246,7 @@ INSERT INTO members (
     'MENTOR', 'ACTIVE', 3000, 500, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
 );
 
+INSERT INTO students (student_name, phone_number)
+VALUES
+    ('김철수', '01012345678'),
+    ('이영희', '01087654321');
