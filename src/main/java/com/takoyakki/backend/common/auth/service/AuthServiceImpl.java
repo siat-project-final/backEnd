@@ -41,6 +41,10 @@ public class AuthServiceImpl implements AuthService{
                 .build();
     }
 
+    public String reissueAccessToken(String refreshToken) {
+        return jwtTokenProvider.reissueAccessToken(refreshToken);
+    }
+
     @Override
     public void logout(String id) {
         jwtTokenProvider.removeRefreshToken(id);

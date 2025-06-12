@@ -8,4 +8,6 @@ public interface AuthService {
     LoginResponseDto login(LoginRequestDto request);
 
     void logout(String accountId);
+
+    String reissueAccessToken(String refreshToken);
 }

@@ -26,6 +26,7 @@ repositories {
 dependencies {
 	// 웹
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.apache.commons:commons-compress:1.26.2'
 
 	// db
 	runtimeOnly 'com.h2database:h2'

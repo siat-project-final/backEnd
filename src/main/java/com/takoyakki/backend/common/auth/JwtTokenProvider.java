@@ -2,6 +2,8 @@ package com.takoyakki.backend.common.auth;
 
 import com.takoyakki.backend.common.auth.dto.LoginAuthCheckDto;
 import com.takoyakki.backend.common.auth.dto.LoginResponseDto;
+import com.takoyakki.backend.common.auth.mapper.AuthMapper;
+import com.takoyakki.backend.common.exception.UnauthorizedException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -12,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +22,7 @@ import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.*;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
@@ -29,6 +33,8 @@ public class JwtTokenProvider {
     private Key key;
 
     private final Map<String, String> refreshTokenStore = new HashMap<>();
+
+    private final AuthMapper authMapper;
 
     @PostConstruct
     protected void init() {
@@ -103,35 +109,35 @@ public class JwtTokenProvider {
         }
     }
 
-    // 리프레시 토큰으로 새로운 액세스 토큰 발급
-//    public String reissueAccessToken(String refreshToken) {
-//        try {
-//            // 리프레시 토큰 검증
-//            Claims claims = Jwts.parser()
-//                    .verifyWith((SecretKey) key)
-//                    .build()
-//                    .parseSignedClaims(refreshToken)
-//                    .getPayload();
-//
-//            String accountId = claims.getSubject();
-//
-//            // 저장된 리프레시 토큰과 비교
-//            String savedRefreshToken = refreshTokenStore.get(accountId);
-//            if (savedRefreshToken == null || !savedRefreshToken.equals(refreshToken)) {
-//                throw new JwtException("Invalid refresh token");
-//            }
-//
-//            // 새로운 액세스 토큰 생성
-//            Member member = memberRepository.findByAccountId(accountId)
-//                    .orElseThrow(() -> new JwtException("Member not found")); // 실제로는 DB에서 조회해야 함
-//            member.setAccountId(accountId);
-//
-//            return createAccessToken(member);
-//        } catch (JwtException e) {
-//            log.error("Error during access token reissue: {}", e.getMessage(), e);
-//            throw new JwtException("Failed to reissue access token");
-//        }
-//    }
+    public String reissueAccessToken(String refreshToken) {
+        try {
+            // 리프레시 토큰 검증
+            Claims claims = Jwts.parser()
+                    .verifyWith((SecretKey) key)
+                    .build()
+                    .parseSignedClaims(refreshToken)
+                    .getPayload();
+
+            String id = claims.getSubject();
+
+            // 저장된 리프레시 토큰과 비교
+            String savedRefreshToken = refreshTokenStore.get(id);
+            if (savedRefreshToken == null || !savedRefreshToken.equals(refreshToken)) {
+                throw new JwtException("Invalid refresh token");
+            }
+
+            // 새로운 액세스 토큰 생성
+            LoginAuthCheckDto loginAuthCheckDto = Optional.ofNullable(authMapper.selectUserInfo(id))
+                    .orElseThrow(() -> new JwtException("Member not found"));// 실제로는 DB에서 조회해야 함
+
+            loginAuthCheckDto.setId(id);
+
+            return createAccessToken(loginAuthCheckDto);
+        } catch (JwtException e) {
+            log.error("Error during access token reissue: {}", e.getMessage(), e);
+            throw new JwtException("Failed to reissue access token");
+        }
+    }
 
     public String extractToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
