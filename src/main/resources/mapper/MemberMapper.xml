@@ -17,7 +17,9 @@
                 member_name,
                 password,
                 role
-            FROM members
-            WHERE id = #{id}
+            FROM
+                members
+            WHERE
+                id = #{id}
         </select>
     </mapper>
