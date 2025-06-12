@@ -10,16 +10,35 @@
         </resultMap>
 
         <select id="selectStudentInfo" parameterType="java.lang.String">
-            SELECT COUNT(*)
-              FROM students
-             WHERE phone_number = #{phoneNumber}
-               AND student_name = #{memberName}
+            SELECT
+                COUNT(*)
+            FROM
+                students
+            WHERE
+                phone_number = #{phoneNumber}
+            AND
+                student_name = #{memberName}
         </select>
 
         <insert id="signUp" parameterType="SignUpRequestDto">
             INSERT INTO members
-            (id, member_name, password, phone_number, nickname, role)
-            VALUES (#{id}, #{memberName}, #{password}, #{phoneNumber}, #{nickname}, 'TRAINEE')
+                (
+                    id,
+                    member_name,
+                    password,
+                    phone_number,
+                    nickname,
+                    role
+                )
+            VALUES
+                (
+                    #{id},
+                    #{memberName},
+                    #{password},
+                    #{phoneNumber},
+                    #{nickname},
+                    'TRAINEE'
+                )
         </insert>
 
         <select id="selectUserInfo" parameterType="java.lang.String" resultMap="loginResponseMap">
@@ -28,8 +47,10 @@
                 member_name,
                 password,
                 role
-            FROM members
-            WHERE id = #{id}
+            FROM
+                members
+            WHERE
+                id = #{id}
         </select>
 
 
