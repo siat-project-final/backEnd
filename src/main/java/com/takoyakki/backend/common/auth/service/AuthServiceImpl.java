@@ -1,7 +1,8 @@
 package com.takoyakki.backend.common.auth.service;
 
 import com.takoyakki.backend.common.auth.JwtTokenProvider;
-import com.takoyakki.backend.common.auth.dto.LoginAuthCheckDto;
+import com.takoyakki.backend.common.auth.dto.SignUpAuthCheckDto;
+import com.takoyakki.backend.common.auth.dto.SignUpRequestDto;
 import com.takoyakki.backend.common.auth.mapper.AuthMapper;
 import com.takoyakki.backend.common.auth.dto.LoginRequestDto;
 import com.takoyakki.backend.common.auth.dto.LoginResponseDto;
@@ -10,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,32 +21,51 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public LoginResponseDto login(LoginRequestDto request) {
-        LoginAuthCheckDto loginAuthCheckDto = Optional.ofNullable(authMapper.selectUserInfo(request.getId()))
-                .orElseThrow(() -> new UnauthorizedException("해당하는 유저가 존재하지 않습니다."));
+        LoginResponseDto loginResponseDto = authMapper.selectUserInfo(request.getId());
+        System.out.println("loginResponseDto = " + loginResponseDto);
 
+        if (loginResponseDto == null) {
+            throw new UnauthorizedException("해당하는 유저가 존재하지 않습니다.");
+        }
 
-        if (!loginAuthCheckDto.getPassword().equals(request.getPassword())) {
+        if (!loginResponseDto.getPassword().equals(request.getPassword())) {
             throw new UnauthorizedException("비밀번호가 일치하지 않습니다.");
         }
 
-        JwtTokenProvider.TokenInfo tokenInfo = jwtTokenProvider.createToken(loginAuthCheckDto);
+        JwtTokenProvider.TokenInfo tokenInfo = jwtTokenProvider.createToken(loginResponseDto);
 
-        return LoginResponseDto.builder()
-                .id(loginAuthCheckDto.getId())
-                .memberName(loginAuthCheckDto.getMemberName())
-                .role(loginAuthCheckDto.getRole())
-                .accessToken(tokenInfo.getAccessToken())
-                .refreshToken(tokenInfo.getRefreshToken())
-                .message("로그인 성공")
-                .build();
-    }
+        loginResponseDto.setAccessToken(tokenInfo.getAccessToken());
+        loginResponseDto.setRefreshToken(tokenInfo.getRefreshToken());
+        loginResponseDto.setMessage("로그인 성공");
 
-    public String reissueAccessToken(String refreshToken) {
-        return jwtTokenProvider.reissueAccessToken(refreshToken);
+
+        return loginResponseDto;
     }
 
     @Override
     public void logout(String id) {
         jwtTokenProvider.removeRefreshToken(id);
+    }
+
+    @Override
+    public int signUp(SignUpRequestDto requestDto) {
+        int registeredYn = checkStudentList(requestDto);
+
+        if (registeredYn == 0) {
+            throw new UnauthorizedException("인증 실패 : 명단에 등록되지 않은 학생입니다.");
+        }
+
+        try {
+            return authMapper.signUp(requestDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UnauthorizedException("회원가입에 실패했습니다.");
+        }
+    }
+
+    @Override
+    public int checkStudentList(SignUpRequestDto requestDto) {
+        int retVal = authMapper.selectStudentInfo(requestDto.getMemberName(), requestDto.getPhoneNumber());
+        return Math.max(retVal, 0);
     }
 }

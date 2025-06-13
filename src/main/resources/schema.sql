@@ -79,18 +79,18 @@ CREATE TABLE xp_histories (
 );
 
 CREATE TABLE members (
-	member_id BIGINT NOT NULL,
+	member_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	id VARCHAR(255) NOT NULL,
 	password VARCHAR(255) NOT NULL,
 	member_name VARCHAR(255) NULL,
 	email VARCHAR(255) NULL,
-	phone VARCHAR(255) NULL,
+	phone_number VARCHAR(255) NOT NULL,
 	nickname VARCHAR(255) NOT NULL,
 	role VARCHAR(255) DEFAULT 'TRAINEE' NOT NULL,
 	status VARCHAR(255) DEFAULT 'ACTIVE' NOT NULL,
-	total_xp INTEGER NULL,
-	usable_points INTEGER NOT NULL,
-	current_level INTEGER DEFAULT 1 NULL,
+	total_xp INTEGER DEFAULT 0 NOT NULL,
+	usable_points INTEGER DEFAULT 0 NOT NULL,
+	current_level INTEGER DEFAULT 1 NOT NULL,
 	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
 	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
 	is_deleted BOOLEAN NULL
@@ -202,6 +202,12 @@ CREATE TABLE difficulty_configs (
 	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
 );
 
+CREATE TABLE students (
+	student_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	student_name VARCHAR(255) NOT NULL,
+	phone_number VARCHAR(255) NOT NULL
+);
+
 ALTER TABLE todos ADD CONSTRAINT PK_TODOS PRIMARY KEY (todo_date_id);
 ALTER TABLE refresh_tokens ADD CONSTRAINT PK_REFRESH_TOKENS PRIMARY KEY (refresh_token_id);
 ALTER TABLE problem_solving ADD CONSTRAINT PK_PROBLEM_SOLVING PRIMARY KEY (problem_solving_id);
@@ -210,7 +216,6 @@ ALTER TABLE notification ADD CONSTRAINT PK_NOTIFICATION PRIMARY KEY (notificatio
 ALTER TABLE todo_item ADD CONSTRAINT PK_TODO_ITEM PRIMARY KEY (todo_item_id, todo_date_id);
 ALTER TABLE mentors ADD CONSTRAINT PK_MENTORS PRIMARY KEY (mentor_id);
 ALTER TABLE xp_histories ADD CONSTRAINT PK_XP_HISTORIES PRIMARY KEY (xp_history_id);
-ALTER TABLE members ADD CONSTRAINT PK_MEMBERS PRIMARY KEY (member_id);
 ALTER TABLE problems ADD CONSTRAINT PK_PROBLEMS PRIMARY KEY (problem_id);
 ALTER TABLE badges ADD CONSTRAINT PK_BADGES PRIMARY KEY (badge_id);
 ALTER TABLE daily_learning ADD CONSTRAINT PK_DAILY_LEARNING PRIMARY KEY (learning_id);
@@ -225,19 +230,23 @@ ALTER TABLE difficulty_configs ADD CONSTRAINT PK_DIFFICULTY_CONFIGS PRIMARY KEY 
 ALTER TABLE todo_item ADD CONSTRAINT FK_todos_TO_todo_item_1 FOREIGN KEY (todo_date_id) REFERENCES todos (todo_date_id);
 
 INSERT INTO members (
-    member_id, id, password, member_name, email, phone, nickname, role, status,
+    id, password, member_name, email, phone_number, nickname, role, status,
     total_xp, usable_points, current_level, created_at, updated_at, is_deleted
 ) VALUES
 (
-    1, 'user001', 'password123', '홍길동', 'hong@example.com', '010-1234-5678', '길동이',
+    'user001', 'password123', '홍길동', 'hong@example.com', '010-1234-5678', '길동이',
     'TRAINEE', 'ACTIVE', 500, 100, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
 ),
 (
-    2, 'user002', 'securepass456', '김철수', 'chulsoo@example.com', '010-2345-6789', '철수짱',
+    'user002', 'securepass456', '김철수', 'chulsoo@example.com', '010-2345-6789', '철수짱',
     'TRAINEE', 'ACTIVE', 1200, 300, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
 ),
 (
-    3, 'user', 'mysecurepwd', '이영희', 'younghee@example.com', '010-3456-7890', '영희',
+    'user', 'mysecurepwd', '이영희', 'younghee@example.com', '010-3456-7890', '영희',
     'MENTOR', 'ACTIVE', 3000, 500, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
 );
 
+INSERT INTO students (student_name, phone_number)
+VALUES
+    ('김철수', '01012345678'),
+    ('이영희', '01087654321');

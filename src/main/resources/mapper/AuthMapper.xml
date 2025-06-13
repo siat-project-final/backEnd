@@ -5,11 +5,43 @@
 
     <mapper namespace="com.takoyakki.backend.common.auth.mapper.AuthMapper">
 
-    <resultMap id="LoginAuthCheckMap" type="LoginAuthCheckDto">
-        <result property="memberName" column="member_name" />
-    </resultMap>
+        <resultMap id="loginResponseMap" type="LoginResponseDto">
+            <result property="memberName" column="member_name" />
+        </resultMap>
 
-        <select id="selectUserInfo" parameterType="java.lang.String" resultMap="LoginAuthCheckMap">
+        <select id="selectStudentInfo" parameterType="java.lang.String">
+            SELECT
+                COUNT(*)
+            FROM
+                students
+            WHERE
+                phone_number = #{phoneNumber}
+            AND
+                student_name = #{memberName}
+        </select>
+
+        <insert id="signUp" parameterType="SignUpRequestDto">
+            INSERT INTO members
+                (
+                    id,
+                    member_name,
+                    password,
+                    phone_number,
+                    nickname,
+                    role
+                )
+            VALUES
+                (
+                    #{id},
+                    #{memberName},
+                    #{password},
+                    #{phoneNumber},
+                    #{nickname},
+                    'TRAINEE'
+                )
+        </insert>
+
+        <select id="selectUserInfo" parameterType="java.lang.String" resultMap="loginResponseMap">
             SELECT
                 id,
                 member_name,

@@ -6,5 +6,6 @@
         <typeAlias alias="LoginRequestDto" type="com.takoyakki.backend.common.auth.dto.LoginRequestDto"/>
         <typeAlias alias="LoginAuthCheckDto" type="com.takoyakki.backend.common.auth.dto.LoginAuthCheckDto"/>
         <typeAlias alias="LoginResponseDto" type="com.takoyakki.backend.common.auth.dto.LoginResponseDto"/>
+        <typeAlias alias="SignUpRequestDto" type="com.takoyakki.backend.common.auth.dto.SignUpRequestDto"/>
     </typeAliases>
 </configuration>
