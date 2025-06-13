@@ -23,7 +23,6 @@ public class AuthServiceImpl implements AuthService{
     @Override
     public LoginResponseDto login(LoginRequestDto request) {
         LoginResponseDto loginResponseDto = authMapper.selectUserInfo(request.getId());
-        System.out.println("loginResponseDto = " + loginResponseDto);
 
         if (loginResponseDto == null) {
             throw new UnauthorizedException("해당하는 유저가 존재하지 않습니다.");
