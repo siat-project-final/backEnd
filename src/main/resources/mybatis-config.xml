@@ -4,7 +4,11 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="LoginRequestDto" type="com.takoyakki.backend.common.auth.dto.LoginRequestDto"/>
+        <typeAlias alias="LoginAuthCheckDto" type="com.takoyakki.backend.common.auth.dto.LoginAuthCheckDto"/>
         <typeAlias alias="LoginResponseDto" type="com.takoyakki.backend.common.auth.dto.LoginResponseDto"/>
         <typeAlias alias="SignUpRequestDto" type="com.takoyakki.backend.common.auth.dto.SignUpRequestDto"/>
+        <typeAlias alias="SignUpDuplicationCheckDto" type="com.takoyakki.backend.common.auth.dto.SignUpDuplicationCheckDto"/>
+
+        <typeAlias alias="MemberResponseDto" type="com.takoyakki.backend.domain.member.dto.MemberResponseDto"/>
     </typeAliases>
 </configuration>

@@ -5,8 +5,13 @@
 
     <mapper namespace="com.takoyakki.backend.common.auth.mapper.AuthMapper">
 
-        <resultMap id="loginResponseMap" type="LoginResponseDto">
+        <resultMap id="LoginAuthCheckMap" type="LoginAuthCheckDto">
             <result property="memberName" column="member_name" />
+        </resultMap>
+
+        <resultMap id="SignUpDuplicationCheckMap" type="SignUpDuplicationCheckDto">
+            <result property="memberName" column="member_name" />
+            <result property="phoneNumber" column="phone_number" />
         </resultMap>
 
         <select id="selectStudentInfo" parameterType="java.lang.String">
@@ -18,6 +23,18 @@
                 phone_number = #{phoneNumber}
             AND
                 student_name = #{memberName}
+        </select>
+
+        <select id="checkSignUpDuplication" resultMap="SignUpDuplicationCheckMap">
+            SELECT
+                member_name,
+                phone_number
+            FROM
+                members
+            WHERE
+                phone_number = #{phoneNumber}
+            OR
+                member_name = #{memberName}
         </select>
 
         <insert id="signUp" parameterType="SignUpRequestDto">
@@ -41,7 +58,7 @@
                 )
         </insert>
 
-        <select id="selectUserInfo" parameterType="java.lang.String" resultMap="loginResponseMap">
+        <select id="selectUserInfo" parameterType="java.lang.String" resultMap="LoginAuthCheckMap">
             SELECT
                 id,
                 member_name,
@@ -52,6 +69,4 @@
             WHERE
                 id = #{id}
         </select>
-
-
     </mapper>

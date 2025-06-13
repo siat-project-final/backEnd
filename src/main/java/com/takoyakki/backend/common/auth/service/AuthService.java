@@ -14,4 +14,6 @@ public interface AuthService {
     int signUp(SignUpRequestDto requestDto);
 
     int checkStudentList(SignUpRequestDto requestDto);
+
+    String reissueAccessToken(String refreshToken);
 }

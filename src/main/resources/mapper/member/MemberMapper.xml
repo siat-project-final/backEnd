@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <mapper namespace="com.takoyakki.backend.domain.member.repository.MemberMapper">
+
+    <resultMap id="MemberResponseMap" type="MemberResponseDto">
+        <result property="memberId" column="member_id" />
+        <result property="memberName" column="member_name" />
+    </resultMap>
+
+        <select id="selectMemberInfo" parameterType="java.lang.String" resultMap="MemberResponseMap">
+            SELECT
+                member_id,
+                id,
+                member_name,
+                password,
+                role
+            FROM
+                members
+            WHERE
+                id = #{id}
+        </select>
+    </mapper>
