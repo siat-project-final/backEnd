@@ -1,5 +1,8 @@
 package com.takoyakki.backend.domain.mentoring.model;
 
+import lombok.Data;
+
+
 @Data
 public class Mentoring {
     private Long id;

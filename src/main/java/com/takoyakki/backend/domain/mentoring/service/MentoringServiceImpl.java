@@ -5,6 +5,19 @@ import com.takoyakki.backend.domain.mentoring.repository.MentoringMapper;
 import com.takoyakki.backend.domain.mentoring.repository.MentoringReservationMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+
+import com.takoyakki.backend.domain.mentoring.model.MentoringReservation;
+import com.takoyakki.backend.domain.mentoring.service.MentoringService;
+import org.springframework.http.ResponseEntity;
+import com.takoyakki.backend.domain.mentoring.repository.MentoringReservationMapper;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.takoyakki.backend.domain.mentoring.model.MentoringReservation;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Service
 @RequiredArgsConstructor

@@ -1,5 +1,8 @@
 package com.takoyakki.backend.domain.mentoring.model;
 
+import java.util.Date;
+import lombok.Data;
+
 @Data
 public class MentoringReservation {
     private Long id;
