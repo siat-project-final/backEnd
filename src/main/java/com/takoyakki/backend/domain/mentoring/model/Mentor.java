@@ -1,5 +1,10 @@
 package com.takoyakki.backend.domain.mentoring.model;
 
+import lombok.Data;
+import java.util.List;
+// Mentor.java
+
+
 @Data
 public class Mentor {
     private Long id;
