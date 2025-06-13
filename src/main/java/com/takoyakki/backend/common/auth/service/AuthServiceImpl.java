@@ -9,11 +9,13 @@ import com.takoyakki.backend.common.auth.dto.LoginResponseDto;
 import com.takoyakki.backend.common.exception.UnauthorizedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class AuthServiceImpl implements AuthService{
 
     private final AuthMapper authMapper;
@@ -22,7 +24,6 @@ public class AuthServiceImpl implements AuthService{
     @Override
     public LoginResponseDto login(LoginRequestDto request) {
         LoginResponseDto loginResponseDto = authMapper.selectUserInfo(request.getId());
-        System.out.println("loginResponseDto = " + loginResponseDto);
 
         if (loginResponseDto == null) {
             throw new UnauthorizedException("해당하는 유저가 존재하지 않습니다.");
@@ -38,7 +39,6 @@ public class AuthServiceImpl implements AuthService{
         loginResponseDto.setRefreshToken(tokenInfo.getRefreshToken());
         loginResponseDto.setMessage("로그인 성공");
 
-
         return loginResponseDto;
     }
 
@@ -48,6 +48,7 @@ public class AuthServiceImpl implements AuthService{
     }
 
     @Override
+    @Transactional
     public int signUp(SignUpRequestDto requestDto) {
         int registeredYn = checkStudentList(requestDto);
 
