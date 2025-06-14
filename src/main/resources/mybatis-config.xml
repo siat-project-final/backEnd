@@ -3,5 +3,7 @@
 
 <configuration>
     <typeAliases>
+        <typeAlias alias="TodoItem" type="com.takoyakki.backend.domain.toDo.model.TodoItem"/>
+        <typeAlias alias="TodoDate" type="com.takoyakki.backend.domain.toDo.model.TodoDate"/>
     </typeAliases>
 </configuration>

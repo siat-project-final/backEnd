@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.takoyakki.backend.domain.toDo.repository.TodoItemMapper">
+
+    <!-- 전체 TodoItem 조회 -->
+    <select id="findAll" resultType="TodoItem">
+        SELECT
+        id,
+        todo_date_id AS todoDateId,
+        title,
+        completed,
+        created_at AS createdAt,
+        updated_at AS updatedAt
+        FROM
+        todo_items
+        ORDER BY
+        created_at DESC
+    </select>
+
+    <!-- 특정 날짜(TodoDate) 기준 TodoItem 조회 -->
+    <select id="findByTodoDateId" parameterType="long" resultType="TodoItem">
+        SELECT
+        id,
+        todo_date_id AS todoDateId,
+        title,
+        completed,
+        created_at AS createdAt,
+        updated_at AS updatedAt
+        FROM
+        todo_items
+        WHERE
+        todo_date_id = #{todoDateId}
+        ORDER BY
+        created_at DESC
+    </select>
+
+    <!-- id로 TodoItem 조회 -->
+    <select id="findById" parameterType="long" resultType="TodoItem">
+        SELECT
+        id,
+        todo_date_id AS todoDateId,
+        title,
+        completed,
+        created_at AS createdAt,
+        updated_at AS updatedAt
+        FROM
+        todo_items
+        WHERE
+        id = #{id}
+        LIMIT 1
+    </select>
+
+    <!-- TodoItem 삽입 -->
+    <insert id="insert" parameterType="TodoItem" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO todo_items (todo_date_id, title, completed, created_at, updated_at)
+        VALUES (
+        #{todoDateId},
+        #{title},
+        #{completed},
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+        )
+    </insert>
+
+    <!-- TodoItem 수정 -->
+    <update id="update" parameterType="TodoItem">
+        UPDATE todo_items
+        SET
+        title = #{title},
+        completed = #{completed},
+        updated_at = CURRENT_TIMESTAMP
+        WHERE
+        id = #{id}
+    </update>
+
+    <!-- TodoItem 삭제 -->
+    <delete id="delete" parameterType="long">
+        DELETE FROM todo_items
+        WHERE id = #{id}
+    </delete>
+</mapper>
