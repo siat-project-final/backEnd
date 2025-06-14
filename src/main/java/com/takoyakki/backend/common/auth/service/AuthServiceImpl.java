@@ -4,6 +4,7 @@ package com.takoyakki.backend.common.auth.service;
 import com.takoyakki.backend.common.auth.JwtTokenProvider;
 import com.takoyakki.backend.common.auth.dto.*;
 import com.takoyakki.backend.common.auth.mapper.AuthMapper;
+import com.takoyakki.backend.common.exception.TokenExpiredException;
 import com.takoyakki.backend.common.exception.UnauthorizedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -52,12 +53,15 @@ public class AuthServiceImpl implements AuthService{
     @Override
     @Transactional
     public int signUp(SignUpRequestDto requestDto) {
+        // 1 명단 존재 체크
         int registeredYn = checkStudentList(requestDto);
-        SignUpDuplicationCheckDto signUpDuplicationCheckDto = authMapper.checkSignUpDuplication(requestDto.getMemberName(), requestDto.getPhoneNumber());
 
         if (registeredYn == 0) {
             throw new UnauthorizedException("인증 실패 : 명단에 등록되지 않은 학생입니다.");
         }
+
+        // 2 중복 회원가입 체크
+        SignUpDuplicationCheckDto signUpDuplicationCheckDto = authMapper.checkSignUpDuplication(requestDto.getMemberName(), requestDto.getPhoneNumber());
 
         if (signUpDuplicationCheckDto != null) {
             throw new UnauthorizedException("이미 가입된 이름이거나 전화번호입니다.");

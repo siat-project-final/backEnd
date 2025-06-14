@@ -1,11 +1,13 @@
 package com.takoyakki.backend.domain.member.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
+@Schema(description = "회원 정보 조회")
+@Builder
 public class MemberSelectResponseDto {
     @Schema(description = "member_id")
     private Long memberId;

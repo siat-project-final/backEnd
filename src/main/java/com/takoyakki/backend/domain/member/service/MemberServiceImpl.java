@@ -1,6 +1,7 @@
 package com.takoyakki.backend.domain.member.service;
 
 import com.takoyakki.backend.common.exception.BusinessLogicException;
+import com.takoyakki.backend.common.exception.ResourceNotFoundException;
 import com.takoyakki.backend.common.exception.UnauthorizedException;
 import com.takoyakki.backend.domain.member.dto.MemberSelectResponseDto;
 import com.takoyakki.backend.domain.member.dto.MemberUpdateRequestDto;
@@ -28,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
         updateDto.setMemberId(memberId);
         MemberSelectResponseDto memberSelectResponseDto = memberMapper.selectMemberInfo(memberId);
         if (memberSelectResponseDto == null) {
-            throw new BusinessLogicException("존재하지 않는 멤버입니다");
+            throw new ResourceNotFoundException("존재하지 않는 멤버입니다");
         }
 
         return memberMapper.updateMemberInfo(updateDto);

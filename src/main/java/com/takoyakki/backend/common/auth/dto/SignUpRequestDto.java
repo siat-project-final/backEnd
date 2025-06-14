@@ -2,11 +2,12 @@ package com.takoyakki.backend.common.auth.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
+@Builder
 @Schema(description = "회원가입 요청")
 public class SignUpRequestDto {
     @NotBlank

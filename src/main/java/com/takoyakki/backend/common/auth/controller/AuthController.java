@@ -5,6 +5,7 @@ import com.takoyakki.backend.common.auth.dto.SignUpRequestDto;
 import com.takoyakki.backend.common.auth.service.AuthService;
 import com.takoyakki.backend.common.auth.dto.LoginRequestDto;
 import com.takoyakki.backend.common.auth.dto.LoginResponseDto;
+import com.takoyakki.backend.common.exception.TokenExpiredException;
 import com.takoyakki.backend.common.exception.UnauthorizedException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -61,13 +62,10 @@ public class AuthController {
             description = "현재 액세스 토큰이 만료되었는지 체크합니다"
     )
     @PostMapping("/checkAccessToken")
-    public ResponseEntity<?> someEndpoint(@RequestHeader("Authorization") String token) {
-        // 2. API 호출시 액세스 토큰 검증
+    public ResponseEntity<?> checkAccessToken(@RequestHeader("Authorization") String token) {
         if (!jwtTokenProvider.validateToken(token)) {
-            // 3. 액세스 토큰 만료시 클라이언트는 /reissue 엔드포인트 호출
-            throw new UnauthorizedException("토큰이 만료되었습니다.");
+            throw new TokenExpiredException("토큰이 만료되었습니다.");
         }
-        // 정상적인 API 처리
         return ResponseEntity.ok().build();
     }
 
