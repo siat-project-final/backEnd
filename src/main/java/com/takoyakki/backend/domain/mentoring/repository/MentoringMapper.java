@@ -4,32 +4,39 @@ import com.takoyakki.backend.domain.mentoring.model.Mentoring;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
-//멘토링 신청 관련
 
 @Mapper
 public interface MentoringMapper {
 
-    // 신규 멘토링 신청 등록
-    void insertMentoring(Mentoring mentoring);
+    //멘토링 기본
 
-    // 멘토링 수정 (예: 날짜 변경, 상태 변경 등)
+    // 멘토링생성
+    void insertReservation(Mentoring mentoring);
+    // 멘토링수정(날짜, 상태 변경 등)
     void updateMentoring(Mentoring mentoring);
 
-    // 예약 완전 삭제 (필요 시)- 취소/ 삭제 둘중에 1택
+    // 멘토링삭제(필요 시)
     void deleteMentoring(@Param("mentoringId") Long mentoringId);
 
-    // 모든 멘토링 조회( 필요시 페이지 추가)
+
+    //조회
+
+    // 전체 멘토링 조회 (페이징 처리 권장)
     List<Mentoring> findAllMentorings(@Param("offset") int offset, @Param("limit") int limit);
 
-    // ID기준 상세 멘토링 조회
+    // ID 기준 멘토링 상세 조회
     Mentoring selectMentoringById(@Param("id") Long id);
 
-    // 멘토기준 예약 목록 조회
+    // 특정 멘토가 진행하는 멘토링 목록 조회
+    List<Mentoring> findMentoringsByMentorId(@Param("mentorId") Long mentorId);
+
+
+    //예약
+
+    // 특정멘토의 예약 목록 조회
     List<Mentoring> findReservationsByMentorId(@Param("mentorId") Long mentorId);
 
-    // 예약취소처리 (취소 사유 포함)
+    // 멘토링 예약 취소 처리 (취소 사유 포함)
     void cancelReservation(@Param("id") Long id, @Param("cancelReason") String cancelReason);
 
 }
-
-    

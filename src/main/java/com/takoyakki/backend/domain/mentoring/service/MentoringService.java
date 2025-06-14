@@ -25,9 +25,9 @@ public interface MentoringService {
     // 멘티 기준 본인 예약 목록 조회 (대기/확정 등)
     List<MentoringReservation> getMyReservations(Long menteeId);
 
-    // 멘토링 예약 취소 (사유 포함)
+    // 멘토링 예약 취소 (뱔도 사유 포함)
     void cancelReservation(Long reservationId, String cancelReason);
 
-    // 지난 멘토링 히스토리 조회 (멘티 기준)
+    // 지난 멘토링 히스토리 조회
     List<MentoringReservation> getHistoryReservations(Long menteeId);
 }
