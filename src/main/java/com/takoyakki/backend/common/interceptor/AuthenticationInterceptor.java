@@ -60,7 +60,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        // 토큰에서 사용자명 또는 ID 추출 (문서에 따른 메서드 사용, 예: getUsername)
+        // 토큰에서 사용자명 또는 ID 추출
         String id = jwtTokenProvider.getId(token);
         if (id == null) {
             log.warn("토큰에서 사용자 정보를 추출할 수 없습니다.");
@@ -68,16 +68,18 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        List<String> userPosition = jwtTokenProvider.getRole(token);
-        if (userPosition == null || userPosition.isEmpty()) {
+        // 권한 체크
+        List<String> userRole = jwtTokenProvider.getRole(token);
+        if (userRole == null || userRole.isEmpty()) {
             log.warn("사용자 권한 정보가 존재하지 않습니다.");
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "권한 정보가 없습니다.");
             return false;
         }
 
+        // 어노테이션 루프
         boolean hasAuthority = false;
         for (String requiredRole : checkAuthority.value()) {
-            if (userPosition.contains(requiredRole)) {
+            if (userRole.contains(requiredRole)) {
                 hasAuthority = true;
                 break;
             }
