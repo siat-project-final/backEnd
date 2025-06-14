@@ -5,21 +5,35 @@
 
     <mapper namespace="com.takoyakki.backend.domain.member.repository.MemberMapper">
 
-    <resultMap id="MemberResponseMap" type="MemberResponseDto">
-        <result property="memberId" column="member_id" />
-        <result property="memberName" column="member_name" />
-    </resultMap>
+        <resultMap id="MemberSelectResponseMap" type="MemberSelectResponseDto">
+            <result property="memberId" column="member_id" />
+            <result property="memberName" column="member_name" />
+            <result property="phoneNumber" column="phone_number" />
+        </resultMap>
 
-        <select id="selectMemberInfo" parameterType="java.lang.String" resultMap="MemberResponseMap">
+        <select id="selectMemberInfo" parameterType="java.lang.Long" resultMap="MemberSelectResponseMap">
             SELECT
                 member_id,
                 id,
                 member_name,
-                password,
-                role
+                role,
+                email,
+                nickname,
+                phone_number
             FROM
                 members
             WHERE
-                id = #{id}
+                member_id = #{memberId}
         </select>
+
+        <update id="updateMemberInfo" parameterType="MemberUpdateRequestDto">
+            UPDATE
+                members
+            SET
+                email = #{email},
+                nickname = #{nickname},
+                phone_number = #{phoneNumber}
+            WHERE
+                member_id = #{memberId}
+        </update>
     </mapper>

@@ -9,6 +9,7 @@
         <typeAlias alias="SignUpRequestDto" type="com.takoyakki.backend.common.auth.dto.SignUpRequestDto"/>
         <typeAlias alias="SignUpDuplicationCheckDto" type="com.takoyakki.backend.common.auth.dto.SignUpDuplicationCheckDto"/>
 
-        <typeAlias alias="MemberResponseDto" type="com.takoyakki.backend.domain.member.dto.MemberResponseDto"/>
+        <typeAlias alias="MemberSelectResponseDto" type="com.takoyakki.backend.domain.member.dto.MemberSelectResponseDto"/>
+        <typeAlias alias="MemberUpdateRequestDto" type="com.takoyakki.backend.domain.member.dto.MemberUpdateRequestDto"/>
     </typeAliases>
 </configuration>

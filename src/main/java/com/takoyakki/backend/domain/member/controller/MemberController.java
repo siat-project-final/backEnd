@@ -1,14 +1,16 @@
 package com.takoyakki.backend.domain.member.controller;
 
-import com.takoyakki.backend.domain.member.dto.MemberResponseDto;
+import com.takoyakki.backend.common.api.ApiResult;
+import com.takoyakki.backend.domain.member.dto.MemberSelectResponseDto;
+import com.takoyakki.backend.domain.member.dto.MemberUpdateRequestDto;
 import com.takoyakki.backend.domain.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,15 +33,31 @@ public class MemberController {
             @ApiResponse(responseCode = "400", description = "잘못된 요청"),
             @ApiResponse(responseCode = "500", description = "서버 오류")
     })
-    @GetMapping
-    public ResponseEntity<MemberResponseDto> createMember(@RequestParam String id){
-        MemberResponseDto memberResponseDto = memberService.selectMemberInfo(id);
-        Long memberId = memberResponseDto.getMemberId();
+    @GetMapping("/{memberId}")
+    public ResponseEntity<MemberSelectResponseDto> createMember(@PathVariable("memberId") Long memberId){
+        MemberSelectResponseDto memberSelectResponseDto = memberService.selectMemberInfo(memberId);
+        Long selectedMemberId = memberSelectResponseDto.getMemberId();
         return ResponseEntity
-                .created(URI.create("/v1/members/" + memberId))
-                .body(memberResponseDto);
+                .created(URI.create("/v1/members/" + selectedMemberId))
+                .body(memberSelectResponseDto);
     }
 
-
-
+    @Operation(
+            summary = "회원 정보 수정",
+            description = "멤버 자신의 정보를 수정합니다",
+            tags = { "member" }
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "수정 성공"),
+            @ApiResponse(responseCode = "400", description = "잘못된 요청"),
+            @ApiResponse(responseCode = "404", description = "존재하지 않는 회원"),
+            @ApiResponse(responseCode = "500", description = "서버 오류")
+    })
+    @PutMapping("/{memberId}")
+    public ResponseEntity<ApiResult<String>> updateMember(
+            @PathVariable("memberId") Long memberId,
+            @Valid @RequestBody MemberUpdateRequestDto updateDto) {
+        memberService.updateMemberInfo(memberId, updateDto);
+        return ResponseEntity.ok(ApiResult.success("회원 정보 수정 성공"));
+    }
 }
