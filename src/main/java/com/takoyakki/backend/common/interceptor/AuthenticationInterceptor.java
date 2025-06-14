@@ -1,5 +1,6 @@
 package com.takoyakki.backend.common.interceptor;
 
+import com.takoyakki.backend.common.auth.CheckAuthority;
 import com.takoyakki.backend.common.auth.JwtTokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -47,6 +48,44 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         // 토큰 검증
         if (!jwtTokenProvider.validateToken(token)) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "유효하지 않은 토큰입니다.");
+            return false;
+        }
+
+        /*
+        인가
+         */
+
+        CheckAuthority checkAuthority = handlerMethod.getMethodAnnotation(CheckAuthority.class);
+        if (checkAuthority == null) {
+            return true;
+        }
+
+        // 토큰에서 사용자명 또는 ID 추출 (문서에 따른 메서드 사용, 예: getUsername)
+        String id = jwtTokenProvider.getId(token);
+        if (id == null) {
+            log.warn("토큰에서 사용자 정보를 추출할 수 없습니다.");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "사용자 정보를 확인할 수 없습니다.");
+            return false;
+        }
+
+        List<String> userPosition = jwtTokenProvider.getRole(token);
+        if (userPosition == null || userPosition.isEmpty()) {
+            log.warn("사용자 권한 정보가 존재하지 않습니다.");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "권한 정보가 없습니다.");
+            return false;
+        }
+
+        boolean hasAuthority = false;
+        for (String requiredRole : checkAuthority.value()) {
+            if (userPosition.contains(requiredRole)) {
+                hasAuthority = true;
+                break;
+            }
+        }
+
+        if (!hasAuthority) {
+            log.warn("사용자 {}에게 필요한 권한이 없습니다. Required: {}", id, checkAuthority.value());
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "접근 권한이 없습니다.");
             return false;
         }
 
