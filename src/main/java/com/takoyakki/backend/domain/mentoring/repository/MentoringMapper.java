@@ -11,7 +11,6 @@ public interface MentoringMapper {
     // 신규 멘토링 신청 등록
     void insertMentoring(Mentoring mentoring);
 
-
     // 멘토링 수정 (예: 날짜 변경, 상태 변경 등)
     void updateMentoring(Mentoring mentoring);
 
