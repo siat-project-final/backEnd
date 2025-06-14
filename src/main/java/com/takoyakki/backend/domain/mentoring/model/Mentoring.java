@@ -2,7 +2,7 @@ package com.takoyakki.backend.domain.mentoring.model;
 
 import lombok.Data;
 
-
+// 멘토링 신청 사용하는 객체 - 신청서
 @Data
 public class Mentoring {
     private Long id;

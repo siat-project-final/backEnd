@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+//예약 조회, 예약 취소 등 담당 .
 @RestController
 @RequestMapping("/mentoring")
 @RequiredArgsConstructor

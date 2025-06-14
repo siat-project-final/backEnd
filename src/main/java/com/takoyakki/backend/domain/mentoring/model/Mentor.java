@@ -5,6 +5,8 @@ import java.util.List;
 // Mentor.java
 
 
+//멘토 정보
+
 @Data
 public class Mentor {
     private Long id;
