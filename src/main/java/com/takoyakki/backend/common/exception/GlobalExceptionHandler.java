@@ -15,13 +15,26 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleBusinessLogicException(BusinessLogicException ex) {
 
         ErrorResponse errorResponse = new ErrorResponse(
-                HttpStatus.NOT_FOUND.value(),
+                HttpStatus.BAD_REQUEST.value(),
                 "BusinessLogic error",
                 ex.getMessage()
         );
 
         log.error("BusinessLogic error occurred: {}", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<ErrorResponse> handleUnauthorizedException(UnauthorizedException ex) {
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                "Unauthorized error",
+                ex.getMessage()
+        );
+
+        log.error("Unauthorized error occurred: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
 }
