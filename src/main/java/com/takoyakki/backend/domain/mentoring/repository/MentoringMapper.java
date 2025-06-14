@@ -8,7 +8,6 @@ import java.util.List;
 @Mapper
 public interface MentoringMapper {
 
-
     // 신규 멘토링 신청 등록
     void insertMentoring(Mentoring mentoring);
 
