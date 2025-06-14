@@ -1,11 +1,9 @@
 package com.takoyakki.backend.common.auth.service;
 
+
 import com.takoyakki.backend.common.auth.JwtTokenProvider;
-import com.takoyakki.backend.common.auth.dto.LoginAuthCheckDto;
-import com.takoyakki.backend.common.auth.dto.SignUpRequestDto;
+import com.takoyakki.backend.common.auth.dto.*;
 import com.takoyakki.backend.common.auth.mapper.AuthMapper;
-import com.takoyakki.backend.common.auth.dto.LoginRequestDto;
-import com.takoyakki.backend.common.auth.dto.LoginResponseDto;
 import com.takoyakki.backend.common.exception.UnauthorizedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +23,8 @@ public class AuthServiceImpl implements AuthService{
     public LoginResponseDto login(LoginRequestDto request) {
         LoginAuthCheckDto loginAuthCheckDto = Optional.ofNullable(authMapper.selectUserInfo(request.getId()))
                 .orElseThrow(() -> new UnauthorizedException("해당하는 유저가 존재하지 않습니다."));
+
+
 
 
         if (!loginAuthCheckDto.getPassword().equals(request.getPassword())) {
@@ -56,9 +56,14 @@ public class AuthServiceImpl implements AuthService{
     @Transactional
     public int signUp(SignUpRequestDto requestDto) {
         int registeredYn = checkStudentList(requestDto);
+        SignUpDuplicationCheckDto signUpDuplicationCheckDto = authMapper.checkSignUpDuplication(requestDto.getMemberName(), requestDto.getPhoneNumber());
 
         if (registeredYn == 0) {
             throw new UnauthorizedException("인증 실패 : 명단에 등록되지 않은 학생입니다.");
+        }
+
+        if (signUpDuplicationCheckDto != null) {
+            throw new UnauthorizedException("이미 가입된 이름이거나 전화번호입니다.");
         }
 
         try {
