@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.takoyakki.backend.domain.mentoring.repository.MentoringReservationMapper">
+
+    <!-- 예약 생성 -->
+    <insert id="insertReservation" parameterType="com.takoyakki.backend.domain.mentoring.model.MentoringReservation">
+        INSERT INTO mentoring_reservation
+        (mentor_id, mentee_id, mentoring_date, status, mentee_introduction, open_chat_link)
+        VALUES
+            (#{mentorId}, #{menteeId}, #{mentoringDate}, #{status}, #{menteeIntroduction}, #{openChatLink})
+    </insert>
+
+    <!-- 예약 수정 -->
+    <update id="updateReservation" parameterType="com.takoyakki.backend.domain.mentoring.model.MentoringReservation">
+        UPDATE mentoring_reservation
+        SET mentoring_date = #{mentoringDate},
+            status = #{status},
+            mentee_introduction = #{menteeIntroduction},
+            open_chat_link = #{openChatLink}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 예약 취소 (사유 포함) -->
+    <update id="cancelReservation">
+        UPDATE mentoring_reservation
+        SET status = '취소',
+            cancel_reason = #{cancelReason}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 예약 삭제 -->
+    <delete id="deleteReservation">
+        DELETE FROM mentoring_reservation
+        WHERE id = #{id}
+    </delete>
+
+    <!-- 날짜 기준 예약 목록 -->
+    <select id="findReservationsByDate" resultType="com.takoyakki.backend.domain.mentoring.model.MentoringReservation">
+        SELECT *
+        FROM mentoring_reservation
+        WHERE mentoring_date = #{date}
+    </select>
+
+    <!-- 멘티 기준 예약 목록 (진행 중/대기) -->
+    <select id="findReservationsByMenteeId" resultType="com.takoyakki.backend.domain.mentoring.model.MentoringReservation">
+        SELECT *
+        FROM mentoring_reservation
+        WHERE mentee_id = #{menteeId}
+          AND status IN ('예약대기', '예약확정')
+    </select>
+
+    <!-- 멘티 기준 히스토리 조회 (완료된 멘토링) -->
+    <select id="findHistoryReservationsByMenteeId" resultType="com.takoyakki.backend.domain.mentoring.model.MentoringReservation">
+        SELECT *
+        FROM mentoring_reservation
+        WHERE mentee_id = #{menteeId}
+          AND status = '완료'
+    </select>
+
+    <!-- ID 기준 예약 상세 -->
+    <select id="selectReservationById" resultType="com.takoyakki.backend.domain.mentoring.model.MentoringReservation">
+        SELECT *
+        FROM mentoring_reservation
+        WHERE id = #{id}
+    </select>
+
+</mapper>
