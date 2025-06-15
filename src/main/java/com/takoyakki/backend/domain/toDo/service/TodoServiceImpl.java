@@ -1,131 +1,67 @@
 package com.takoyakki.backend.domain.toDo.service;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
+import com.takoyakki.backend.domain.toDo.model.Todo;
+import com.takoyakki.backend.domain.toDo.repository.TodoMapper; // ★ TodoMapper 임포트
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Transactional; // 트랜잭션 관리를 위해 추가
 
-import com.takoyakki.backend.domain.toDo.model.TodoDate;
-import com.takoyakki.backend.domain.toDo.model.TodoItem;
-import com.takoyakki.backend.domain.toDo.model.TodoItemRequest;
-import com.takoyakki.backend.domain.toDo.model.TodoItemResponse;
-import com.takoyakki.backend.domain.toDo.repository.TodoDateMapper;
-import com.takoyakki.backend.domain.toDo.repository.TodoItemMapper;
-
-import lombok.RequiredArgsConstructor;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
-@RequiredArgsConstructor
-public class TodoServiceImpl implements TodoService{
+@Transactional // 모든 메서드에 트랜잭션 적용
+public class TodoServiceImpl implements TodoService {
 
-    private final TodoDateMapper todoDateMapper;
-    private final TodoItemMapper todoItemMapper;
+    private final TodoMapper todoMapper;
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<TodoItemResponse> getTodoItemsByDate(LocalDate dateValue) {
-        Optional<TodoDate> todoDateOptional = todoDateMapper.findByDateValue(dateValue);
-        return todoDateOptional.map(todoDate ->
-                        todoItemMapper.findByTodoDateId(todoDate.getId()).stream()
-                                .map(item -> new TodoItemResponse(
-                                        item.getId(),
-                                        item.getTodoDateId(),
-                                        item.getTitle(),
-                                        item.isCompleted(),
-                                        item.getCreatedAt(),
-                                        item.getUpdatedAt()))
-                                .collect(Collectors.toList()))
-                .orElse(List.of());
+    public TodoServiceImpl(TodoMapper todoMapper) {
+        this.todoMapper = todoMapper;
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Optional<TodoItemResponse> getTodoItemById(Long id) {
-        return todoItemMapper.findById(id)
-                .map(item -> new TodoItemResponse(
-                        item.getId(),
-                        item.getTodoDateId(),
-                        item.getTitle(),
-                        item.isCompleted(),
-                        item.getCreatedAt(),
-                        item.getUpdatedAt()));
+    public List<Todo> findAllTodos() {
+        return todoMapper.findAll();
     }
 
     @Override
-    @Transactional
-    public TodoItemResponse createTodoItem(LocalDate dateValue, TodoItemRequest request) {
-        TodoDate todoDate = todoDateMapper.findByDateValue(dateValue)
-                .orElseGet(() -> {
-                    TodoDate newTodoDate = new TodoDate();
-                    newTodoDate.setDateValue(dateValue);
-                    todoDateMapper.insert(newTodoDate);
-                    return newTodoDate;
-                });
-
-        TodoItem todoItem = new TodoItem();
-        todoItem.setTodoDateId(todoDate.getId());
-        todoItem.setTitle(request.getTitle());
-        todoItem.setCompleted(request.isCompleted());
-
-        todoItemMapper.insert(todoItem);
-
-        return new TodoItemResponse(
-                todoItem.getId(),
-                todoItem.getTodoDateId(),
-                todoItem.getTitle(),
-                todoItem.isCompleted(),
-                todoItem.getCreatedAt(),
-                todoItem.getUpdatedAt());
+    public Todo findTodoById(Long todoId) {
+        return todoMapper.findByTodoId(todoId);
     }
 
     @Override
-    @Transactional
-    public Optional<TodoItemResponse> updateTodoItem(Long id, TodoItemRequest request) {
-        Optional<TodoItem> existingItemOptional = todoItemMapper.findById(id);
-
-        if (existingItemOptional.isPresent()) {
-            TodoItem existingItem = existingItemOptional.get();
-            existingItem.setTitle(request.getTitle());
-            existingItem.setCompleted(request.isCompleted());
-
-            todoItemMapper.update(existingItem);
-
-            return Optional.of(new TodoItemResponse(
-                    existingItem.getId(),
-                    existingItem.getTodoDateId(),
-                    existingItem.getTitle(),
-                    existingItem.isCompleted(),
-                    existingItem.getCreatedAt(),
-                    existingItem.getUpdatedAt()));
-        }
-        return Optional.empty();
+    public void createTodo(Todo todo) {
+        // isDeleted, createdAt, isChecked 등 기본값 설정 (컨트롤러/DB에서 처리될 수도 있음)
+        if (todo.getCreatedAt() == null) todo.setCreatedAt(LocalDateTime.now());
+        if (todo.getIsChecked() == null) todo.setIsChecked(false); // isChecked가 null이면 false
+        todo.setDeleted(false); // 항상 false로 시작
+        todoMapper.insert(todo);
     }
 
     @Override
-    @Transactional
-    public boolean deleteTodoItem(Long id) {
-        Optional<TodoItem> existingItem = todoItemMapper.findById(id);
-        if (existingItem.isPresent()) {
-            todoItemMapper.delete(id);
-            return true;
-        }
-        return false;
+    public void updateTodo(Todo todo) {
+        // updatedAt 설정
+        todo.setUpdatedAt(LocalDateTime.now());
+        todoMapper.update(todo);
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<TodoItemResponse> getAllTodoItems() {
-        return todoItemMapper.findAll().stream()
-                .map(item -> new TodoItemResponse(
-                        item.getId(),
-                        item.getTodoDateId(),
-                        item.getTitle(),
-                        item.isCompleted(),
-                        item.getCreatedAt(),
-                        item.getUpdatedAt()))
-                .collect(Collectors.toList());
+    public void softDeleteTodo(Long todoId) {
+        // 물리적 삭제 대신 논리적 삭제 호출
+        todoMapper.softDelete(todoId);
+    }
+
+    @Override
+    public List<Todo> findTodosByMemberId(Long memberId) {
+        return todoMapper.findByMemberId(memberId);
+    }
+
+    @Override
+    public List<Todo> findTodosByMemberIdAndDate(Long memberId, LocalDateTime date) {
+        return todoMapper.findByMemberIdAndDate(memberId, date);
+    }
+
+    @Override
+    public void toggleTodoCheckedStatus(Long todoId, boolean isChecked) {
+        todoMapper.toggleChecked(todoId, isChecked);
     }
 }

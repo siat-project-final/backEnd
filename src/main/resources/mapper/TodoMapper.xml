@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.takoyakki.backend.domain.toDo.repository.TodoMapper">
+
+    <resultMap id="todoResultMap" type="todo">
+        <id property="todoId" column="todo_id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="contents" column="contents"/>
+        <result property="date" column="date"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="isChecked" column="is_checked"/>
+        <result property="isDeleted" column="is_deleted"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="todoResultMap">
+        SELECT todo_id, member_id, contents, date, created_at, updated_at, is_checked, is_deleted
+        FROM todos
+        WHERE is_deleted = FALSE
+        ORDER BY date DESC, created_at DESC
+    </select>
+
+    <select id="findByTodoId" resultMap="todoResultMap">
+        SELECT todo_id, member_id, contents, date, created_at, updated_at, is_checked, is_deleted
+        FROM todos
+        WHERE todo_id = #{todoId} AND is_deleted = FALSE
+    </select>
+
+    <insert id="insert" parameterType="todo" useGeneratedKeys="true" keyProperty="todoId">
+        INSERT INTO todos (member_id, contents, date, created_at, is_checked, is_deleted)
+        VALUES (#{memberId}, #{contents}, #{date}, #{createdAt}, #{isChecked}, #{isDeleted})
+    </insert>
+
+    <update id="update" parameterType="todo">
+        UPDATE todos
+        SET
+            contents = #{contents},
+            date = #{date},
+            is_checked = #{isChecked},
+            updated_at = #{updatedAt}
+        WHERE todo_id = #{todoId} AND is_deleted = FALSE
+    </update>
+
+    <update id="softDelete">
+        UPDATE todos
+        SET is_deleted = TRUE, updated_at = CURRENT_TIMESTAMP
+        WHERE todo_id = #{todoId}
+    </update>
+
+    <update id="toggleChecked">
+        UPDATE todos
+        SET is_checked = #{isChecked}, updated_at = CURRENT_TIMESTAMP
+        WHERE todo_id = #{todoId} AND is_deleted = FALSE
+    </update>
+
+    <select id="findByMemberId" resultMap="todoResultMap">
+        SELECT todo_id, member_id, contents, date, created_at, updated_at, is_checked, is_deleted
+        FROM todos
+        WHERE member_id = #{memberId} AND is_deleted = FALSE
+        ORDER BY date DESC, created_at DESC
+    </select>
+
+    <select id="findByMemberIdAndDate" resultMap="todoResultMap">
+        SELECT todo_id, member_id, contents, date, created_at, updated_at, is_checked, is_deleted
+        FROM todos
+        WHERE member_id = #{memberId} AND date = #{date} AND is_deleted = FALSE
+        ORDER BY created_at ASC
+    </select>
+
+</mapper>

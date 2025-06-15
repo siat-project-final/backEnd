@@ -2,8 +2,10 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0/EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+
     <typeAliases>
-        <typeAlias alias="TodoItem" type="com.takoyakki.backend.domain.toDo.model.TodoItem"/>
-        <typeAlias alias="TodoDate" type="com.takoyakki.backend.domain.toDo.model.TodoDate"/>
-    </typeAliases>
-</configuration>
+        <typeAlias alias="todo" type="com.takoyakki.backend.domain.toDo.model.Todo"/>
+        <typeAlias alias="member" type="com.takoyakki.backend.domain.member.model.Member"/>
+        </typeAliases>
+
+    </configuration>
