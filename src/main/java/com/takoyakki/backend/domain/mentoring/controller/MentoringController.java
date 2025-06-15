@@ -5,6 +5,8 @@ import com.takoyakki.backend.domain.mentoring.dto.PreConversationDto;
 import com.takoyakki.backend.domain.mentoring.model.Mentor;
 import com.takoyakki.backend.domain.mentoring.model.MentoringReservation;
 import com.takoyakki.backend.domain.mentoring.service.MentoringService;
+import com.takoyakki.backend.domain.mentoring.dto.CancellationReasonDto;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -70,12 +72,19 @@ public class MentoringController {
         return mentoringService.getMyReservations(menteeId);
     }
 
-    //예약 취소
+
+    // 예약 취소 (사유 포함) - DTO로 받도록 수정
     @PostMapping("/reservations/{id}/cancel")
     public ResponseEntity<String> cancelReservation(
             @PathVariable Long id,
-            @RequestParam String reason) {
-        mentoringService.cancelReservation(id, reason);
+            @RequestBody CancellationReasonDto cancellationReasonDto) {
+
+        // PathVariable과 DTO의 id가 일치하는지 체크
+        if (!id.equals(cancellationReasonDto.getReservationId())) {
+            return ResponseEntity.badRequest().body("예약 ID가 일치하지 않습니다.");
+        }
+
+        mentoringService.cancelReservation(id, cancellationReasonDto.getReason());
         return ResponseEntity.ok("예약이 취소되었습니다.");
     }
 

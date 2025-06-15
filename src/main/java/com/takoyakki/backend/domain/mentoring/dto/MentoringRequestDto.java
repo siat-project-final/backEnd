@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MentoringRequestDto {
+    private Long id;                // 예약 ID
     private Long mentorId;                   // 멘토 아이디
     private Long menteeId;                   // 멘티 아이디
     private LocalDate mentoringDate;         // 멘토링 신청 날짜 (YYYY-MM-DD)
@@ -23,4 +24,9 @@ public class MentoringRequestDto {
     private String preConversation;          // 사전 대화 내용
     private String title;                    // 예약 제목
     private String content;                  // 예약 내용
+
+    private String status;          // 예약대기, 예약확정, 예약취소
+    private String date;            // YYYY-MM-DD
+    private String time;            // HH:mm
+
 }
