@@ -14,9 +14,6 @@ public interface MentoringMapper {
     // 멘토링 수정 (날짜, 상태 등)
     void updateMentoring(Mentoring mentoring);
 
-    // 멘토링 삭제
-    void deleteMentoring(@Param("mentoringId") Long mentoringId);
-
     // 전체 멘토링 조회 (페이징)
     List<Mentoring> findAllMentorings(@Param("offset") int offset, @Param("limit") int limit);
 
