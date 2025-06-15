@@ -1,6 +1,8 @@
 server:
   port: 8087
 spring:
+  config:
+    import: optional:application-secret.yml
   sql:
     init:
       schema-locations: classpath:schema.sql
@@ -31,3 +33,6 @@ p6spy:
     logMessageFormat: com.p6spy.engine.spy.appender.MultiLineFormat
     appender: com.p6spy.engine.spy.appender.Slf4JLogger
     logLevel: debug
+anthropic:
+  api:
+    key: ${ANTHROPIC_API_KEY:not-defined}

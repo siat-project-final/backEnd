@@ -96,20 +96,6 @@ CREATE TABLE members (
 	is_deleted BOOLEAN NULL
 );
 
-CREATE TABLE problems (
-	problem_id BIGINT NOT NULL,
-	title VARCHAR(255) NOT NULL,
-	contents TEXT NULL,
-	difficulty INTEGER NULL,
-	topic VARCHAR(255) NULL,
-	is_public BOOLEAN DEFAULT TRUE NULL,
-	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	correct_answer INTEGER NOT NULL,
-	type VARCHAR(255) NULL,
-	is_deleted BOOLEAN NULL
-);
-
 CREATE TABLE badges (
 	badge_id BIGINT NOT NULL,
 	name VARCHAR(255) NULL,
@@ -119,17 +105,6 @@ CREATE TABLE badges (
 	required_level INTEGER NULL,
 	is_active BOOLEAN DEFAULT TRUE NULL,
 	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
-);
-
-CREATE TABLE daily_learning (
-	learning_id BIGINT NOT NULL,
-	contents VARCHAR(255) NULL,
-	title VARCHAR(255) NULL,
-	subject VARCHAR(255) NULL,
-	study_date TIMESTAMP(0) DEFAULT FALSE NULL,
-	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	schedule_date TIMESTAMP(0) NULL
 );
 
 CREATE TABLE mentorings_reservation (
@@ -208,6 +183,30 @@ CREATE TABLE students (
 	phone_number VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE daily_learning (
+	learning_id	BIGINT	GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	contents	VARCHAR(255)		NULL,
+	title	VARCHAR(255)		NULL,
+	subject	VARCHAR(255)		NULL,
+	date	DATE	NOT NULL,
+	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
+	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
+);
+
+CREATE TABLE problems (
+	problem_id	BIGINT	GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	title	VARCHAR(255)    NULL,
+	contents	TEXT	NOT NULL,
+	type	VARCHAR(255)	NULL,
+	difficulty	INTEGER	NULL,
+	subject	VARCHAR(255)	NULL,
+	is_public	BOOLEAN	DEFAULT TRUE	NULL,
+	created_at	TIMESTAMP(0)	DEFAULT CURRENT_TIMESTAMP	NULL,
+	updated_at	TIMESTAMP(0)	DEFAULT CURRENT_TIMESTAMP	NULL,
+	correct_answer	INTEGER	NOT NULL,
+	is_deleted	BOOLEAN	DEFAULT FALSE	NULL
+);
+
 ALTER TABLE todos ADD CONSTRAINT PK_TODOS PRIMARY KEY (todo_date_id);
 ALTER TABLE refresh_tokens ADD CONSTRAINT PK_REFRESH_TOKENS PRIMARY KEY (refresh_token_id);
 ALTER TABLE problem_solving ADD CONSTRAINT PK_PROBLEM_SOLVING PRIMARY KEY (problem_solving_id);
@@ -216,9 +215,7 @@ ALTER TABLE notification ADD CONSTRAINT PK_NOTIFICATION PRIMARY KEY (notificatio
 ALTER TABLE todo_item ADD CONSTRAINT PK_TODO_ITEM PRIMARY KEY (todo_item_id, todo_date_id);
 ALTER TABLE mentors ADD CONSTRAINT PK_MENTORS PRIMARY KEY (mentor_id);
 ALTER TABLE xp_histories ADD CONSTRAINT PK_XP_HISTORIES PRIMARY KEY (xp_history_id);
-ALTER TABLE problems ADD CONSTRAINT PK_PROBLEMS PRIMARY KEY (problem_id);
 ALTER TABLE badges ADD CONSTRAINT PK_BADGES PRIMARY KEY (badge_id);
-ALTER TABLE daily_learning ADD CONSTRAINT PK_DAILY_LEARNING PRIMARY KEY (learning_id);
 ALTER TABLE mentorings_reservation ADD CONSTRAINT PK_MENTORINGS_RESERVATION PRIMARY KEY (reservation_id);
 ALTER TABLE mentorings ADD CONSTRAINT PK_MENTORINGS PRIMARY KEY (mentoring_id);
 ALTER TABLE level_configs ADD CONSTRAINT PK_LEVEL_CONFIGS PRIMARY KEY (level);
@@ -250,3 +247,16 @@ INSERT INTO students (student_name, phone_number)
 VALUES
     ('김철수', '01012345678'),
     ('이영희', '01087654321');
+
+INSERT INTO daily_learning (contents, title, subject, date)
+VALUES
+('Java의 기본 데이터 타입에 대해 학습했습니다. int, char, boolean 등의 특징을 익혔습니다.',
+        'Java 기본 데이터 타입',
+        'JavaScript',
+        '2025-06-15'),
+('Python의 기본 데이터 타입에 대해 학습했습니다. int, char, boolean 등의 특징을 익혔습니다.',
+        'Python 기본 데이터 타입',
+        'Python',
+        '2025-06-14');
+
+

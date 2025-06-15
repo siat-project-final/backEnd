@@ -11,5 +11,7 @@
 
         <typeAlias alias="MemberSelectResponseDto" type="com.takoyakki.backend.domain.member.dto.MemberSelectResponseDto"/>
         <typeAlias alias="MemberUpdateRequestDto" type="com.takoyakki.backend.domain.member.dto.MemberUpdateRequestDto"/>
+
+        <typeAlias alias="ProblemsInsertRequestDto" type="com.takoyakki.backend.domain.challenge.dto.ProblemsInsertRequestDto"/>
     </typeAliases>
 </configuration>
