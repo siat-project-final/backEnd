@@ -52,7 +52,6 @@ public class AnthropicClient {
             try (BufferedReader br = new BufferedReader(
                     new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
                 response = br.lines().collect(Collectors.joining());
-                System.out.println(response);
                 return response.split("\"text\":\"")[1].split("\"")[0];
             }
 
@@ -72,7 +71,6 @@ public class AnthropicClient {
     }
 
     public int extractAnswer(String text) {
-
         Pattern pattern = Pattern.compile("정답\\s*:\\s*(\\d+)");
         Matcher matcher = pattern.matcher(text);
 
