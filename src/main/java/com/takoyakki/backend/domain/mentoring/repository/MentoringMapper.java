@@ -8,12 +8,6 @@ import java.util.List;
 @Mapper
 public interface MentoringMapper {
 
-    // 예약 생성
-    void insertReservation(Mentoring mentoring);
-
-    // 멘토링 수정 (날짜, 상태 등)
-    void updateMentoring(Mentoring mentoring);
-
     // 전체 멘토링 조회 (페이징)
     List<Mentoring> findAllMentorings(@Param("offset") int offset, @Param("limit") int limit);
 
@@ -23,9 +17,12 @@ public interface MentoringMapper {
     // 특정 멘토의 멘토링 목록 조회
     List<Mentoring> findMentoringsByMentorId(@Param("mentorId") Long mentorId);
 
-    // 특정 멘토의 예약 목록 조회
-    List<Mentoring> findReservationsByMentorId(@Param("mentorId") Long mentorId);
+    // 멘토링 등록
+    void insertMentoring(Mentoring mentoring);
 
-    // 예약 취소 (취소 사유 포함)
-    void cancelReservation(@Param("id") Long id, @Param("cancelReason") String cancelReason);
+    // 멘토링 정보 수정
+    void updateMentoring(Mentoring mentoring);
+
+    // 멘토링 삭제
+    void deleteMentoring(@Param("id") Long id);
 }
