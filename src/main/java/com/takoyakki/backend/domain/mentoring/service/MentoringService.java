@@ -1,9 +1,10 @@
 package com.takoyakki.backend.domain.mentoring.service;
 
+import com.takoyakki.backend.domain.mentoring.dto.MentorDto;
 import com.takoyakki.backend.domain.mentoring.dto.MentoringRequestDto;
 import com.takoyakki.backend.domain.mentoring.dto.MentoringReservationDto;
 import com.takoyakki.backend.domain.mentoring.dto.PreConversationDto;
-import com.takoyakki.backend.domain.mentoring.model.Mentor;
+
 
 import java.util.List;
 
@@ -16,10 +17,10 @@ public interface MentoringService {
     void createReservation(MentoringReservationDto reservationDto);
 
     // 멘토 리스트 조회 (페이징 지원)
-    List<Mentor> getMentorList(int offset, int limit);
+    List<MentorDto> getMentorList(int offset, int limit);
 
     // 멘토 상세 조회
-    Mentor getMentorDetail(Long mentorId);
+    MentorDto getMentorDetail(Long mentorId);
 
     // 멘티 기준 본인 예약 목록 조회 (대기/확정 등)
     List<MentoringReservationDto> getMyReservations(Long menteeId);
@@ -37,4 +38,21 @@ public interface MentoringService {
 
     // 사전 대화 작성 및 멘토링 신청 처리
     void applyMentoring(MentoringRequestDto requestDto);
+
+    //멘토링매퍼
+    // 멘토링 정보 (페이징)
+    List<MentoringRequestDto> getAllMentoring(int offset, int limit);
+    // ID 기준 멘토링 상세 조회
+    MentoringRequestDto getMentoringById(Long id);
+
+    // 특정 멘토의 멘토링 목록 조회
+    List<MentoringRequestDto> getMentoringByMentorId(Long mentorId);
+
+    // 멘토링 등록, 수정, 삭제도 추가 가능
+    void createMentoring(MentoringRequestDto mentoringRequestDto);
+
+    void updateMentoring(MentoringRequestDto mentoringRequestDto);
+
+//전체멘토링 조회
+    List<MentoringRequestDto> findAllMentoring(int offset, int limit);
 }

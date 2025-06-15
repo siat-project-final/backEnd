@@ -1,11 +1,7 @@
 package com.takoyakki.backend.domain.mentoring.controller;
 
-import com.takoyakki.backend.domain.mentoring.dto.MentoringRequestDto;
-import com.takoyakki.backend.domain.mentoring.dto.MentoringReservationDto;
-import com.takoyakki.backend.domain.mentoring.dto.PreConversationDto;
-import com.takoyakki.backend.domain.mentoring.model.Mentor;
+import com.takoyakki.backend.domain.mentoring.dto.*;
 import com.takoyakki.backend.domain.mentoring.service.MentoringService;
-import com.takoyakki.backend.domain.mentoring.dto.CancellationReasonDto;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +20,7 @@ public class MentoringController {
 
     // 멘토 리스트 조회 (페이징 적용: offset, limit)
     @GetMapping("/mentors")
-    public List<Mentor> getMentorList(
+    public List<MentorDto> getMentorList(
             @RequestParam(defaultValue = "0") int offset,
             @RequestParam(defaultValue = "10") int limit) {
         return mentoringService.getMentorList(offset, limit);
@@ -32,20 +28,20 @@ public class MentoringController {
 
     // 멘토 상세 조회 (멘토 ID 기준)
     @GetMapping("/mentors/{mentorId}")
-    public Mentor getMentorDetail(@PathVariable Long mentorId) {
+    public MentorDto getMentorDetail(@PathVariable Long mentorId) {
         return mentoringService.getMentorDetail(mentorId);
     }
 
     //사전대화
 
     // 사전 대화 작성 페이지 초기 데이터 조회 (멘토 상세 + 대화 주제 리스트)
-    @GetMapping("/preconversation/init/{mentorId}")
+    @GetMapping("/preConversation/init/{mentorId}")
     public PreConversationDto getPreConversationInitData(@PathVariable Long mentorId) {
         return mentoringService.getPreConversationData(mentorId);
     }
 
     //사전대화 작성 및 멘토링 대화제출
-    @PostMapping("/preconversation/submit")
+    @PostMapping("/preConversation/submit")
     public ResponseEntity<String> submitPreConversation(@RequestBody MentoringRequestDto request) {
         mentoringService.applyMentoring(request);
         return ResponseEntity.ok("멘토링 신청이 완료되었습니다.");
@@ -93,4 +89,28 @@ public class MentoringController {
     public List<MentoringReservationDto> getHistoryReservations(@PathVariable Long menteeId) {
         return mentoringService.getHistoryReservations(menteeId);
     }
+
+    // 전체 멘토링 리스트 조회 (페이징)
+    @GetMapping("/all")
+    public List<MentoringRequestDto> getAllMentoring(
+            @RequestParam(defaultValue = "0") int offset,
+            @RequestParam(defaultValue = "10") int limit) {
+        return mentoringService.findAllMentoring(offset, limit);
+    }
+
+    // 특정 멘토의 멘토링 목록 조회
+    @GetMapping("/mentor/{mentorId}/mentoring-list")
+    public List<MentoringRequestDto> getMentorMentoringList(@PathVariable Long mentorId) {
+        return mentoringService.getMentoringByMentorId(mentorId);
+    }
+
+    // 멘토링 정보 수정 (PUT)
+    @PutMapping("/mentoring/{id}")
+    public ResponseEntity<String> updateMentoring(@PathVariable Long id,
+                                                  @RequestBody MentoringRequestDto mentoringRequestDto) {
+        mentoringRequestDto.setId(id);
+        mentoringService.updateMentoring(mentoringRequestDto);
+        return ResponseEntity.ok("멘토링 정보가 수정되었습니다.");
+    }
+
 }
