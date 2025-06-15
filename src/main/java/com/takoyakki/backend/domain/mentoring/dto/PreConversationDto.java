@@ -16,4 +16,8 @@ public class PreConversationDto {
     private List<String> availableTopics;   // 선택 가능한 대화 주제
 
 
+    public PreConversationDto(Mentor mentorDto, List<String> topics) {
+        this.mentorDetail = new MentorDto();
+        this.availableTopics = topics;
+    }
 }

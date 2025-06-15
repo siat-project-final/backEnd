@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,5 +25,9 @@ public class MentoringReservationDto {
     private LocalDateTime reservationDateTime; // 예약일시 (필요 시)
 
     private String status;           // 예약 상태 (예: WAITING, CONFIRMED, CANCELED)
+
     // 취소 사유 (nullable)
+
+
 }
+

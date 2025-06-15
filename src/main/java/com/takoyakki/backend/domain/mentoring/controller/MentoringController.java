@@ -1,9 +1,9 @@
 package com.takoyakki.backend.domain.mentoring.controller;
 
 import com.takoyakki.backend.domain.mentoring.dto.MentoringRequestDto;
+import com.takoyakki.backend.domain.mentoring.dto.MentoringReservationDto;
 import com.takoyakki.backend.domain.mentoring.dto.PreConversationDto;
 import com.takoyakki.backend.domain.mentoring.model.Mentor;
-import com.takoyakki.backend.domain.mentoring.model.MentoringReservation;
 import com.takoyakki.backend.domain.mentoring.service.MentoringService;
 import com.takoyakki.backend.domain.mentoring.dto.CancellationReasonDto;
 
@@ -55,20 +55,20 @@ public class MentoringController {
 
     //날짜 별 예약 조회
     @GetMapping("/reservations/{date}")
-    public List<MentoringReservation> getReservationsByDate(@PathVariable String date) {
+    public List<MentoringReservationDto> getReservationsByDate(@PathVariable String date) {
         return mentoringService.getReservationsByDate(date);
     }
 
     //멘토링 예약 신청
     @PostMapping("/reservations")
-    public ResponseEntity<String> createReservation(@RequestBody MentoringReservation reservation) {
+    public ResponseEntity<String> createReservation(@RequestBody MentoringReservationDto reservation) {
         mentoringService.createReservation(reservation);
         return ResponseEntity.ok("예약이 완료되었습니다.");
     }
 
     //멘티 예약 목록 조회
     @GetMapping("/reservations/mentee/{menteeId}")
-    public List<MentoringReservation> getMyReservations(@PathVariable Long menteeId) {
+    public List<MentoringReservationDto> getMyReservations(@PathVariable Long menteeId) {
         return mentoringService.getMyReservations(menteeId);
     }
 
@@ -90,7 +90,7 @@ public class MentoringController {
 
     //지난 멘토링 히스토리 조회
     @GetMapping("/reservations/mentee/{menteeId}/history")
-    public List<MentoringReservation> getHistoryReservations(@PathVariable Long menteeId) {
+    public List<MentoringReservationDto> getHistoryReservations(@PathVariable Long menteeId) {
         return mentoringService.getHistoryReservations(menteeId);
     }
 }

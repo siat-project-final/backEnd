@@ -6,27 +6,27 @@
 <mapper namespace="com.takoyakki.backend.domain.mentoring.repository.MentoringMapper">
 
     <!-- 멘토 리스트 조회 -->
-    <select id="findAllMentors" resultType="com.takoyakki.backend.domain.mentoring.model.Mentor">
-        SELECT *
+    <select id="findAllMentors" resultType="com.takoyakki.backend.domain.mentoring.dto.MentorDto">
+        SELECT id, name, company, job, career, profile_image_url AS profileImageUrl
         FROM mentor
                  LIMIT #{limit} OFFSET #{offset}
     </select>
 
     <!-- 멘토 상세 조회 -->
-    <select id="selectMentorById" resultType="com.takoyakki.backend.domain.mentoring.model.Mentor">
-        SELECT *
+    <select id="selectMentorById" resultType="com.takoyakki.backend.domain.mentoring.dto.MentorDto">
+        SELECT id, name, company, job, career, profile_image_url AS profileImageUrl
         FROM mentor
         WHERE id = #{id}
     </select>
 
     <!-- 멘토 등록 -->
-    <insert id="insertMentor" parameterType="com.takoyakki.backend.domain.mentoring.model.Mentor">
+    <insert id="insertMentor" parameterType="com.takoyakki.backend.domain.mentoring.dto.MentorDto">
         INSERT INTO mentor (name, company, job, career, profile_image_url)
         VALUES (#{name}, #{company}, #{job}, #{career}, #{profileImageUrl})
     </insert>
 
     <!-- 멘토 정보 수정 -->
-    <update id="updateMentor" parameterType="com.takoyakki.backend.domain.mentoring.model.Mentor">
+    <update id="updateMentor" parameterType="com.takoyakki.backend.domain.mentoring.dto.MentorDto">
         UPDATE mentor
         SET name = #{name},
             company = #{company},
