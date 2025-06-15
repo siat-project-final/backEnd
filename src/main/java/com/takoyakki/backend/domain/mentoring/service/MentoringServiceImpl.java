@@ -28,11 +28,6 @@ public class MentoringServiceImpl implements MentoringService {
         mentoringReservationMapper.insertReservation(reservation);
     }
 
-    // 예약 삭제 (단순 삭제 - 필요 시 삭제)
-    @Override
-    public void deleteReservation(Long id) {
-        mentoringReservationMapper.deleteReservation(id);
-    }
 
     // 멘토 리스트 조회
     @Override

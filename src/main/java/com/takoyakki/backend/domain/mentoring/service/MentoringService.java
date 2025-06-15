@@ -13,9 +13,6 @@ public interface MentoringService {
     // 멘토링 신청
     void createReservation(MentoringReservation reservation);
 
-    // 예약 삭제 (간단 삭제용)
-    void deleteReservation(Long id);
-
     // 멘토 리스트 조회 (페이징 지원)
     List<Mentor> getMentorList(int offset, int limit);
 

@@ -46,13 +46,6 @@ public class MentoringReservationController {
         return ResponseEntity.ok("예약이 완료되었습니다.");
     }
 
-    // 멘토링 예약 삭제 (단순 삭제)
-    @DeleteMapping("/reservations/{id}")
-    public ResponseEntity<String> deleteReservation(@PathVariable Long id) {
-        mentoringService.deleteReservation(id);
-        return ResponseEntity.ok("예약이 삭제되었습니다.");
-    }
-
     // 멘티 기준 내 예약 목록 조회
     @GetMapping("/reservations/mentee/{menteeId}")
     public List<MentoringReservation> getMyReservations(@PathVariable Long menteeId) {

@@ -16,7 +16,7 @@
         DELETE FROM mentoring_reservation WHERE id = #{id}
     </delete>
 
-    <!-- 특정 날짜 기준 예약 조회 -->
+    <!-- 특정 날짜기준예약 조회 -->
     <select id="findReservationsByDate" parameterType="string" resultType="com.takoyakki.backend.domain.mentoring.model.MentoringReservation">
         SELECT * FROM mentoring_reservation WHERE reservation_date = #{date}
     </select>
