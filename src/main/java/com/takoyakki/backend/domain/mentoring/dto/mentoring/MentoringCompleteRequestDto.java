@@ -1,16 +1,15 @@
 package com.takoyakki.backend.domain.mentoring.dto.mentoring;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-
 //멘토링 완료 요청 시 전달할 데이터 객체 (예: 멘토링 ID, 완료 여부 등)
 
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class MentoringCompleteRequestDto {
@@ -21,6 +20,7 @@ public class MentoringCompleteRequestDto {
     private LocalTime reservedTime; // 예약 시간 (HH:mm)
     private List<String> topics; // 멘토링 주제 목록
     private String mentoringSummary; // 멘토링 완료여부 ????
+
 
 
 }

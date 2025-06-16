@@ -1,12 +1,16 @@
 package com.takoyakki.backend.domain.mentoring.dto.reservation;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
+@Getter
+@Setter
 
 @NoArgsConstructor
 public class MenteeReservationRequestDto {

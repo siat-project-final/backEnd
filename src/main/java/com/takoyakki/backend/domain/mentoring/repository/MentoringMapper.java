@@ -2,6 +2,7 @@ package com.takoyakki.backend.domain.mentoring.repository;
 
 import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringCompleteRequestDto;
 import com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationAcceptResponseDto;
+import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringResponseDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -23,5 +24,19 @@ public interface MentoringMapper {
     String selectOpenChatUrlByReservationId(@Param("reservationId") Long reservationId);
 
 
+    List<MentoringReservationAcceptResponseDto> findAllMentors(int offset, int limit);
 
+    MentoringReservationAcceptResponseDto findById(Long mentorId);
+
+    List<String> findConversationTopicsByMentorId(Long mentorId);
+
+    // 특정 멘토링 조회
+    MentoringResponseDto selectMentoringResponseById(Long id);
+
+    List<MentoringResponseDto> selectCompletedMentoringsByMentorId(Long mentorId);
+
+    List<MentoringResponseDto> selectCompletedMentoringsByMenteeId(Long menteeId);
+
+    // 멘토링 상태 업데이트
+    void updateMentoringStatus(@Param("reservationId") Long reservationId, @Param("status") String status);
 }
