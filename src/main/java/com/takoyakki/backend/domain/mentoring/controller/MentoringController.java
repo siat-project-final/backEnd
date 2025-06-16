@@ -2,7 +2,7 @@ package com.takoyakki.backend.domain.mentoring.controller;
 
 import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringCompleteRequestDto;
 import com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationCancelRequestDto;
-import com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationAcceptDto;
+import com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationAcceptResponseDto;
 import com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationResponseDto;
 import com.takoyakki.backend.domain.mentoring.dto.reservation.MenteeReservationRequestDto;
 import com.takoyakki.backend.domain.mentoring.service.MentoringService;
@@ -24,7 +24,7 @@ public class MentoringController {
 
     // 멘토 리스트 조회 (페이징 적용: offset, limit)
     @GetMapping("/mentors")
-    public List<MentoringReservationAcceptDto> getMentorList(
+    public List<MentoringReservationAcceptResponseDto> getMentorList(
             @RequestParam(defaultValue = "0") int offset,
             @RequestParam(defaultValue = "10") int limit) {
         return mentoringService.getMentorList(offset, limit);
@@ -32,7 +32,7 @@ public class MentoringController {
 
     // 멘토 상세 조회 (멘토 ID 기준)
     @GetMapping("/mentors/{mentorId}")
-    public MentoringReservationAcceptDto getMentorDetail(@PathVariable Long mentorId) {
+    public MentoringReservationAcceptResponseDto getMentorDetail(@PathVariable Long mentorId) {
         return mentoringService.getMentorDetail(mentorId);
     }
 

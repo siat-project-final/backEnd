@@ -8,7 +8,7 @@
         <typeAlias alias="LoginResponseDto" type="com.takoyakki.backend.common.auth.dto.LoginResponseDto"/>
         <typeAlias alias="SignUpRequestDto" type="com.takoyakki.backend.common.auth.dto.SignUpRequestDto"/>
 
-        <typeAlias alias="MentorDto" type="com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationAcceptDto"/>
+        <typeAlias alias="MentorDto" type="com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationAcceptResponseDto"/>
         <typeAlias alias="MentoringReservationDto" type="com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationResponseDto"/>
 
         <typeAlias alias="MemberResponseDto" type="com.takoyakki.backend.domain.member.dto.MemberResponseDto"/>

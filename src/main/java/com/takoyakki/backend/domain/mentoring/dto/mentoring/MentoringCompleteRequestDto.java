@@ -8,25 +8,19 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+//멘토링 완료 요청 시 전달할 데이터 객체 (예: 멘토링 ID, 완료 여부 등)
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class MentoringCompleteRequestDto {
-    private Long id;                           // 예약 ID
-    private Long mentorId;                   // 멘토 아이디
-    private Long menteeId;                   // 멘티 아이디
-    private LocalDate mentoringDate;         // 멘토링 신청 날짜 (YYYY-MM-DD)
-    private LocalTime mentoringTime;         // 멘토링 신청 시간 (HH:mm)
+    private Long reservationId; // 예약 ID
+    private String mentorName; // 멘토 이름
+    private String mentorImageUrl; // 멘토 프로필 이미지 URL
+    private LocalDate reservedDate; // 예약 날짜 (YYYY-MM-DD)
+    private LocalTime reservedTime; // 예약 시간 (HH:mm)
+    private List<String> topics; // 멘토링 주제 목록
+    private String mentoringSummary; // 멘토링 완료여부 ????
 
-    private String introduction;             // 자기소개
-    private List<String> conversationTopics; // 선택한 대화 주제 리스트
-
-    private String preConversation;          // 사전 대화 내용
-    private String title;                    // 예약 제목
-    private String content;                  // 예약 내용
-
-    private String status;          // 예약대기, 예약확정, 예약취소
-    private String date;            // YYYY-MM-DD
-    private String time;            // HH:mm
 
 }

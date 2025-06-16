@@ -11,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MentoringReservationCancelRequestDto {
-    private Long reservationId;
-    private String cancel_reason;
+    private String reasonCode; // 예약 취소 사유 코드
+    private String reasonMessage; // 예약 취소 사유 메시지
 }

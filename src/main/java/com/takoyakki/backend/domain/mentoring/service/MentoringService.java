@@ -1,6 +1,6 @@
 package com.takoyakki.backend.domain.mentoring.service;
 
-import com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationAcceptDto;
+import com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationAcceptResponseDto;
 import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringCompleteRequestDto;
 import com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationResponseDto;
 import com.takoyakki.backend.domain.mentoring.dto.reservation.MenteeReservationRequestDto;
@@ -17,10 +17,10 @@ public interface MentoringService {
     void createReservation(MentoringReservationResponseDto reservationDto);
 
     // 멘토 리스트 조회 (페이징 지원)
-    List<MentoringReservationAcceptDto> getMentorList(int offset, int limit);
+    List<MentoringReservationAcceptResponseDto> getMentorList(int offset, int limit);
 
     // 멘토 상세 조회
-    MentoringReservationAcceptDto getMentorDetail(Long mentorId);
+    MentoringReservationAcceptResponseDto getMentorDetail(Long mentorId);
 
     // 멘티 기준 본인 예약 목록 조회 (대기/확정 등)
     List<MentoringReservationResponseDto> getMyReservations(Long menteeId);

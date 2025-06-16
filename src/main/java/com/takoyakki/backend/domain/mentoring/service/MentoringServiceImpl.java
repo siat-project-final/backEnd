@@ -1,6 +1,6 @@
 package com.takoyakki.backend.domain.mentoring.service;
 
-import com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationAcceptDto;
+import com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationAcceptResponseDto;
 import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringCompleteRequestDto;
 import com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationResponseDto;
 import com.takoyakki.backend.domain.mentoring.dto.reservation.MenteeReservationRequestDto;
@@ -30,12 +30,12 @@ public class MentoringServiceImpl implements MentoringService {
     }
 
     @Override
-    public List<MentoringReservationAcceptDto> getMentorList(int offset, int limit) {
+    public List<MentoringReservationAcceptResponseDto> getMentorList(int offset, int limit) {
         return mentorMapper.findAllMentors(offset, limit);
     }
 
     @Override
-    public MentoringReservationAcceptDto getMentorDetail(Long mentorId) {
+    public MentoringReservationAcceptResponseDto getMentorDetail(Long mentorId) {
         return mentorMapper.findById(mentorId);
     }
 
@@ -56,9 +56,9 @@ public class MentoringServiceImpl implements MentoringService {
 
     @Override
     public MenteeReservationRequestDto getPreConversationData(Long mentorId) {
-        MentoringReservationAcceptDto mentoringReservationAcceptDto = mentorMapper.findById(mentorId);
+        MentoringReservationAcceptResponseDto mentoringReservationAcceptResponseDto = mentorMapper.findById(mentorId);
         List<String> topics = mentorMapper.findConversationTopicsByMentorId(mentorId);
-        return new MenteeReservationRequestDto(mentoringReservationAcceptDto, topics);
+        return new MenteeReservationRequestDto(mentoringReservationAcceptResponseDto, topics);
     }
 
     @Override
