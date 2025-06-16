@@ -6,35 +6,22 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
+//멘토링 성사 이후 기능(멘토링 완료, 조회등)
 @Mapper
 public interface MentoringMapper {
 
-    // --- 멘토링 관련 ---
+    // 멘토링 완료
+    void completeMentoring(MentoringCompleteRequestDto completeRequestDto);
 
-    // 전체 멘토링 조회 (페이징)
-    List<MentoringCompleteRequestDto> findAllMentoring(@Param("offset") int offset, @Param("limit") int limit);
+    // 멘토링 완료된 멘티의 멘토링 내역 조회
+    List<MentoringReservationAcceptResponseDto> selectCompletedMentoringsByMenteeId(@Param("menteeId") Long menteeId);
 
-    // ID 기준 멘토링 상세 조회
-    MentoringCompleteRequestDto selectMentoringById(@Param("id") Long id);
+    // 멘토링 완료된 멘토의 멘토링 내역 조회
+    List<MentoringReservationAcceptResponseDto> selectCompletedMentoringsByMentorId(@Param("mentorId") Long mentorId);
 
-    // 특정 멘토의 멘토링 목록 조회
-    List<MentoringCompleteRequestDto> findMentoringByMentorId(@Param("mentorId") Long mentorId);
+    // 멘토링 완료된 멘토링 내역 조회 (멘토링 ID 기준)
+    String selectOpenChatUrlByReservationId(@Param("reservationId") Long reservationId);
 
-    // 멘토링 등록
-    void insertMentoring(MentoringCompleteRequestDto mentoring);
 
-    // 멘토링 정보 수정
-    void updateMentoring(MentoringCompleteRequestDto mentoring);
-
-    // --- 멘토 관련 ---
-
-    // 멘토 상세 조회
-    MentoringReservationAcceptResponseDto findById(@Param("mentorId") Long mentorId);
-
-    // 멘토 리스트(페이징)
-    List<MentoringReservationAcceptResponseDto> findAllMentors(@Param("offset") int offset, @Param("limit") int limit);
-
-    // 멘토별 사전 대화 주제 조회
-    List<String> findConversationTopicsByMentorId(@Param("mentorId") Long mentorId);
 
 }
