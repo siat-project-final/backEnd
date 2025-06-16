@@ -1,4 +1,4 @@
-package com.takoyakki.backend.domain.mentoring.dto;
+package com.takoyakki.backend.domain.mentoring.dto.reservation;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CancellationReasonDto {
+public class MentoringReservationCancelRequestDto {
     private Long reservationId;
     private String cancel_reason;
 }

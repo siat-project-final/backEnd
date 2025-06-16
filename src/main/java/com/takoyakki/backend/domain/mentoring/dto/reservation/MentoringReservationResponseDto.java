@@ -1,16 +1,17 @@
-package com.takoyakki.backend.domain.mentoring.dto;
+package com.takoyakki.backend.domain.mentoring.dto.reservation;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+//멘토링 예약 상태를 멘티 , 멘토에게 보여줄때,
 
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MentoringReservationDto {
+public class MentoringReservationResponseDto {
     private Long reservationId;      // 예약 ID
     private Long mentorId;           // 멘토 ID
     private String mentorName;       // 멘토 이름 (조회용)

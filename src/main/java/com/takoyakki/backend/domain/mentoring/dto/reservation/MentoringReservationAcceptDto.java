@@ -1,4 +1,4 @@
-package com.takoyakki.backend.domain.mentoring.dto;
+package com.takoyakki.backend.domain.mentoring.dto.reservation;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,10 +6,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+//멘토가 예약을
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MentorDto {
+public class MentoringReservationAcceptDto {
     private Long id;
     private String name;
     private String company;

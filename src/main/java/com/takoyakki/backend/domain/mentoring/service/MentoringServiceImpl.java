@@ -1,9 +1,9 @@
 package com.takoyakki.backend.domain.mentoring.service;
 
-import com.takoyakki.backend.domain.mentoring.dto.MentorDto;
-import com.takoyakki.backend.domain.mentoring.dto.MentoringRequestDto;
-import com.takoyakki.backend.domain.mentoring.dto.MentoringReservationDto;
-import com.takoyakki.backend.domain.mentoring.dto.PreConversationDto;
+import com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationAcceptDto;
+import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringCompleteRequestDto;
+import com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationResponseDto;
+import com.takoyakki.backend.domain.mentoring.dto.reservation.MenteeReservationRequestDto;
 import com.takoyakki.backend.domain.mentoring.repository.MentorMapper;
 import com.takoyakki.backend.domain.mentoring.repository.MentoringReservationMapper;
 import lombok.RequiredArgsConstructor;
@@ -20,27 +20,27 @@ public class MentoringServiceImpl implements MentoringService {
     private final MentoringMapper mentoringMapper;  // 멘토링 요청 관련 매퍼
 
     @Override
-    public List<MentoringReservationDto> getReservationsByDate(String date) {
+    public List<MentoringReservationResponseDto> getReservationsByDate(String date) {
         return mentoringReservationMapper.findReservationsByDate(date);
     }
 
     @Override
-    public void createReservation(MentoringReservationDto reservation) {
+    public void createReservation(MentoringReservationResponseDto reservation) {
         mentoringReservationMapper.insertReservation(reservation);
     }
 
     @Override
-    public List<MentorDto> getMentorList(int offset, int limit) {
+    public List<MentoringReservationAcceptDto> getMentorList(int offset, int limit) {
         return mentorMapper.findAllMentors(offset, limit);
     }
 
     @Override
-    public MentorDto getMentorDetail(Long mentorId) {
+    public MentoringReservationAcceptDto getMentorDetail(Long mentorId) {
         return mentorMapper.findById(mentorId);
     }
 
     @Override
-    public List<MentoringReservationDto> getMyReservations(Long menteeId) {
+    public List<MentoringReservationResponseDto> getMyReservations(Long menteeId) {
         return mentoringReservationMapper.findReservationsByMenteeId(menteeId);
     }
 
@@ -50,20 +50,20 @@ public class MentoringServiceImpl implements MentoringService {
     }
 
     @Override
-    public List<MentoringReservationDto> getHistoryReservations(Long menteeId) {
+    public List<MentoringReservationResponseDto> getHistoryReservations(Long menteeId) {
         return mentoringReservationMapper.findHistoryReservationsByMenteeId(menteeId);
     }
 
     @Override
-    public PreConversationDto getPreConversationData(Long mentorId) {
-        MentorDto mentorDto = mentorMapper.findById(mentorId);
+    public MenteeReservationRequestDto getPreConversationData(Long mentorId) {
+        MentoringReservationAcceptDto mentoringReservationAcceptDto = mentorMapper.findById(mentorId);
         List<String> topics = mentorMapper.findConversationTopicsByMentorId(mentorId);
-        return new PreConversationDto(mentorDto, topics);
+        return new MenteeReservationRequestDto(mentoringReservationAcceptDto, topics);
     }
 
     @Override
-    public void applyMentoring(MentoringRequestDto requestDto) {
-        MentoringReservationDto reservation = new MentoringReservationDto();
+    public void applyMentoring(MentoringCompleteRequestDto requestDto) {
+        MentoringReservationResponseDto reservation = new MentoringReservationResponseDto();
         reservation.setMentorId(requestDto.getMentorId());
         reservation.setMenteeId(requestDto.getMenteeId());
         reservation.setPreConversation(requestDto.getPreConversation());
@@ -77,32 +77,32 @@ public class MentoringServiceImpl implements MentoringService {
     }
 
     @Override
-    public List<MentoringRequestDto> getAllMentoring(int offset, int limit) {
+    public List<MentoringCompleteRequestDto> getAllMentoring(int offset, int limit) {
         return mentoringMapper.findAllMentoring(offset, limit);
     }
 
     @Override
-    public MentoringRequestDto getMentoringById(Long id) {
+    public MentoringCompleteRequestDto getMentoringById(Long id) {
         return mentoringMapper.selectMentoringById(id);
     }
 
     @Override
-    public List<MentoringRequestDto> getMentoringByMentorId(Long mentorId) {
+    public List<MentoringCompleteRequestDto> getMentoringByMentorId(Long mentorId) {
         return mentoringMapper.findMentoringByMentorId(mentorId);
     }
 
     @Override
-    public void createMentoring(MentoringRequestDto mentoringRequestDto) {
-        mentoringMapper.insertMentoring(mentoringRequestDto);
+    public void createMentoring(MentoringCompleteRequestDto mentoringCompleteRequestDto) {
+        mentoringMapper.insertMentoring(mentoringCompleteRequestDto);
     }
 
     @Override
-    public void updateMentoring(MentoringRequestDto mentoringRequestDto) {
-        mentoringMapper.updateMentoring(mentoringRequestDto);
+    public void updateMentoring(MentoringCompleteRequestDto mentoringCompleteRequestDto) {
+        mentoringMapper.updateMentoring(mentoringCompleteRequestDto);
     }
 
     @Override
-    public List<MentoringRequestDto> findAllMentoring(int offset, int limit) {
+    public List<MentoringCompleteRequestDto> findAllMentoring(int offset, int limit) {
         return List.of();
     }
 }

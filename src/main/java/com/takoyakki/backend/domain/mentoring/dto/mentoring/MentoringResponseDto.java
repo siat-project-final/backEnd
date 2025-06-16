@@ -1,4 +1,4 @@
-package com.takoyakki.backend.domain.mentoring.dto;
+package com.takoyakki.backend.domain.mentoring.dto.mentoring;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

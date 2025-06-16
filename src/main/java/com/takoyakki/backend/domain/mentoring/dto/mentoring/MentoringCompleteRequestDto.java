@@ -1,4 +1,4 @@
-package com.takoyakki.backend.domain.mentoring.dto;
+package com.takoyakki.backend.domain.mentoring.dto.mentoring;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MentoringRequestDto {
+public class MentoringCompleteRequestDto {
     private Long id;                           // 예약 ID
     private Long mentorId;                   // 멘토 아이디
     private Long menteeId;                   // 멘티 아이디
