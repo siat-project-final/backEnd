@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -7,43 +7,90 @@
 
     <!-- 예약 생성 -->
     <insert id="insertReservation" parameterType="com.takoyakki.backend.domain.mentoring.dto.MentoringReservationDto">
-        INSERT INTO mentoring_reservation (mentor_id, mentee_id, reservation_date, status, title, content, pre_conversation, reservation_time)
-        VALUES (#{mentorId}, #{menteeId}, #{date}, #{status}, #{title}, #{content}, #{preConversation}, #{time})
+        INSERT INTO mentoring_reservation (
+            mentor_id,
+            mentee_id,
+            reservation_date,
+            status,
+            title,
+            content,
+            pre_conversation,
+            reservation_time
+        )
+        VALUES (
+                   #{mentorId},
+                   #{menteeId},
+                   #{date},
+                   #{status},
+                   #{title},
+                   #{content},
+                   #{preConversation},
+                   #{time}
+               )
     </insert>
 
     <!-- 예약 삭제 -->
     <delete id="deleteReservation" parameterType="long">
-        DELETE FROM mentoring_reservation WHERE id = #{id}
+        DELETE
+        FROM mentoring_reservation
+        WHERE id = #{id}
     </delete>
 
     <!-- 특정 날짜 기준 예약 조회 -->
     <select id="findReservationsByDate" parameterType="string" resultType="com.takoyakki.backend.domain.mentoring.dto.MentoringReservationDto">
-        SELECT id AS reservationId, mentor_id AS mentorId, mentee_id AS menteeId, title, content, pre_conversation AS preConversation,
-               reservation_date AS date, reservation_time AS time, status
+        SELECT
+            id                 AS reservationId,
+            mentor_id          AS mentorId,
+            mentee_id          AS menteeId,
+            title,
+            content,
+            pre_conversation   AS preConversation,
+            reservation_date   AS date,
+                reservation_time   AS time,
+                status
         FROM mentoring_reservation
         WHERE reservation_date = #{date}
     </select>
 
     <!-- 멘티 기준 예약 목록 조회 -->
     <select id="findReservationsByMenteeId" parameterType="long" resultType="com.takoyakki.backend.domain.mentoring.dto.MentoringReservationDto">
-        SELECT id AS reservationId, mentor_id AS mentorId, mentee_id AS menteeId, title, content, pre_conversation AS preConversation,
-               reservation_date AS date, reservation_time AS time, status
+        SELECT
+            id                 AS reservationId,
+            mentor_id          AS mentorId,
+            mentee_id          AS menteeId,
+            title,
+            content,
+            pre_conversation   AS preConversation,
+            reservation_date   AS date,
+                reservation_time   AS time,
+                status
         FROM mentoring_reservation
-        WHERE mentee_id = #{menteeId} AND status IN ('WAITING', 'CONFIRMED')
+        WHERE mentee_id = #{menteeId}
+          AND status IN ('WAITING', 'CONFIRMED')
     </select>
 
     <!-- 지난 멘토링 히스토리 조회 -->
     <select id="findHistoryReservationsByMenteeId" parameterType="long" resultType="com.takoyakki.backend.domain.mentoring.dto.MentoringReservationDto">
-        SELECT id AS reservationId, mentor_id AS mentorId, mentee_id AS menteeId, title, content, pre_conversation AS preConversation,
-               reservation_date AS date, reservation_time AS time, status
+        SELECT
+            id                 AS reservationId,
+            mentor_id          AS mentorId,
+            mentee_id          AS menteeId,
+            title,
+            content,
+            pre_conversation   AS preConversation,
+            reservation_date   AS date,
+                reservation_time   AS time,
+                status
         FROM mentoring_reservation
-        WHERE mentee_id = #{menteeId} AND status = 'COMPLETED'
+        WHERE mentee_id = #{menteeId}
+          AND status = 'COMPLETED'
     </select>
 
     <!-- 예약 취소 (사유 포함) -->
     <update id="cancelReservation" parameterType="map">
         UPDATE mentoring_reservation
-        SET status = 'CANCELED', cancel_reason = #{cancelReason}
+        SET status = 'CANCELED',
+            cancel_reason = #{cancelReason}
         WHERE id = #{id}
     </update>
 

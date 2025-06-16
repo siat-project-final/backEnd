@@ -12,5 +12,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CancellationReasonDto {
     private Long reservationId;
-    private String reason;
+    private String cancel_reason;
 }

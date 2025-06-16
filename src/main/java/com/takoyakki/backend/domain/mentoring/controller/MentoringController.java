@@ -80,7 +80,7 @@ public class MentoringController {
             return ResponseEntity.badRequest().body("예약 ID가 일치하지 않습니다.");
         }
 
-        mentoringService.cancelReservation(id, cancellationReasonDto.getReason());
+        mentoringService.cancelReservation(id, cancellationReasonDto.getCancel_reason());
         return ResponseEntity.ok("예약이 취소되었습니다.");
     }
 
