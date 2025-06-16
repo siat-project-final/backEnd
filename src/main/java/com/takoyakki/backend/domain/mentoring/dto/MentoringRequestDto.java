@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MentoringRequestDto {
-    private Long id;                // 예약 ID
+    private Long id;                           // 예약 ID
     private Long mentorId;                   // 멘토 아이디
     private Long menteeId;                   // 멘티 아이디
     private LocalDate mentoringDate;         // 멘토링 신청 날짜 (YYYY-MM-DD)
