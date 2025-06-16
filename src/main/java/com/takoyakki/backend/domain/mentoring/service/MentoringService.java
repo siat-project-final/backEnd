@@ -10,12 +10,18 @@ public interface MentoringService {
     // 멘토링 완료 처리
     void completeMentoring(Long reservationId, MentoringCompleteRequestDto requestDto);
 
-    // 멘티가 완료한 멘토링 목록 조회
+    // 멘토링 상태 수동 업데이트 (강제완료, 취소 등)
+    void updateMentoringStatus(Long reservationId, String status);
+
+    // 멘토링 단건 조회
+    MentoringResponseDto getMentoringById(Long mentoringId);
+
+    // 멘티 완료 멘토링 목록 조회
     List<MentoringResponseDto> getMentoringListByMenteeId(Long menteeId);
 
-    // 멘토가 완료한 멘토링 목록 조회
-    List<MentoringResponseDto> getMentoringByMentorId(Long mentorId);
+    // 멘토 완료 멘토링 목록 조회
+    List<MentoringResponseDto> getMentoringListByMentorId(Long mentorId);
 
-    // 특정 멘토링 상세 조회
-    MentoringResponseDto getMentoringById(Long mentoringId);
+    // 오픈채팅 URL 조회
+    String getOpenChatUrlByReservationId(Long reservationId);
 }

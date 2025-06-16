@@ -1,42 +1,33 @@
 package com.takoyakki.backend.domain.mentoring.repository;
 
 import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringCompleteRequestDto;
-import com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationAcceptResponseDto;
 import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringResponseDto;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
-//멘토링 성사 이후 기능(멘토링 완료, 조회등)
 @Mapper
 public interface MentoringMapper {
 
-    // 멘토링 완료
+    // 멘토링 완료 처리 (멘토가 수행)
     void completeMentoring(MentoringCompleteRequestDto completeRequestDto);
 
-    // 멘토링 완료된 멘티의 멘토링 내역 조회
-    List<MentoringReservationAcceptResponseDto> selectCompletedMentoringsByMenteeId(@Param("menteeId") Long menteeId);
+    // 멘토링 상태 수동 업데이트 (예: 강제완료, 취소 등)
+    void updateMentoringStatus(@Param("reservationId") Long reservationId,
+                               @Param("status") String status);
 
-    // 멘토링 완료된 멘토의 멘토링 내역 조회
-    List<MentoringReservationAcceptResponseDto> selectCompletedMentoringsByMentorId(@Param("mentorId") Long mentorId);
-
-    // 멘토링 완료된 멘토링 내역 조회 (멘토링 ID 기준)
+    // 예약 ID 기준 오픈채팅 URL 조회
     String selectOpenChatUrlByReservationId(@Param("reservationId") Long reservationId);
 
 
-    List<MentoringReservationAcceptResponseDto> findAllMentors(int offset, int limit);
+    // 멘토링 단건 조회
+    MentoringResponseDto selectMentoringResponseById(@Param("id") Long id);
 
-    MentoringReservationAcceptResponseDto findById(Long mentorId);
+    // 멘토 기준 완료된 멘토링 목록
+    List<MentoringResponseDto> selectCompletedMentoringsByMentorId(@Param("mentorId") Long mentorId);
 
-    List<String> findConversationTopicsByMentorId(Long mentorId);
-
-    // 특정 멘토링 조회
-    MentoringResponseDto selectMentoringResponseById(Long id);
-
-    List<MentoringResponseDto> selectCompletedMentoringsByMentorId(Long mentorId);
-
-    List<MentoringResponseDto> selectCompletedMentoringsByMenteeId(Long menteeId);
-
-    // 멘토링 상태 업데이트
-    void updateMentoringStatus(@Param("reservationId") Long reservationId, @Param("status") String status);
+    // 멘티 기준 완료된 멘토링 목록
+    List<MentoringResponseDto> selectCompletedMentoringsByMenteeId(@Param("menteeId") Long menteeId);
 }

@@ -15,13 +15,24 @@ public class MentoringServiceImpl implements MentoringService {
     private final MentoringMapper mentoringMapper;
 
     @Override
-    public MentoringResponseDto getMentoringById(Long id) {
-        return mentoringMapper.selectMentoringResponseById(id);
+    public void completeMentoring(Long reservationId, MentoringCompleteRequestDto requestDto) {
+        // 예약 ID를 Dto에 세팅하거나 requestDto 내부에서 갖고 있다고 가정
+        mentoringMapper.completeMentoring(requestDto);
+
+        // 상태값 'COMPLETE'로 업데이트
+        mentoringMapper.updateMentoringStatus(reservationId, "COMPLETE");
+
+        //후기 저장 기능 추가 시, 여기에서 후기 저장 호출
     }
 
     @Override
-    public List<MentoringResponseDto> getMentoringByMentorId(Long mentorId) {
-        return mentoringMapper.selectCompletedMentoringsByMentorId(mentorId);
+    public void updateMentoringStatus(Long reservationId, String status) {
+        mentoringMapper.updateMentoringStatus(reservationId, status);
+    }
+
+    @Override
+    public MentoringResponseDto getMentoringById(Long id) {
+        return mentoringMapper.selectMentoringResponseById(id);
     }
 
     @Override
@@ -30,7 +41,12 @@ public class MentoringServiceImpl implements MentoringService {
     }
 
     @Override
-    public void completeMentoring(Long reservationId, MentoringCompleteRequestDto requestDto) {
-        // TODO: 예약 상태 'COMPLETE'로 변경, 후기 저장 등
+    public List<MentoringResponseDto> getMentoringListByMentorId(Long mentorId) {
+        return mentoringMapper.selectCompletedMentoringsByMentorId(mentorId);
+    }
+
+    @Override
+    public String getOpenChatUrlByReservationId(Long reservationId) {
+        return mentoringMapper.selectOpenChatUrlByReservationId(reservationId);
     }
 }
