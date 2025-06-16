@@ -13,6 +13,6 @@ spring:
     username: sa
     password:
 mybatis:
-  type-aliases-package: com.takoyakki.backend.domain.toDo.model, com.takoyakki.backend.domain.member.model # ★ 모델 패키지 추가
+  type-aliases-package: com.takoyakki.backend.domain.toDo.model # ★ 모델 패키지 추가
   mapper-locations: classpath*:mapper/**/*.xml
   config-location: classpath:/mybatis-config.xml

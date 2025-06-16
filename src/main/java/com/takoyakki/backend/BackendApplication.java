@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan({"com.takoyakki.backend.domain.toDo.repository", "com.takoyakki.backend.domain.member.repository"})
+@MapperScan({"com.takoyakki.backend.domain.toDo.repository"})
 public class BackendApplication {
 
 	public static void main(String[] args) {
