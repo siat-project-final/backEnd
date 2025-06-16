@@ -1,6 +1,6 @@
 package com.takoyakki.backend.domain.challenge.repository;
 
-import com.takoyakki.backend.domain.challenge.dto.ProblemsInsertRequestDto;
+import com.takoyakki.backend.domain.challenge.dto.request.ProblemsInsertRequestDto;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

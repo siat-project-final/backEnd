@@ -1,4 +1,4 @@
-package com.takoyakki.backend.domain.challenge.dto;
+package com.takoyakki.backend.domain.challenge.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

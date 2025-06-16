@@ -1,4 +1,4 @@
-package com.takoyakki.backend.domain.toDo.service;
+package com.takoyakki.backend.domain.todo.service;
 
 import org.springframework.stereotype.Service;
 

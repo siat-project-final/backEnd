@@ -15,17 +15,6 @@ CREATE TABLE refresh_tokens (
 	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
 );
 
-CREATE TABLE problem_solving (
-	problem_solving_id BIGINT NOT NULL,
-	problem_id BIGINT NOT NULL,
-	member_id BIGINT NOT NULL,
-	problem_id2 BIGINT NOT NULL,
-	taken_time INTEGER NULL,
-	submit_answer INTEGER NOT NULL,
-	is_correct BOOLEAN NULL,
-	date TIMESTAMP(0) NULL,
-	is_deleted BOOLEAN NULL
-);
 
 CREATE TABLE daily_challenge_ranking (
 	challenge_point_history_id BIGINT NOT NULL,
@@ -207,9 +196,20 @@ CREATE TABLE problems (
 	is_deleted	BOOLEAN	DEFAULT FALSE	NULL
 );
 
+
+CREATE TABLE problem_solving (
+	problem_solving_id	BIGINT		GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	problem_id	BIGINT		NOT NULL,
+	member_id	BIGINT		NOT NULL,
+	submit_answer	INTEGER		NOT NULL,
+	is_correct	BOOLEAN		NULL,
+	date	TIMESTAMP(0)		NULL,
+	is_deleted	BOOLEAN		NULL
+);
+
+
 ALTER TABLE todos ADD CONSTRAINT PK_TODOS PRIMARY KEY (todo_date_id);
 ALTER TABLE refresh_tokens ADD CONSTRAINT PK_REFRESH_TOKENS PRIMARY KEY (refresh_token_id);
-ALTER TABLE problem_solving ADD CONSTRAINT PK_PROBLEM_SOLVING PRIMARY KEY (problem_solving_id);
 ALTER TABLE daily_challenge_ranking ADD CONSTRAINT PK_DAILY_CHALLENGE_RANKING PRIMARY KEY (challenge_point_history_id);
 ALTER TABLE notification ADD CONSTRAINT PK_NOTIFICATION PRIMARY KEY (notification_id);
 ALTER TABLE todo_item ADD CONSTRAINT PK_TODO_ITEM PRIMARY KEY (todo_item_id, todo_date_id);
@@ -257,6 +257,10 @@ VALUES
 ('Python의 기본 데이터 타입에 대해 학습했습니다. int, char, boolean 등의 특징을 익혔습니다.',
         'Python 기본 데이터 타입',
         'Python',
-        '2025-06-14');
+        '2025-06-14'),
+('Python의 기본 데이터 타입에 대해 학습했습니다. int, char, boolean 등의 특징을 익혔습니다.',
+        'Python 기본 데이터 타입',
+        'React.js',
+        '2025-06-16');
 
 

@@ -1,4 +1,4 @@
-package com.takoyakki.backend.domain.toDo.repository;
+package com.takoyakki.backend.domain.todo.repository;
 
 import org.apache.ibatis.annotations.Mapper;
 

@@ -1,23 +1,25 @@
 package com.takoyakki.backend.domain.challenge.service;
 
-import com.takoyakki.backend.common.exception.ResourceNotFoundException;
 import com.takoyakki.backend.domain.challenge.api.AnthropicClient;
-import com.takoyakki.backend.domain.challenge.dto.ProblemsInsertRequestDto;
+import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertItemRequestDto;
+import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRequestDto;
+import com.takoyakki.backend.domain.challenge.dto.request.ProblemsInsertRequestDto;
+import com.takoyakki.backend.domain.challenge.repository.ProblemSolvingMapper;
 import com.takoyakki.backend.domain.challenge.repository.ProblemsMapper;
-import com.takoyakki.backend.domain.dailyLearning.repository.DailyLearningMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ChallengeServiceImpl implements ChallengeService{
     private final ProblemsMapper problemsMapper;
+    private final ProblemSolvingMapper problemSolvingMapper;
     private final AnthropicClient anthropicClient;
 
     @Override
@@ -39,6 +41,33 @@ public class ChallengeServiceImpl implements ChallengeService{
             return problemsMapper.insertProblem(requestDto);
         } catch (Exception e) {
             throw new RuntimeException("문제 생성 중 오류가 발생했습니다: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public int insertProblemSolving(ProblemSolvingInsertRequestDto requestDto) {
+        try {
+            List<Long> problemIds = requestDto.getProblemIds();
+            List<Integer> answers = requestDto.getAnswers();
+
+            // Entity 리스트 생성
+            List<ProblemSolvingInsertItemRequestDto> list = new ArrayList<>();
+            for (int i = 0; i < problemIds.size(); i++) {
+                Long problemId = problemIds.get(i);
+                Integer answer = answers.get(i);
+
+                ProblemSolvingInsertItemRequestDto item = ProblemSolvingInsertItemRequestDto.builder()
+                        .memberId(requestDto.getMemberId())
+                        .problemId(problemId)
+                        .createdAt(requestDto.getCreatedAt())
+                        .answer(answer)
+                        .build();
+                list.add(item);
+            }
+
+            return problemSolvingMapper.insertProblemSolving(list);
+        } catch (Exception e) {
+            throw new RuntimeException("문제 풀이 제출 중 오류가 발생했습니다: " + e.getMessage(), e);
         }
     }
 }
