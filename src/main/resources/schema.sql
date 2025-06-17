@@ -204,7 +204,10 @@ CREATE TABLE problem_solving (
 	submit_answer	INTEGER		NOT NULL,
 	is_correct	BOOLEAN		NULL,
 	date	TIMESTAMP(0)		NULL,
-	is_deleted	BOOLEAN		NULL
+	is_deleted	BOOLEAN		NULL,
+	CONSTRAINT fk_problem FOREIGN KEY (problem_id) REFERENCES problems (problem_id),
+    CONSTRAINT fk_member FOREIGN KEY (member_id) REFERENCES members (member_id)
+
 );
 
 

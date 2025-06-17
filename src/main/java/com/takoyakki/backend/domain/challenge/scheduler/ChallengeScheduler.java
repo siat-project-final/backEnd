@@ -20,15 +20,27 @@ public class ChallengeScheduler {
     private final DailyLearningMapper dailyLearningMapper;
     private final ChallengeService challengeService;
 
-    @Scheduled(cron = "0 26 16 * * *") // 매일 오전 7시
+    @Scheduled(cron = "0 51 9 * * *") // 매일 오전 7시
     public void createDailyChallengeProblems() {
         log.info("챌린지 문제 생성 스케줄러 실행 시작: {}", LocalDateTime.now());
 
         // 챌린지 문제 생성 로직
         try {
-            List<String> subjects = dailyLearningMapper.selectDailyLearning(LocalDate.now());
+            List<String> subjects = null;
+            LocalDate searchDate = LocalDate.now();
+            int maxDays = 30;
+
+            for (int i = 0; i < maxDays; i++) {
+                subjects = dailyLearningMapper.selectDailyLearning(searchDate);
+                if (subjects != null && !subjects.isEmpty()) {
+                    log.info("해당 날짜에 등록된 학습 주제가 존재하지 않습니다.`: {}", searchDate);
+                    break;
+                }
+                searchDate = searchDate.minusDays(1);
+            }
+
             if (subjects == null || subjects.isEmpty()) {
-                throw new ResourceNotFoundException("해당 날짜에 입력된 학습 데이터가 존재하지 않습니다.");
+                throw new ResourceNotFoundException("최근 " + maxDays + "일 내에 학습 데이터가 존재하지 않습니다.");
             }
 
             // 난이도 1~5 문제 생성
