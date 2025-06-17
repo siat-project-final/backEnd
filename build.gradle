@@ -36,6 +36,7 @@ dependencies {
 
 	// 보안
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'javax.validation:validation-api:2.0.1.Final'
 
 	// 관리자
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'

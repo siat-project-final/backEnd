@@ -3,15 +3,27 @@
 
 <configuration>
     <typeAliases>
+        <!-- 인증 관련 DTO -->
         <typeAlias alias="LoginRequestDto" type="com.takoyakki.backend.common.auth.dto.LoginRequestDto"/>
         <typeAlias alias="LoginAuthCheckDto" type="com.takoyakki.backend.common.auth.dto.LoginAuthCheckDto"/>
         <typeAlias alias="LoginResponseDto" type="com.takoyakki.backend.common.auth.dto.LoginResponseDto"/>
         <typeAlias alias="SignUpRequestDto" type="com.takoyakki.backend.common.auth.dto.SignUpRequestDto"/>
         <typeAlias alias="SignUpDuplicationCheckDto" type="com.takoyakki.backend.common.auth.dto.SignUpDuplicationCheckDto"/>
 
+        <!-- 멤버 관련 DTO -->
         <typeAlias alias="MemberSelectResponseDto" type="com.takoyakki.backend.domain.member.dto.MemberSelectResponseDto"/>
         <typeAlias alias="MemberUpdateRequestDto" type="com.takoyakki.backend.domain.member.dto.MemberUpdateRequestDto"/>
 
+        <!-- 챌린지 문제 관련 DTO -->
         <typeAlias alias="ProblemsInsertRequestDto" type="com.takoyakki.backend.domain.challenge.dto.ProblemsInsertRequestDto"/>
+
+        <!-- 멘토링 예약 관련 DTO -->
+        <typeAlias alias="MentoringReservationAcceptResponseDto" type="com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationAcceptResponseDto"/>
+        <typeAlias alias="MentoringReservationResponseDto" type="com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationResponseDto"/>
+
+        <!-- 멘토링 완료 및 상세 DTO -->
+        <typeAlias alias="MentoringCompleteRequestDto" type="com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringCompleteRequestDto"/>
+        <typeAlias alias="MentoringResponseDto" type="com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringResponseDto"/>
+
     </typeAliases>
 </configuration>
