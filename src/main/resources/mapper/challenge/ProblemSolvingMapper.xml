@@ -11,6 +11,8 @@
             problem_id,
             member_id,
             submit_answer,
+            is_correct,
+            points,
             date
         )
         VALUES
@@ -19,8 +21,26 @@
                 #{item.problemId},
                 #{item.memberId},
                 #{item.answer},
+                #{item.isCorrect},
+                #{item.points},
                 NOW()
             )
         </foreach>
     </insert>
+
+    <select id="calculateChallengeRank">
+        SELECT
+            ps.member_id,
+            m.member_name,
+            SUM(ps.points) AS total_points,
+            RANK() OVER (ORDER BY SUM(ps.points) DESC) AS ranking
+        FROM
+            problem_solving ps
+        JOIN
+            members m ON ps.member_id = m.member_id
+        WHERE
+            ps.is_deleted = FALSE
+        GROUP BY
+            ps.member_id, m.member_name;
+    </select>
 </mapper>

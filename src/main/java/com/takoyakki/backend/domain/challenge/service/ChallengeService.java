@@ -7,4 +7,6 @@ public interface ChallengeService {
     int insertChallengeProblem(String subject, int difficulty);
 
     int insertProblemSolving(@Valid ProblemSolvingInsertRequestDto requestDto);
+
+
 }

@@ -5,6 +5,11 @@
 
 <mapper namespace="com.takoyakki.backend.domain.challenge.repository.ProblemsMapper">
 
+    <resultMap id="ProblemsSelectResponseMap" type="ProblemsSelectResponseDto">
+        <result property="answer" column="correct_answer" />
+        <result property="points" column="difficulty" />
+    </resultMap>
+
     <insert id="insertProblem"  parameterType="ProblemsInsertRequestDto">
         INSERT INTO problems (
             title,
@@ -20,4 +25,14 @@
             #{correctAnswer}
         )
     </insert>
+
+    <select id="selectProblem" parameterType="java.lang.Long" resultMap="ProblemsSelectResponseMap">
+        SELECT
+            difficulty,
+            correct_answer
+        FROM
+            problems
+        WHERE
+            problem_id = #{problemId}
+    </select>
 </mapper>

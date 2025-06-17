@@ -203,8 +203,9 @@ CREATE TABLE problem_solving (
 	member_id	BIGINT		NOT NULL,
 	submit_answer	INTEGER		NOT NULL,
 	is_correct	BOOLEAN		NULL,
+	points INTEGER		DEFAULT 0 NOT NULL,
 	date	TIMESTAMP(0)		NULL,
-	is_deleted	BOOLEAN		NULL,
+	is_deleted	BOOLEAN		DEFAULT FALSE NOT NULL,
 	CONSTRAINT fk_problem FOREIGN KEY (problem_id) REFERENCES problems (problem_id),
     CONSTRAINT fk_member FOREIGN KEY (member_id) REFERENCES members (member_id)
 
@@ -265,5 +266,137 @@ VALUES
         'Python 기본 데이터 타입',
         'React.js',
         '2025-06-16');
+
+INSERT INTO problems (
+            title,
+            contents,
+            difficulty,
+            subject,
+            correct_answer
+) VALUES (
+    'React.js: 1',
+    'React.js는 무엇인가요?',
+    1,
+    'React.js',
+    1
+), (
+    'React.js: 2',
+    'React.js는 무엇인가요?',
+    2,
+    'React.js',
+    2
+), (
+    'React.js: 3',
+    'React.js는 무엇인가요?',
+    3,
+    'React.js',
+    3
+), (
+    'React.js: 4',
+    'React.js는 무엇인가요?',
+    4,
+    'React.js',
+    4
+), (
+    'React.js: 5',
+    'React.js는 무엇인가요?',
+    5,
+    'React.js',
+    5
+);
+
+INSERT INTO problem_solving
+(
+    problem_id,
+    member_id,
+    submit_answer,
+    is_correct,
+    points,
+    date
+)
+VALUES
+    (
+        1,
+        1,
+        1,
+        'Y',
+        1,
+        NOW()
+    )
+ ,
+    (
+        2,
+        1,
+        2,
+        'Y',
+        2,
+        NOW()
+    )
+ ,
+    (
+        3,
+        1,
+        1,
+        'N',
+        0,
+        NOW()
+    )
+ ,
+    (
+        4,
+        1,
+        4,
+        'Y',
+        4,
+        NOW()
+    )
+ ,
+    (
+        5,
+        1,
+        5,
+        'Y',
+        5,
+        NOW()
+    ),(
+          1,
+          2,
+          1,
+          'Y',
+          1,
+          NOW()
+      ),
+      (
+          2,
+          2,
+          2,
+          'Y',
+          2,
+          NOW()
+      ),
+      (
+          3,
+          2,
+          1,
+          'N',
+          0,
+          NOW()
+      ),
+      (
+          4,
+          2,
+          4,
+          'Y',
+          4,
+          NOW()
+      ),
+      (
+          5,
+          2,
+          5,
+          'Y',
+          5,
+          NOW()
+      );
 
 

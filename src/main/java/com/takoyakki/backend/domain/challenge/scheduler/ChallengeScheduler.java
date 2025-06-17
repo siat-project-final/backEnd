@@ -20,7 +20,7 @@ public class ChallengeScheduler {
     private final DailyLearningMapper dailyLearningMapper;
     private final ChallengeService challengeService;
 
-    @Scheduled(cron = "0 51 9 * * *") // 매일 오전 7시
+    @Scheduled(cron = "0 7 11 * * *") // 매일 오전 7시
     public void createDailyChallengeProblems() {
         log.info("챌린지 문제 생성 스케줄러 실행 시작: {}", LocalDateTime.now());
 

@@ -4,6 +4,7 @@ import com.takoyakki.backend.domain.challenge.api.AnthropicClient;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertItemRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemsInsertRequestDto;
+import com.takoyakki.backend.domain.challenge.dto.response.ProblemsSelectResponseDto;
 import com.takoyakki.backend.domain.challenge.repository.ProblemSolvingMapper;
 import com.takoyakki.backend.domain.challenge.repository.ProblemsMapper;
 import lombok.RequiredArgsConstructor;
@@ -56,11 +57,15 @@ public class ChallengeServiceImpl implements ChallengeService{
                 Long problemId = problemIds.get(i);
                 Integer answer = answers.get(i);
 
+                ProblemsSelectResponseDto responseDto = problemsMapper.selectProblem(problemId);
+
                 ProblemSolvingInsertItemRequestDto item = ProblemSolvingInsertItemRequestDto.builder()
                         .memberId(requestDto.getMemberId())
                         .problemId(problemId)
                         .createdAt(requestDto.getCreatedAt())
                         .answer(answer)
+                        .isCorrect(answer == responseDto.getAnswer()? "Y" : "N")
+                        .points(answer == responseDto.getAnswer()? responseDto.getPoints() : 0)
                         .build();
                 list.add(item);
             }
