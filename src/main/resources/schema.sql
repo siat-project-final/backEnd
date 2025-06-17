@@ -15,12 +15,17 @@ CREATE TABLE mentorings_reservation (
   created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP,
   is_deleted BOOLEAN,
-  cancel_reason VARCHAR(255)
+
+  cancelReason	VARCHAR(255)		NULL,
+  cancelMessage	VARCHAR(255)		NULL,
+  rejectReason	VARCHAR(255)		NULL,
+  rejectMessage	VARCHAR(255)		NULL,
+  etcMessage	VARCHAR(255)		NULL
 );
 
 CREATE TABLE mentorings (
   mentoring_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  mentor_id3 BIGINT NOT NULL,
+  mentor_id BIGINT NOT NULL,
   mentee_id BIGINT NOT NULL,
   reservation_id BIGINT NOT NULL,
   status VARCHAR(255) NOT NULL,
