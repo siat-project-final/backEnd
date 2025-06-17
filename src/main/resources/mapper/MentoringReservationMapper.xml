@@ -6,20 +6,17 @@
 
     <!-- 예약 생성 -->
     <insert id="insertReservation" parameterType="com.takoyakki.backend.domain.mentoring.dto.reservation.MenteeReservationRequestDto">
-        INSERT INTO reservation (
+        INSERT INTO mentorings_reservation (
             mentor_id,
             mentee_id,
-            scheduled_at,
-            topic,
-            status
+            date
         )
-        VALUES (
-                   #{mentorId},
-                   #{menteeId},
-                   #{scheduledAt},
-                   #{topic},
-                   'REQUESTED'
-               )
+        VALUES
+        (
+           #{mentorId},
+           #{menteeId},
+           #{date}
+        )
     </insert>
 
     <!-- 멘토 기준 예약 목록 조회 -->

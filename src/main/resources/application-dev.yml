@@ -15,13 +15,5 @@ spring:
       path: /h2-console
 
 mybatis:
-  configuration:
-    map-underscore-to-camel-case: true
-    call-setters-on-nulls: true
-    jdbc-type-for-null: varchar
-    default-fetch-size: 500
-    auto-mapping-unknown-column-behavior: none
-  type-aliases-package: >
-    com.takoyakki.backend.domain.mentoring.dto.reservation,
-    com.takoyakki.backend.domain.mentoring.dto.mentoring
-  mapper-locations: classpath:mapper/**/*.xml
+  mapper-locations: classpath*:mapper/**/*.xml
+  config-location: classpath:/mybatis-config.xml

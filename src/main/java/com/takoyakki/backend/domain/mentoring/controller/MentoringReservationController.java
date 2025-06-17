@@ -37,14 +37,14 @@ public class MentoringReservationController {
     }
 
     // 멘토 - 예약 수락
-    @PutMapping("/{reservationId}/accept")
+    @PutMapping("/mentor/{reservationId}/accept")
     public ResponseEntity<Void> acceptReservation(@PathVariable Long reservationId) {
         reservationService.acceptReservation(reservationId);
         return ResponseEntity.ok().build();
     }
 
     //멘토 - 예약 거절
-    @PutMapping("/{reservationId}/reject")
+    @PutMapping("/mentor/{reservationId}/reject")
     public ResponseEntity<Void> rejectReservation(
             @PathVariable Long reservationId,
             @RequestBody MentoringReservationRejectRequestDto decisionDto
@@ -54,7 +54,7 @@ public class MentoringReservationController {
     }
 
     //멘티 - 예약 취소
-    @PutMapping("/{reservationId}/cancel")
+    @PutMapping("/mentee/{reservationId}/cancel")
     public ResponseEntity<Void> cancelReservation(
             @PathVariable Long reservationId,
             @RequestBody MentoringReservationCancelRequestDto cancelDto

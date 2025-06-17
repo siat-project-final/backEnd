@@ -1,9 +1,10 @@
 package com.takoyakki.backend.domain.mentoring.dto.reservation;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 import lombok.Getter;
 
-@Getter
+@Data
 public class MentoringReservationRejectRequestDto {
 
     @Schema(description = "예약 거절 사유 코드", example = "NO_TIME")

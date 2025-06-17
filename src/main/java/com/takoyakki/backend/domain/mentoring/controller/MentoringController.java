@@ -18,7 +18,7 @@ public class MentoringController {
     private final MentoringService mentoringService;
 
     @Operation(summary = "멘토링 완료 처리 (멘토)")
-    @PostMapping("/{reservationId}/complete")
+    @PostMapping("/mentor/{reservationId}/complete")
     public void completeMentoring(@PathVariable Long reservationId,
                                   @RequestBody @Valid MentoringCompleteRequestDto requestDto) {
         mentoringService.completeMentoring(reservationId, requestDto);
