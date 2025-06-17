@@ -21,7 +21,6 @@ public interface MentoringMapper {
     // 예약 ID 기준 오픈채팅 URL 조회
     String selectOpenChatUrlByReservationId(@Param("reservationId") Long reservationId);
 
-
     // 멘토링 단건 조회
     MentoringResponseDto selectMentoringResponseById(@Param("id") Long id);
 

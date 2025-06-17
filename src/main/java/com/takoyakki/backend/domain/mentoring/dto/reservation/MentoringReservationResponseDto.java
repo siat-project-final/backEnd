@@ -1,9 +1,7 @@
 package com.takoyakki.backend.domain.mentoring.dto.reservation;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 //멘토링 예약 상태를 멘티 , 멘토에게 보여줄때,
@@ -22,7 +20,7 @@ public class MentoringReservationResponseDto {
     private String mentorImageUrl;
 
     @Schema(description = "예약된 날짜 및 시간 (YYYY-MM-DD HH:mm)", example = "2023-10-01 14:00")
-    private LocalDateTime reservedAt;
+    private LocalDateTime date;
 
     @Schema(description = "예약 상태", example = "waiting")
     private String status; // 예약 상태 (예: WAITING ,ACCEPT , Rejected, CANCELED)

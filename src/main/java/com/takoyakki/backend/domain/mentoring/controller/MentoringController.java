@@ -43,14 +43,14 @@ public class MentoringController {
     }
 
     @Operation(summary = "멘토링 상태 수동 변경 (강제완료, 취소 등)")
-    @PatchMapping("/{reservationId}/status")
+    @PatchMapping("/mentor/{reservationId}/status")
     public void updateMentoringStatus(@PathVariable Long reservationId,
                                       @RequestParam String status) {
         mentoringService.updateMentoringStatus(reservationId, status);
     }
 
     @Operation(summary = "오픈채팅 URL 조회")
-    @GetMapping("/{reservationId}/open-chat")
+    @GetMapping("/mentee/{reservationId}/open-chat")
     public String getOpenChatUrl(@PathVariable Long reservationId) {
         return mentoringService.getOpenChatUrlByReservationId(reservationId);
     }

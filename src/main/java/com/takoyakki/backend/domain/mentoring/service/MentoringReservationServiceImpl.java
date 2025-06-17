@@ -37,8 +37,8 @@ public class MentoringReservationServiceImpl implements MentoringReservationServ
     public void rejectReservation(Long reservationId, MentoringReservationRejectRequestDto decisionDto) {
         reservationMapper.updateReservationToRejected(
                 reservationId,
-                decisionDto.getReasonCode(),
-                decisionDto.getReasonMessage()
+                decisionDto.getRejectReason(),
+                decisionDto.getRejectMessage()
         );
     }
 
@@ -46,7 +46,7 @@ public class MentoringReservationServiceImpl implements MentoringReservationServ
     public void cancelReservation(Long reservationId, MentoringReservationCancelRequestDto cancelDto) {
         reservationMapper.cancelReservation(
                 reservationId,
-                cancelDto.getCancelCode()
+                cancelDto.getCancelReason()
         );
     }
 }

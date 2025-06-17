@@ -17,12 +17,11 @@ import java.time.LocalDateTime;
 public class MentoringResponseDto {
 
     private Long mentoringId;         // 멘토링 ID
-    private String mentorName;          // 멘토 이름
+    private String mentorId;          // 멘토 이름
     private String openChatUrl;  // 멘토 오픈채팅 URL
-    private LocalDateTime scheduledAt;    // 예약된 멘토링 시간 (YYYY-MM-DD HH:mm)
+    private LocalDateTime createdAt;    //  멘토링 생성 날짜 (YYYY-MM-DD HH:mm)
     private String mentorImageUrl;   // 멘토 프로필 이미지 URL
     private String status; // 멘토링 상태 (예: SCHEDULED, COMPLETED, CANCELED)
 
 
-    //선택한 대화주제 등 제거 처리.
 }
