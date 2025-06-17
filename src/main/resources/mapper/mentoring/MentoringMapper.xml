@@ -60,12 +60,15 @@
         SELECT
             m.mentoring_id AS mentoringId,
             o.mentor_name AS mentorName,
+            e.member_name AS menteeName,
             m.created_at AS createdAt,
             m.status
         FROM
             mentorings m
         LEFT OUTER JOIN
             mentors o ON m.mentor_id = o.mentor_id
+        LEFT OUTER JOIN
+            members e ON m.mentor_id = e.member_id
         WHERE
             mentoring_id = #{id}
     </select>

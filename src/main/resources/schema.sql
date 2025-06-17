@@ -1,3 +1,74 @@
+-- #DDL
+-- 유저
+CREATE TABLE members (
+    member_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    member_name VARCHAR(255) NULL,
+    email VARCHAR(255) NULL,
+    phone_number VARCHAR(255) NULL,
+    nickname VARCHAR(255) NOT NULL,
+    role VARCHAR(255) DEFAULT 'TRAINEE' NOT NULL,
+    status VARCHAR(255) DEFAULT 'ACTIVE' NOT NULL,
+    total_xp INTEGER NULL,
+    usable_points INTEGER NOT NULL,
+    current_level INTEGER DEFAULT 1 NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
+    is_deleted BOOLEAN NULL
+);
+
+CREATE TABLE mentors (
+  mentor_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  company VARCHAR(255),
+  position VARCHAR(255),
+  description VARCHAR(255),
+  avail_weekdays VARCHAR(255),
+  completion_date TIMESTAMP(0),
+  open_chat_url VARCHAR(255),
+  is_deleted BOOLEAN,
+  created_at TIMESTAMP(0),
+  updated_at TIMESTAMP(0),
+  mentor_image_url VARCHAR(255),
+  mentor_name VARCHAR(255)
+);
+
+CREATE TABLE refresh_tokens (
+	refresh_token_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	member_id BIGINT NOT NULL,
+	token VARCHAR(255) NOT NULL,
+	expired_at TIMESTAMP(0) NULL,
+	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
+);
+
+-- 멘토링
+CREATE TABLE mentorings_reservation (
+  reservation_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  mentor_id BIGINT NOT NULL,
+  mentee_id BIGINT NOT NULL,
+  introduction TEXT NULL,
+  date TIMESTAMP(0) NOT NULL,
+  subject VARCHAR(255) DEFAULT NULL,
+  status VARCHAR(255) DEFAULT 'PENDING' NOT NULL,
+  created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP,
+  is_deleted BOOLEAN DEFAULT FALSE NOT NULL,
+
+  cancel_reason	VARCHAR(255)		NULL,
+  reject_reason	VARCHAR(255)		NULL
+);
+
+CREATE TABLE mentorings (
+  mentoring_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  mentor_id BIGINT NOT NULL,
+  mentee_id BIGINT NOT NULL,
+  reservation_id BIGINT NOT NULL,
+  status VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP,
+  is_deleted BOOLEAN DEFAULT FALSE NOT NULL
+);
+
+
 CREATE TABLE todos (
 	todo_date_id BIGINT NOT NULL,
 	member_id BIGINT NOT NULL,
@@ -7,13 +78,6 @@ CREATE TABLE todos (
 	is_deleted BOOLEAN NULL
 );
 
-CREATE TABLE refresh_tokens (
-	refresh_token_id BIGINT NOT NULL,
-	member_id BIGINT NOT NULL,
-	token VARCHAR(255) NOT NULL,
-	expired_at TIMESTAMP(0) NULL,
-	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
-);
 
 CREATE TABLE problem_solving (
 	problem_solving_id BIGINT NOT NULL,
@@ -56,17 +120,6 @@ CREATE TABLE todo_item (
 	is_deleted BOOLEAN NULL
 );
 
-CREATE TABLE mentors (
-	mentor_id BIGINT NOT NULL,
-	member_id BIGINT NOT NULL,
-	company VARCHAR(255) NULL,
-	position VARCHAR(255) NULL,
-	description VARCHAR(255) NULL,
-	avail_weekdays VARCHAR(255) NULL,
-	completion_date TIMESTAMP(0) NULL,
-	is_deleted BOOLEAN NULL
-);
-
 CREATE TABLE xp_histories (
 	xp_history_id BIGINT NOT NULL,
 	member_id BIGINT NOT NULL,
@@ -75,24 +128,6 @@ CREATE TABLE xp_histories (
 	reference_id BIGINT NULL,
 	description TEXT NULL,
 	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	is_deleted BOOLEAN NULL
-);
-
-CREATE TABLE members (
-	member_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-	id VARCHAR(255) NOT NULL,
-	password VARCHAR(255) NOT NULL,
-	member_name VARCHAR(255) NULL,
-	email VARCHAR(255) NULL,
-	phone_number VARCHAR(255) NOT NULL,
-	nickname VARCHAR(255) NOT NULL,
-	role VARCHAR(255) DEFAULT 'TRAINEE' NOT NULL,
-	status VARCHAR(255) DEFAULT 'ACTIVE' NOT NULL,
-	total_xp INTEGER DEFAULT 0 NOT NULL,
-	usable_points INTEGER DEFAULT 0 NOT NULL,
-	current_level INTEGER DEFAULT 1 NOT NULL,
-	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
 	is_deleted BOOLEAN NULL
 );
 
@@ -105,28 +140,6 @@ CREATE TABLE badges (
 	required_level INTEGER NULL,
 	is_active BOOLEAN DEFAULT TRUE NULL,
 	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
-);
-
-CREATE TABLE mentorings_reservation (
-	reservation_id BIGINT NOT NULL,
-	mentor_id BIGINT NOT NULL,
-	mentee_id BIGINT NOT NULL,
-	Introduction TEXT NOT NULL,
-	subject VARCHAR(255) NOT NULL,
-	status INTEGER DEFAULT 'PROGRESS' NULL,
-	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	is_deleted BOOLEAN NULL
-);
-
-CREATE TABLE mentorings (
-	mentoring_id BIGINT NOT NULL,
-	mentor_id3 BIGINT NOT NULL,
-	mentee_id BIGINT NOT NULL,
-	reservation_id BIGINT NOT NULL,
-	date TIMESTAMP(0) NOT NULL,
-	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	is_deleted BOOLEAN NULL
 );
 
 CREATE TABLE level_configs (
@@ -146,128 +159,6 @@ CREATE TABLE study_diary (
 	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
 	AI_summary TEXT NULL,
 	is_deleted BOOLEAN NULL
-CREATE TABLE mentors (
-  mentor_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  company VARCHAR(255),
-  position VARCHAR(255),
-  description VARCHAR(255),
-  avail_weekdays VARCHAR(255),
-  completion_date TIMESTAMP(0),
-  open_chat_url VARCHAR(255),
-  is_deleted BOOLEAN,
-  created_at TIMESTAMP(0),
-  updated_at TIMESTAMP(0),
-  mentor_image_url VARCHAR(255),
-  mentor_name VARCHAR(255)
-);
-
-CREATE TABLE members (
-    member_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    id VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    member_name VARCHAR(255) NULL,
-    email VARCHAR(255) NULL,
-    phone_number VARCHAR(255) NULL,
-    nickname VARCHAR(255) NOT NULL,
-    role VARCHAR(255) DEFAULT 'TRAINEE' NOT NULL,
-    status VARCHAR(255) DEFAULT 'ACTIVE' NOT NULL,
-    total_xp INTEGER NULL,
-    usable_points INTEGER NOT NULL,
-    current_level INTEGER DEFAULT 1 NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-    is_deleted BOOLEAN NULL
-);
-
-
-
-
-CREATE TABLE mentorings_reservation (
-  reservation_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  mentor_id BIGINT NOT NULL,
-  mentee_id BIGINT NOT NULL,
-  introduction TEXT NULL,
-  date TIMESTAMP(0) NOT NULL,
-  subject VARCHAR(255) DEFAULT NULL,
-  status VARCHAR(255) DEFAULT 'PENDING' NOT NULL,
-  created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP,
-  is_deleted BOOLEAN DEFAULT FALSE NOT NULL,
-
-  cancel_reason	VARCHAR(255)		NULL,
-  reject_reason	VARCHAR(255)		NULL
-);
-
-CREATE TABLE mentorings (
-  mentoring_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  mentor_id BIGINT NOT NULL,
-  mentee_id BIGINT NOT NULL,
-  reservation_id BIGINT NOT NULL,
-  status VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP,
-  is_deleted BOOLEAN DEFAULT FALSE NOT NULL
-);
-
-INSERT INTO members (
-    id, password, member_name, email, phone_number, nickname, role, status,
-    total_xp, usable_points, current_level, created_at, updated_at, is_deleted
-) VALUES
-(
-    'user001', 'password123', '홍길동', 'hong@example.com', '010-1234-5678', '길동이',
-    'TRAINEE', 'ACTIVE', 500, 100, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
-),
-(
-    'user002', 'securepass456', '김철수', 'chulsoo@example.com', '010-2345-6789', '철수짱',
-    'TRAINEE', 'ACTIVE', 1200, 300, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
-),
-(
-    'user', 'mysecurepwd', '이영희', 'younghee@example.com', '010-3456-7890', '영희',
-    'MENTOR', 'ACTIVE', 3000, 500, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
-);
-
-INSERT INTO mentors (
-    company, position, description, avail_weekdays,
-    completion_date, open_chat_url, is_deleted,
-    created_at, updated_at, mentor_image_url, mentor_name
-) VALUES
-(
-    'Kakao',
-    'Lead Software Engineer',
-    'React와 Spring Boot 연동, MSA 아키텍처 설계 전문가입니다.',
-    'MON,WED,FRI',
-    '2025-11-30 23:59:59',
-    'https://open.kakao.com/o/kakaodev',
-    false,
-    CURRENT_TIMESTAMP,
-    CURRENT_TIMESTAMP,
-    'https://example.com/profile/mentor2.jpg',
-    '이프론트'
-),
-(
-    'Naver',
-    'Principal Engineer',
-    'QueryDSL과 JPA 성능 최적화, 대용량 데이터 처리 경험을 공유합니다.',
-    'TUE,THU,SAT',
-    '2026-01-31 23:59:59',
-    'https://open.kakao.com/o/naverdev',
-    false,
-    CURRENT_TIMESTAMP,
-    CURRENT_TIMESTAMP,
-    'https://example.com/profile/mentor3.jpg',
-    '박데이터'
-),
-(
-    'Coupang',
-    'Staff Software Engineer',
-    'Docker와 Kubernetes를 활용한 CI/CD 파이프라인 구축 전문가입니다.',
-    'MON,TUE,THU,FRI',
-    '2025-10-31 23:59:59',
-    'https://open.kakao.com/o/coupangdev',
-    false,
-    CURRENT_TIMESTAMP,
-    CURRENT_TIMESTAMP,
-    'https://example.com/profile/mentor4.jpg',
-    '최데브옵스'
 );
 
 CREATE TABLE challenge_point_histories (
@@ -329,24 +220,7 @@ CREATE TABLE problems (
 	is_deleted	BOOLEAN	DEFAULT FALSE	NULL
 );
 
-ALTER TABLE todos ADD CONSTRAINT PK_TODOS PRIMARY KEY (todo_date_id);
-ALTER TABLE refresh_tokens ADD CONSTRAINT PK_REFRESH_TOKENS PRIMARY KEY (refresh_token_id);
-ALTER TABLE problem_solving ADD CONSTRAINT PK_PROBLEM_SOLVING PRIMARY KEY (problem_solving_id);
-ALTER TABLE daily_challenge_ranking ADD CONSTRAINT PK_DAILY_CHALLENGE_RANKING PRIMARY KEY (challenge_point_history_id);
-ALTER TABLE notification ADD CONSTRAINT PK_NOTIFICATION PRIMARY KEY (notification_id);
-ALTER TABLE todo_item ADD CONSTRAINT PK_TODO_ITEM PRIMARY KEY (todo_item_id, todo_date_id);
-ALTER TABLE mentors ADD CONSTRAINT PK_MENTORS PRIMARY KEY (mentor_id);
-ALTER TABLE xp_histories ADD CONSTRAINT PK_XP_HISTORIES PRIMARY KEY (xp_history_id);
-ALTER TABLE badges ADD CONSTRAINT PK_BADGES PRIMARY KEY (badge_id);
-ALTER TABLE mentorings_reservation ADD CONSTRAINT PK_MENTORINGS_RESERVATION PRIMARY KEY (reservation_id);
-ALTER TABLE mentorings ADD CONSTRAINT PK_MENTORINGS PRIMARY KEY (mentoring_id);
-ALTER TABLE level_configs ADD CONSTRAINT PK_LEVEL_CONFIGS PRIMARY KEY (level);
-ALTER TABLE study_diary ADD CONSTRAINT PK_STUDY_DIARY PRIMARY KEY (diary_id);
-ALTER TABLE challenge_point_histories ADD CONSTRAINT PK_CHALLENGE_POINT_HISTORIES PRIMARY KEY (challenge_point_history_id);
-ALTER TABLE member_badges ADD CONSTRAINT PK_MEMBER_BADGES PRIMARY KEY (member_badge_id);
-ALTER TABLE difficulty_configs ADD CONSTRAINT PK_DIFFICULTY_CONFIGS PRIMARY KEY (difficulty_config_id);
-
-ALTER TABLE todo_item ADD CONSTRAINT FK_todos_TO_todo_item_1 FOREIGN KEY (todo_date_id) REFERENCES todos (todo_date_id);
+-- # DML
 
 INSERT INTO members (
     id, password, member_name, email, phone_number, nickname, role, status,
@@ -363,6 +237,51 @@ INSERT INTO members (
 (
     'user', 'mysecurepwd', '이영희', 'younghee@example.com', '010-3456-7890', '영희',
     'MENTOR', 'ACTIVE', 3000, 500, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
+);
+
+INSERT INTO mentors (
+    company, position, description, avail_weekdays,
+    completion_date, open_chat_url, is_deleted,
+    created_at, updated_at, mentor_image_url, mentor_name
+) VALUES
+(
+    'Kakao',
+    'Lead Software Engineer',
+    'React와 Spring Boot 연동, MSA 아키텍처 설계 전문가입니다.',
+    'MON,WED,FRI',
+    '2025-11-30 23:59:59',
+    'https://open.kakao.com/o/kakaodev',
+    false,
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP,
+    'https://example.com/profile/mentor2.jpg',
+    '이프론트'
+),
+(
+    'Naver',
+    'Principal Engineer',
+    'QueryDSL과 JPA 성능 최적화, 대용량 데이터 처리 경험을 공유합니다.',
+    'TUE,THU,SAT',
+    '2026-01-31 23:59:59',
+    'https://open.kakao.com/o/naverdev',
+    false,
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP,
+    'https://example.com/profile/mentor3.jpg',
+    '박데이터'
+),
+(
+    'Coupang',
+    'Staff Software Engineer',
+    'Docker와 Kubernetes를 활용한 CI/CD 파이프라인 구축 전문가입니다.',
+    'MON,TUE,THU,FRI',
+    '2025-10-31 23:59:59',
+    'https://open.kakao.com/o/coupangdev',
+    false,
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP,
+    'https://example.com/profile/mentor4.jpg',
+    '최데브옵스'
 );
 
 INSERT INTO students (student_name, phone_number)
