@@ -30,7 +30,7 @@ public interface MentoringReservationMapper {
 
     // 예약 취소 처리 + 사유 저장
     int cancelReservation(@Param("reservationId") Long reservationId,
-                          @Param("cancelCode") String cancelCode);
+                          @Param("cancelReason") String cancelReason);
 
     // 날짜 기준 예약 조회
     List<MentoringReservationResponseDto> findReservationsByDate(@Param("date") String date);
@@ -41,7 +41,9 @@ public interface MentoringReservationMapper {
     // 멘티 기준 과거 예약 이력 조회
     List<MentoringReservationResponseDto> findHistoryReservationsByMenteeId(@Param("menteeId") Long menteeId);
 
-    void updateReservationToAccepted(Long reservationId);
+    int updateReservationToAccepted(Long reservationId);
 
-    void updateReservationToRejected(Long reservationId, String reasonCode, String reasonMessage);
+    int updateReservationToRejected(Long reservationId, String rejectReason);
+
+    int updateReservationToCompleted(Long reservationId);
 }

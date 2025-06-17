@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 //얘약 목록 조회용
 
 @Data
+
 public class MentoringReservationResponseDto {
 
     @Schema(description = "예약 ID", example ="1001")

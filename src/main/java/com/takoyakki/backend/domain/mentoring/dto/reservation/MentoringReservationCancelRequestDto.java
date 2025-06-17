@@ -12,12 +12,9 @@ import jakarta.validation.constraints.NotBlank;
 @Data
 public class MentoringReservationCancelRequestDto {
 
-    @Schema(description = "취소 사유 코드", example = "PERSONAL_REASON")
-    @NotBlank(message = "취소 사유 코드는 필수입니다.")
+    @Schema(description = "취소 사유", example = "PERSONAL_REASON")
+    @NotBlank(message = "취소 사유는 필수입니다.")
     private String cancelReason;
 
-    @Schema(description = "기타 사유 상세 입력", example = "개인 일정으로 취소합니다.")
-    @NotBlank(message = "취소 메시지는 필수입니다.")
-    private String cancelMessage;
 }
 

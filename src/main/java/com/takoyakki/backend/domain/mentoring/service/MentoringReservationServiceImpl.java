@@ -37,8 +37,7 @@ public class MentoringReservationServiceImpl implements MentoringReservationServ
     public void rejectReservation(Long reservationId, MentoringReservationRejectRequestDto decisionDto) {
         reservationMapper.updateReservationToRejected(
                 reservationId,
-                decisionDto.getRejectReason(),
-                decisionDto.getRejectMessage()
+                decisionDto.getRejectReason()
         );
     }
 
