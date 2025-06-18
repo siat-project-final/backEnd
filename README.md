@@ -39,6 +39,7 @@
 - 250614 컨트롤러 단위테스트 ExtendWith > WebMvcTest(엄밀하게 단위테스트는 아닐 수 있지만 컨트롤러의 경우 단위테스트시 @WebMvcTest를 주로 사용)
 - 250616 anthropic api 발송시 인증서 문제 해결 > trouble-shooting.txt #1 참고
 - 250618 myBatis 자동타입변환시 dto에 존재하지 않는 칼럼 select시 생기는 변환 오류 해결 > trouble-shooting.txt #2 참고
+- 250618 myBatis dto 매핑시 칼럼 순서와 멤버 순서 일치해야함
 
 @수현
 @영석

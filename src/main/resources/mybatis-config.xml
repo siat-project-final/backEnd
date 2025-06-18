@@ -30,5 +30,7 @@
         <typeAlias alias="MentoringResponseDto" type="com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringResponseDto"/>
 
         <!-- 마이페이지 DTO -->
+        <typeAlias alias="MyPageMentoringsResponseDto" type="com.takoyakki.backend.domain.myPage.dto.response.MyPageMentoringsResponseDto"/>
+
     </typeAliases>
 </configuration>

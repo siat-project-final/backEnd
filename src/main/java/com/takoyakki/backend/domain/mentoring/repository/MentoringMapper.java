@@ -3,6 +3,7 @@ package com.takoyakki.backend.domain.mentoring.repository;
 import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringCompleteRequestDto;
 import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringResponseDto;
 
+import com.takoyakki.backend.domain.myPage.dto.response.MyPageMentoringsResponseDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -29,4 +30,6 @@ public interface MentoringMapper {
 
     // 멘티 기준 완료된 멘토링 목록
     List<MentoringResponseDto> selectCompletedMentoringsByMenteeId(@Param("menteeId") Long menteeId);
+
+    List<MyPageMentoringsResponseDto> selectMentoringHistory(Long memberId);
 }
