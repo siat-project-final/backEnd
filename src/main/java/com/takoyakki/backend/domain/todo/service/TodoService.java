@@ -1,4 +1,17 @@
 package com.takoyakki.backend.domain.todo.service;
 
+import com.takoyakki.backend.domain.todo.dto.TodoCreateRequestDto;
+import com.takoyakki.backend.domain.todo.dto.TodoSelectResponseDto;
+import com.takoyakki.backend.domain.todo.dto.TodoUpdateRequestDto;
+
+import java.util.List;
+
 public interface TodoService {
+    List<TodoSelectResponseDto> getAllTodos(String memberId, String date);
+
+    TodoSelectResponseDto createTodo(TodoCreateRequestDto request);
+
+    boolean updateTodo(Long id, TodoUpdateRequestDto request);
+
+    boolean deleteTodo(Long id);
 }
