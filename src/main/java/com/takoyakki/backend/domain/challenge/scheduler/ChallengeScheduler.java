@@ -1,6 +1,7 @@
 package com.takoyakki.backend.domain.challenge.scheduler;
 
 import com.takoyakki.backend.common.exception.ResourceNotFoundException;
+import com.takoyakki.backend.domain.challenge.dto.response.ChallengeRankResponseDto;
 import com.takoyakki.backend.domain.challenge.service.ChallengeService;
 import com.takoyakki.backend.domain.dailyLearning.repository.DailyLearningMapper;
 import lombok.RequiredArgsConstructor;
@@ -53,5 +54,32 @@ public class ChallengeScheduler {
         }
 
         log.info("챌린지 문제 생성 스케줄러 실행 종료: {}", LocalDateTime.now());
+    }
+
+
+    @Scheduled(cron = "0 51 9 * * *") // 매일 오후 11시 59분
+    public void createDailyChallengeRanking() {
+        log.info("챌린지 랭킹 생성 스케줄러 실행 시작: {}", LocalDateTime.now());
+
+        // 챌린지 랭킹 생성 로직
+        try {
+            LocalDate today = LocalDate.now();
+            List<ChallengeRankResponseDto> challengeRankResponseDtos = challengeService.selectChallengeRankByDate(today);
+
+            if (challengeRankResponseDtos.isEmpty()) {
+                log.info("오늘의 챌린지 랭킹 데이터가 없습니다: {}", today);
+                throw new ResourceNotFoundException("오늘의 챌린지 랭킹 데이터가 없습니다");
+            } else {
+                log.info("오늘의 챌린지 랭킹 데이터 생성 완료: {}", today);
+            }
+
+            challengeService.insertDailyChallengeRanking(challengeRankResponseDtos);
+
+        } catch (Exception e) {
+            log.error("챌린지 랭킹 생성 중 오류 발생: {}", e.getMessage(), e);
+        }
+
+        log.info("챌린지 랭킹 생성 스케줄러 실행 종료: {}", LocalDateTime.now());
+
     }
 }

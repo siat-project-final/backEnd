@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.time.LocalDate;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,5 +35,20 @@ public class ChallengeController {
     public ResponseEntity<?> insertProblemSolving(@Valid @RequestBody ProblemSolvingInsertRequestDto requestDto) {
         challengeService.insertProblemSolving(requestDto);
         return ResponseEntity.ok().build();
+    }
+
+    @Operation(
+            summary = "챌린지 랭킹 조회",
+            description = "오늘의 챌린지 랭킹을 조회합니다",
+            tags = {"challenge"}
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "챌린지 랭킹 조회 성공"),
+            @ApiResponse(responseCode = "404", description = "리소스를 찾을 수 없음"),
+            @ApiResponse(responseCode = "500", description = "서버 오류")
+    })
+    @GetMapping("/rank")
+    public ResponseEntity<?> selectChallengeRankByDate(@RequestParam("date") LocalDate date) {
+        return ResponseEntity.ok(challengeService.selectChallengeRankByDate(date));
     }
 }

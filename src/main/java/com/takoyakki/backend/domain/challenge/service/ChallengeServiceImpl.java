@@ -4,14 +4,16 @@ import com.takoyakki.backend.domain.challenge.api.AnthropicClient;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertItemRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemsInsertRequestDto;
+import com.takoyakki.backend.domain.challenge.dto.response.ChallengeRankResponseDto;
 import com.takoyakki.backend.domain.challenge.dto.response.ProblemsSelectResponseDto;
+import com.takoyakki.backend.domain.challenge.repository.DailyChallengeRankingsMapper;
 import com.takoyakki.backend.domain.challenge.repository.ProblemSolvingMapper;
 import com.takoyakki.backend.domain.challenge.repository.ProblemsMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,7 @@ import java.util.List;
 public class ChallengeServiceImpl implements ChallengeService{
     private final ProblemsMapper problemsMapper;
     private final ProblemSolvingMapper problemSolvingMapper;
+    private final DailyChallengeRankingsMapper dailyChallengeRankingsMapper;
     private final AnthropicClient anthropicClient;
 
     @Override
@@ -73,6 +76,24 @@ public class ChallengeServiceImpl implements ChallengeService{
             return problemSolvingMapper.insertProblemSolving(list);
         } catch (Exception e) {
             throw new RuntimeException("문제 풀이 제출 중 오류가 발생했습니다: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public List<ChallengeRankResponseDto> selectChallengeRankByDate(LocalDate date) {
+        try {
+            return problemSolvingMapper.calculateChallengeRank(date);
+        } catch (Exception e) {
+            throw new RuntimeException("랭킹 조회 중 문제가 발생했습니다: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public int insertDailyChallengeRanking(List<ChallengeRankResponseDto> challengeRankResponseDtos) {
+        try {
+            return dailyChallengeRankingsMapper.insertDailyChallengeRanking(challengeRankResponseDtos);
+        } catch (Exception e) {
+            throw new RuntimeException("랭킹 데이터 삽입 중 오류가 발생했습니다: " + e.getMessage(), e);
         }
     }
 }

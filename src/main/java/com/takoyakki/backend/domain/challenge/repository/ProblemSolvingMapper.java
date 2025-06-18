@@ -14,5 +14,6 @@ import java.util.List;
 public interface ProblemSolvingMapper {
     int insertProblemSolving(List<ProblemSolvingInsertItemRequestDto> requestDto);
 
-    ChallengeRankResponseDto calculateChallengeRank(LocalDate date);
+    List<ChallengeRankResponseDto> calculateChallengeRank(LocalDate date);
+
 }

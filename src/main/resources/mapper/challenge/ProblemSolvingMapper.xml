@@ -28,19 +28,22 @@
         </foreach>
     </insert>
 
-    <select id="calculateChallengeRank">
+    <select id="calculateChallengeRank" resultType="ChallengeRankResponseDto">
         SELECT
-            ps.member_id,
-            m.member_name,
-            SUM(ps.points) AS total_points,
-            RANK() OVER (ORDER BY SUM(ps.points) DESC) AS ranking
+            ps.member_id AS memberId,
+            m.member_name AS memberName,
+            SUM(ps.points) AS totalPoints,
+            RANK() OVER (ORDER BY SUM(ps.points) DESC) AS rank,
+            ps.date::date AS date
         FROM
             problem_solving ps
         JOIN
             members m ON ps.member_id = m.member_id
         WHERE
             ps.is_deleted = FALSE
+        AND
+            ps.date::date = #{date}
         GROUP BY
-            ps.member_id, m.member_name;
+            ps.member_id, m.member_name, ps.date::date;
     </select>
 </mapper>

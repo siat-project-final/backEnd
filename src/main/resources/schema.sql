@@ -15,16 +15,6 @@ CREATE TABLE refresh_tokens (
 	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
 );
 
-
-CREATE TABLE daily_challenge_ranking (
-	challenge_point_history_id BIGINT NOT NULL,
-	member_id BIGINT NOT NULL,
-	rank_level INTEGER NULL,
-	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	is_deleted BOOLEAN NULL,
-	rank_date DATE NULL
-);
-
 CREATE TABLE notification (
 	notification_id BIGINT NOT NULL,
 	user_id BIGINT NOT NULL,
@@ -211,11 +201,19 @@ CREATE TABLE problem_solving (
 
 );
 
+CREATE TABLE daily_challenge_rankings (
+	daily_ranking_id	BIGINT		GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	member_id	BIGINT		NOT NULL,
+	rank_level	INTEGER		NULL,
+	updated_at	TIMESTAMP(0)	DEFAULT CURRENT_TIMESTAMP	NULL,
+	is_deleted	BOOLEAN		DEFAULT FALSE NOT NULL,
+	points	INTEGER		NULL,
+	date	TIMESTAMP(0)		NOT NULL
+);
+
 
 ALTER TABLE todos ADD CONSTRAINT PK_TODOS PRIMARY KEY (todo_date_id);
-ALTER TABLE refresh_tokens ADD CONSTRAINT PK_REFRESH_TOKENS PRIMARY KEY (refresh_token_id);
-ALTER TABLE daily_challenge_ranking ADD CONSTRAINT PK_DAILY_CHALLENGE_RANKING PRIMARY KEY (challenge_point_history_id);
-ALTER TABLE notification ADD CONSTRAINT PK_NOTIFICATION PRIMARY KEY (notification_id);
+ALTER TABLE refresh_tokens ADD CONSTRAINT PK_REFRESH_TOKENS PRIMARY KEY (refresh_token_id);ALTER TABLE notification ADD CONSTRAINT PK_NOTIFICATION PRIMARY KEY (notification_id);
 ALTER TABLE todo_item ADD CONSTRAINT PK_TODO_ITEM PRIMARY KEY (todo_item_id, todo_date_id);
 ALTER TABLE mentors ADD CONSTRAINT PK_MENTORS PRIMARY KEY (mentor_id);
 ALTER TABLE xp_histories ADD CONSTRAINT PK_XP_HISTORIES PRIMARY KEY (xp_history_id);
@@ -395,7 +393,7 @@ VALUES
           2,
           5,
           'Y',
-          5,
+          4,
           NOW()
       );
 
