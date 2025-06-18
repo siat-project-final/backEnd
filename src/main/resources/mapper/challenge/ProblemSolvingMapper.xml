@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.takoyakki.backend.domain.challenge.repository.ProblemSolvingMapper">
+
+    <insert id="insertProblemSolving"  parameterType="java.util.List">
+        INSERT INTO problem_solving
+        (
+            problem_id,
+            member_id,
+            submit_answer,
+            is_correct,
+            points,
+            date
+        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+                #{item.problemId},
+                #{item.memberId},
+                #{item.answer},
+                #{item.isCorrect},
+                #{item.points},
+                NOW()
+            )
+        </foreach>
+    </insert>
+
+    <select id="calculateChallengeRank" resultType="ChallengeRankResponseDto">
+        SELECT
+            ps.member_id AS memberId,
+            m.member_name AS memberName,
+            SUM(ps.points) AS totalPoints,
+            RANK() OVER (ORDER BY SUM(ps.points) DESC) AS rank,
+            ps.date::date AS date
+        FROM
+            problem_solving ps
+        JOIN
+            members m ON ps.member_id = m.member_id
+        WHERE
+            ps.is_deleted = FALSE
+        AND
+            ps.date::date = #{date}
+        GROUP BY
+            ps.member_id, m.member_name, ps.date::date;
+    </select>
+</mapper>

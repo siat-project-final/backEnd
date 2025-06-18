@@ -1,0 +1,18 @@
+#1 AI 문제 챌린지 : anthropic 서버에 문제 생성을 위해 api 요청시 인증서 문제 발생
+> PIXX 인증서 오류 발생
+> keytool을 이용해 사용 자바 폴더로 이동하여
+
+keytool -importcert -keystore $JAVA_HOME/lib/security/cacerts -alias intermediate -file intermediate.crt]
+
+명령어를 통해 인증서 등록
+> 루트 인증서도 등록해야해서
+Somansa Root CA를 somansa-root-ca.crt 파일로 저장한 후
+
+keytool -importcert -trustcacerts \
+  -keystore "$JAVA_HOME/lib/security/cacerts" \
+  -storepass changeit \
+  -alias somansa-root \
+  -file somansa-root-ca.crt
+
+명령어를 통해 JVM truststore에 등록
+> 이후 통신 정상

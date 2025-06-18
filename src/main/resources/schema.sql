@@ -68,6 +68,47 @@ CREATE TABLE mentorings (
   is_deleted BOOLEAN DEFAULT FALSE NOT NULL
 );
 
+-- 챌린지
+CREATE TABLE problems (
+	problem_id	BIGINT	GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	title	VARCHAR(255)    NULL,
+	contents	TEXT	NOT NULL,
+	type	VARCHAR(255)	NULL,
+	difficulty	INTEGER	NULL,
+	subject	VARCHAR(255)	NULL,
+	is_public	BOOLEAN	DEFAULT TRUE	NULL,
+	created_at	TIMESTAMP(0)	DEFAULT CURRENT_TIMESTAMP	NULL,
+	updated_at	TIMESTAMP(0)	DEFAULT CURRENT_TIMESTAMP	NULL,
+	correct_answer	INTEGER	NOT NULL,
+	is_deleted	BOOLEAN	DEFAULT FALSE	NULL
+);
+
+
+CREATE TABLE problem_solving (
+	problem_solving_id	BIGINT		GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	problem_id	BIGINT		NOT NULL,
+	member_id	BIGINT		NOT NULL,
+	submit_answer	INTEGER		NOT NULL,
+	is_correct	BOOLEAN		NULL,
+	points INTEGER		DEFAULT 0 NOT NULL,
+	date	TIMESTAMP(0)		NULL,
+	is_deleted	BOOLEAN		DEFAULT FALSE NOT NULL,
+	CONSTRAINT fk_problem FOREIGN KEY (problem_id) REFERENCES problems (problem_id),
+    CONSTRAINT fk_member FOREIGN KEY (member_id) REFERENCES members (member_id)
+
+);
+
+CREATE TABLE daily_challenge_rankings (
+	daily_ranking_id	BIGINT		GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	member_id	BIGINT		NOT NULL,
+	rank_level	INTEGER		NULL,
+	updated_at	TIMESTAMP(0)	DEFAULT CURRENT_TIMESTAMP	NULL,
+	is_deleted	BOOLEAN		DEFAULT FALSE NOT NULL,
+	points	INTEGER		NULL,
+	date	TIMESTAMP(0)		NOT NULL
+);
+
+-- 기존
 
 CREATE TABLE todos (
 	todo_date_id BIGINT NOT NULL,
@@ -78,27 +119,6 @@ CREATE TABLE todos (
 	is_deleted BOOLEAN NULL
 );
 
-
-CREATE TABLE problem_solving (
-	problem_solving_id BIGINT NOT NULL,
-	problem_id BIGINT NOT NULL,
-	member_id BIGINT NOT NULL,
-	problem_id2 BIGINT NOT NULL,
-	taken_time INTEGER NULL,
-	submit_answer INTEGER NOT NULL,
-	is_correct BOOLEAN NULL,
-	date TIMESTAMP(0) NULL,
-	is_deleted BOOLEAN NULL
-);
-
-CREATE TABLE daily_challenge_ranking (
-	challenge_point_history_id BIGINT NOT NULL,
-	member_id BIGINT NOT NULL,
-	rank_level INTEGER NULL,
-	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	is_deleted BOOLEAN NULL,
-	rank_date DATE NULL
-);
 
 CREATE TABLE notification (
 	notification_id BIGINT NOT NULL,
@@ -161,16 +181,6 @@ CREATE TABLE study_diary (
 	is_deleted BOOLEAN NULL
 );
 
-CREATE TABLE challenge_point_histories (
-	challenge_point_history_id BIGINT NOT NULL,
-	member_id BIGINT NOT NULL,
-	problem_solving_id BIGINT NULL,
-	points_earned INTEGER NULL,
-	action_type INTEGER NULL,
-	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	is_deleted BOOLEAN NULL
-);
-
 CREATE TABLE member_badges (
 	member_badge_id BIGINT NOT NULL,
 	member_id BIGINT NOT NULL,
@@ -178,16 +188,6 @@ CREATE TABLE member_badges (
 	is_equipped BOOLEAN DEFAULT FALSE NULL,
 	unlocked_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
 	is_deleted BOOLEAN NULL
-);
-
-CREATE TABLE difficulty_configs (
-	difficulty_config_id BIGINT NOT NULL,
-	difficulty INTEGER NOT NULL,
-	challenge_points INTEGER NOT NULL,
-	display_name VARCHAR(50) NULL,
-	is_active BOOLEAN DEFAULT TRUE NULL,
-	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
 );
 
 CREATE TABLE students (
@@ -206,19 +206,6 @@ CREATE TABLE daily_learning (
 	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
 );
 
-CREATE TABLE problems (
-	problem_id	BIGINT	GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-	title	VARCHAR(255)    NULL,
-	contents	TEXT	NOT NULL,
-	type	VARCHAR(255)	NULL,
-	difficulty	INTEGER	NULL,
-	subject	VARCHAR(255)	NULL,
-	is_public	BOOLEAN	DEFAULT TRUE	NULL,
-	created_at	TIMESTAMP(0)	DEFAULT CURRENT_TIMESTAMP	NULL,
-	updated_at	TIMESTAMP(0)	DEFAULT CURRENT_TIMESTAMP	NULL,
-	correct_answer	INTEGER	NOT NULL,
-	is_deleted	BOOLEAN	DEFAULT FALSE	NULL
-);
 
 -- # DML
 
@@ -298,7 +285,13 @@ VALUES
 ('Python의 기본 데이터 타입에 대해 학습했습니다. int, char, boolean 등의 특징을 익혔습니다.',
         'Python 기본 데이터 타입',
         'Python',
-        '2025-06-14');
+        '2025-06-14'),
+('Python의 기본 데이터 타입에 대해 학습했습니다. int, char, boolean 등의 특징을 익혔습니다.',
+        'Python 기본 데이터 타입',
+        'React.js',
+        '2025-06-16');
+
+-- 멘토링
 INSERT INTO mentorings_reservation (
     mentor_id,
     mentee_id,
@@ -328,4 +321,137 @@ INSERT INTO mentorings (
     'COMPLETED',
     NOW()
 );
+
+-- 챌린지
+INSERT INTO problems (
+            title,
+            contents,
+            difficulty,
+            subject,
+            correct_answer
+) VALUES (
+    'React.js: 1',
+    'React.js는 무엇인가요?',
+    1,
+    'React.js',
+    1
+), (
+    'React.js: 2',
+    'React.js는 무엇인가요?',
+    2,
+    'React.js',
+    2
+), (
+    'React.js: 3',
+    'React.js는 무엇인가요?',
+    3,
+    'React.js',
+    3
+), (
+    'React.js: 4',
+    'React.js는 무엇인가요?',
+    4,
+    'React.js',
+    4
+), (
+    'React.js: 5',
+    'React.js는 무엇인가요?',
+    5,
+    'React.js',
+    5
+);
+
+INSERT INTO problem_solving
+(
+    problem_id,
+    member_id,
+    submit_answer,
+    is_correct,
+    points,
+    date
+)
+VALUES
+    (
+        1,
+        1,
+        1,
+        'Y',
+        1,
+        NOW()
+    )
+ ,
+    (
+        2,
+        1,
+        2,
+        'Y',
+        2,
+        NOW()
+    )
+ ,
+    (
+        3,
+        1,
+        1,
+        'N',
+        0,
+        NOW()
+    )
+ ,
+    (
+        4,
+        1,
+        4,
+        'Y',
+        4,
+        NOW()
+    )
+ ,
+    (
+        5,
+        1,
+        5,
+        'Y',
+        5,
+        NOW()
+    ),(
+          1,
+          2,
+          1,
+          'Y',
+          1,
+          NOW()
+      ),
+      (
+          2,
+          2,
+          2,
+          'Y',
+          2,
+          NOW()
+      ),
+      (
+          3,
+          2,
+          1,
+          'N',
+          0,
+          NOW()
+      ),
+      (
+          4,
+          2,
+          4,
+          'Y',
+          4,
+          NOW()
+      ),
+      (
+          5,
+          2,
+          5,
+          'Y',
+          4,
+          NOW()
+      );
 

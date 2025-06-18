@@ -37,6 +37,8 @@
 @태현
 - 250614 @MockBean deprecated > @MockitoBean
 - 250614 컨트롤러 단위테스트 ExtendWith > WebMvcTest(엄밀하게 단위테스트는 아닐 수 있지만 컨트롤러의 경우 단위테스트시 @WebMvcTest를 주로 사용)
+- 250616 anthropic api 발송시 인증서 문제 해결 > trouble-shooting.txt #1 참고
+
 @수현
 @영석
 

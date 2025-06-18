@@ -16,6 +16,10 @@
 
         <!-- 챌린지 문제 관련 DTO -->
         <typeAlias alias="ProblemsInsertRequestDto" type="com.takoyakki.backend.domain.challenge.dto.ProblemsInsertRequestDto"/>
+        <typeAlias alias="ProblemsSelectResponseDto" type="com.takoyakki.backend.domain.challenge.dto.response.ProblemsSelectResponseDto"/>
+
+        <typeAlias alias="ProblemSolvingInsertRequestDto" type="com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRequestDto"/>
+        <typeAlias alias="ChallengeRankResponseDto" type="com.takoyakki.backend.domain.challenge.dto.response.ChallengeRankResponseDto"/>
 
         <!-- 멘토링 예약 관련 DTO -->
         <typeAlias alias="MentoringReservationAcceptResponseDto" type="com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationAcceptResponseDto"/>
