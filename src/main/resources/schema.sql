@@ -105,7 +105,7 @@ CREATE TABLE daily_challenge_rankings (
 	updated_at	TIMESTAMP(0)	DEFAULT CURRENT_TIMESTAMP	NULL,
 	is_deleted	BOOLEAN		DEFAULT FALSE NOT NULL,
 	points	INTEGER		NULL,
-	date	TIMESTAMP(0)		NOT NULL
+	date	DATE		NOT NULL
 );
 
 -- 기존
@@ -455,14 +455,21 @@ VALUES
           NOW()
       );
 
-INSERT INTO daily_challenge_rankings (
-  member_id,
-  rank_level,
-  points,
-  date
-) VALUES
-  (1, 1, 150, '2025-06-18 00:00:00'),
-  (2, 2, 120, '2025-06-18 00:00:00'),
-  (2, 3, 100, '2025-06-17 00:00:00'),
-  (2, 3, 100, '2025-06-17 00:00:00');
+INSERT INTO daily_challenge_rankings
+(
+member_id,
+rank_level,
+points,
+date
+  )
+VALUES
+(1, 1, 15, CAST('2025-06-16' AS DATE)),
+(2, 2, 14, CAST('2025-06-16' AS DATE)),
+(3, 3, 13, CAST('2025-06-16' AS DATE)),
+(1, 1, 15, CAST('2025-06-18' AS DATE)),
+(2, 2, 12, CAST('2025-06-18' AS DATE)),
+(1, 1, 15, CAST('2025-06-17' AS DATE)),
+(2, 2, 14, CAST('2025-06-17' AS DATE));
+
+
 

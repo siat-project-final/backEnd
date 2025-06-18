@@ -1,4 +1,4 @@
-package com.takoyakki.backend.domain.challenge.dto.response;
+package com.takoyakki.backend.domain.myPage.dto.response;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Schema(description = "AI 챌린지 랭킹 응답")
 @Builder
 @ToString
-public class ChallengeRankResponseDto {
+public class ChallengeRanksByMemberIdResponseDto {
     @Schema(description = "유저 고유 id", example = "11")
     private Long memberId;
 
@@ -25,6 +25,4 @@ public class ChallengeRankResponseDto {
     @Schema(description = "총 점수", example = "15")
     private int totalPoints;
 
-    @Schema(description = "날짜", example = "2025-06-01")
-    private LocalDate date;
 }

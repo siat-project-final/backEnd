@@ -29,5 +29,6 @@
         <typeAlias alias="MentoringCompleteRequestDto" type="com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringCompleteRequestDto"/>
         <typeAlias alias="MentoringResponseDto" type="com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringResponseDto"/>
 
+        <!-- 마이페이지 DTO -->
     </typeAliases>
 </configuration>

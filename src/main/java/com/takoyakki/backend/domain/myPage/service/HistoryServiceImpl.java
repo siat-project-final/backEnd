@@ -15,6 +15,10 @@ public class HistoryServiceImpl implements HistoryService{
     private final DailyChallengeRankingsMapper dailyChallengeRankingsMapper;
     @Override
     public List<ChallengeRankResponseDto> selectChallengeHistory(Long memberId) {
-        return dailyChallengeRankingsMapper.selectChallengeRanksByMemberId(memberId);
+        try {
+            return dailyChallengeRankingsMapper.selectChallengeRanksByMemberId(memberId);
+        } catch (Exception e) {
+            throw new RuntimeException("랭킹 조회 중 문제가 발생했습니다: " + e.getMessage(), e);
+        }
     }
 }

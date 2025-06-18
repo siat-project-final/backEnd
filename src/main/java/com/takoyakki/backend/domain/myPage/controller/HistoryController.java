@@ -30,7 +30,7 @@ public class HistoryController {
             @ApiResponse(responseCode = "500", description = "서버 오류")
     })
     @GetMapping("/challenge/{memberId}")
-    public ResponseEntity<?> selectChallengeRankByDate(@PathVariable("memberId") Long memberId) {
+    public ResponseEntity<?> selectChallengeRank(@PathVariable("memberId") Long memberId) {
         return ResponseEntity.ok(historyService.selectChallengeHistory(memberId));
     }
 }

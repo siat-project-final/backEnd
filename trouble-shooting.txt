@@ -1,3 +1,5 @@
+@권태현
+
 #1 AI 문제 챌린지 : anthropic 서버에 문제 생성을 위해 api 요청시 인증서 문제 발생
 > PIXX 인증서 오류 발생
 > keytool을 이용해 사용 자바 폴더로 이동하여
@@ -16,3 +18,7 @@ keytool -importcert -trustcacerts \
 
 명령어를 통해 JVM truststore에 등록
 > 이후 통신 정상
+
+#2 myBatis 자동타입변환시 dto에 존재하지 않는 칼럼 select시 오류 발생
+> dto에 memberName 칼럼 존재하나 mapper에서 memberName 칼럼을 사용하지 않으면 타입 변환시 DATE to INTEGER처럼 자동 변환시 오류 발생
+> 매퍼에 정상적으로 칼럼 모두 추가 후 해결

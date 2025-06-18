@@ -37,7 +37,7 @@
             ps.date::date AS date
         FROM
             problem_solving ps
-        JOIN
+        LEFT OUTER JOIN
             members m ON ps.member_id = m.member_id
         WHERE
             ps.is_deleted = FALSE
