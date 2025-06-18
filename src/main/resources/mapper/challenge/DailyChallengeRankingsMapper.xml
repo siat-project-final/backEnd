@@ -27,16 +27,19 @@
     </insert>
 
     <select id="selectChallengeRanksByMemberId" resultType="ChallengeRankResponseDto">
-        SELECT
+        SELECT DISTINCT
             r.member_id AS memberId,
             m.member_name AS memberName,
             r.rank_level AS rank,
             r.points AS totalPoints,
-            r.date
+            r.date,
+            p.subject AS subject
         FROM
             daily_challenge_rankings r
         LEFT OUTER JOIN
             members m ON r.member_id = m.member_id
+        LEFT OUTER JOIN
+            problems p ON r.date = p.created_at::date
         WHERE
             r.member_id = #{memberId}
         ORDER BY
