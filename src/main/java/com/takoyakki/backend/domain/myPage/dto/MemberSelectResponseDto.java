@@ -1,9 +1,8 @@
-package com.takoyakki.backend.domain.member.dto;
+package com.takoyakki.backend.domain.myPage.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Data
 @Schema(description = "회원 정보 조회")

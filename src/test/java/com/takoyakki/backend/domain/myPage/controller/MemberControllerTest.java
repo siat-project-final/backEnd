@@ -1,14 +1,11 @@
-package com.takoyakki.backend.domain.member.controller;
+package com.takoyakki.backend.domain.myPage.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.takoyakki.backend.common.auth.JwtTokenProvider;
-import com.takoyakki.backend.common.auth.dto.SignUpRequestDto;
-import com.takoyakki.backend.common.exception.BusinessLogicException;
 import com.takoyakki.backend.common.exception.ResourceNotFoundException;
-import com.takoyakki.backend.common.exception.UnauthorizedException;
-import com.takoyakki.backend.domain.member.dto.MemberSelectResponseDto;
-import com.takoyakki.backend.domain.member.dto.MemberUpdateRequestDto;
-import com.takoyakki.backend.domain.member.service.MemberService;
+import com.takoyakki.backend.domain.myPage.dto.MemberSelectResponseDto;
+import com.takoyakki.backend.domain.myPage.dto.MemberUpdateRequestDto;
+import com.takoyakki.backend.domain.myPage.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

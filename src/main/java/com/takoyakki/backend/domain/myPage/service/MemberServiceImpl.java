@@ -1,11 +1,10 @@
-package com.takoyakki.backend.domain.member.service;
+package com.takoyakki.backend.domain.myPage.service;
 
-import com.takoyakki.backend.common.exception.BusinessLogicException;
 import com.takoyakki.backend.common.exception.ResourceNotFoundException;
 import com.takoyakki.backend.common.exception.UnauthorizedException;
-import com.takoyakki.backend.domain.member.dto.MemberSelectResponseDto;
-import com.takoyakki.backend.domain.member.dto.MemberUpdateRequestDto;
-import com.takoyakki.backend.domain.member.repository.MemberMapper;
+import com.takoyakki.backend.domain.myPage.dto.MemberSelectResponseDto;
+import com.takoyakki.backend.domain.myPage.dto.MemberUpdateRequestDto;
+import com.takoyakki.backend.domain.myPage.repository.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

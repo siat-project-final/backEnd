@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-    <mapper namespace="com.takoyakki.backend.domain.member.repository.MemberMapper">
+    <mapper namespace="com.takoyakki.backend.domain.myPage.repository.MemberMapper">
 
         <resultMap id="MemberSelectResponseMap" type="MemberSelectResponseDto">
             <result property="memberId" column="member_id" />

@@ -1,7 +1,7 @@
-package com.takoyakki.backend.domain.member.repository;
+package com.takoyakki.backend.domain.myPage.repository;
 
-import com.takoyakki.backend.domain.member.dto.MemberSelectResponseDto;
-import com.takoyakki.backend.domain.member.dto.MemberUpdateRequestDto;
+import com.takoyakki.backend.domain.myPage.dto.MemberSelectResponseDto;
+import com.takoyakki.backend.domain.myPage.dto.MemberUpdateRequestDto;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

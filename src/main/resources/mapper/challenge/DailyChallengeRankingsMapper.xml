@@ -26,4 +26,18 @@
         </foreach>
     </insert>
 
+    <select id="selectChallengeRanksByMemberId" resultType="java.util.List">
+        SELECT
+            member_id,
+            rank_level AS rank,
+            points AS totalPoints,
+            date
+        FROM
+            daily_challenge_rankings
+        WHERE
+            member_id = #{memberId}
+        ORDER BY
+            date DESC
+    </select>
+
 </mapper>

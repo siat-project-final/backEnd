@@ -1,16 +1,15 @@
-package com.takoyakki.backend.domain.member.controller;
+package com.takoyakki.backend.domain.myPage.controller;
 
 import com.takoyakki.backend.common.api.ApiResult;
-import com.takoyakki.backend.domain.member.dto.MemberSelectResponseDto;
-import com.takoyakki.backend.domain.member.dto.MemberUpdateRequestDto;
-import com.takoyakki.backend.domain.member.service.MemberService;
+import com.takoyakki.backend.domain.myPage.dto.MemberSelectResponseDto;
+import com.takoyakki.backend.domain.myPage.dto.MemberUpdateRequestDto;
+import com.takoyakki.backend.domain.myPage.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +17,8 @@ import java.net.URI;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/members")
-@Tag(name = "회원 관리", description = "내 정보 조회, 수정, 탈퇴 등 회원관리 API")
+@RequestMapping("/v1/myPage/members")
+@Tag(name = "회원 관리", description = "마이페이지 > 내 정보 조회, 수정, 탈퇴 등 회원관리 API")
 public class MemberController {
     private final MemberService memberService;
 

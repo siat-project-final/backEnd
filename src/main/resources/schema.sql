@@ -455,3 +455,14 @@ VALUES
           NOW()
       );
 
+INSERT INTO daily_challenge_rankings (
+  member_id,
+  rank_level,
+  points,
+  date
+) VALUES
+  (1, 1, 150, '2025-06-18 00:00:00'),
+  (2, 2, 120, '2025-06-18 00:00:00'),
+  (2, 3, 100, '2025-06-17 00:00:00'),
+  (2, 3, 100, '2025-06-17 00:00:00');
+

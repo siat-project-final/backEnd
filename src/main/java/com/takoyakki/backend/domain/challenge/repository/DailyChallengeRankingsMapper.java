@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface DailyChallengeRankingsMapper {
     int insertDailyChallengeRanking(List<ChallengeRankResponseDto> list);
+
+    List<ChallengeRankResponseDto> selectChallengeRanksByMemberId(Long memberId);
 }
