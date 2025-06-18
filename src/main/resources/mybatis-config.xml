@@ -15,7 +15,7 @@
         <typeAlias alias="MemberUpdateRequestDto" type="com.takoyakki.backend.domain.member.dto.MemberUpdateRequestDto"/>
 
         <!-- 챌린지 문제 관련 DTO -->
-        <typeAlias alias="ProblemsInsertRequestDto" type="com.takoyakki.backend.domain.challenge.dto.ProblemsInsertRequestDto"/>
+        <typeAlias alias="ProblemsInsertRequestDto" type="com.takoyakki.backend.domain.challenge.dto.request.ProblemsInsertRequestDto"/>
         <typeAlias alias="ProblemsSelectResponseDto" type="com.takoyakki.backend.domain.challenge.dto.response.ProblemsSelectResponseDto"/>
 
         <typeAlias alias="ProblemSolvingInsertRequestDto" type="com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRequestDto"/>

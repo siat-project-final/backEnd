@@ -3,6 +3,7 @@ package com.takoyakki.backend.common.config;
 import com.takoyakki.backend.common.interceptor.AuthenticationInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -15,6 +16,18 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authenticationInterceptor)
-            .addPathPatterns("/admin");
+            .addPathPatterns("/admin")
+            .excludePathPatterns("/v1")
+            .order(1);
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry corsRegistry) {
+        corsRegistry
+                .addMapping("/**")
+                .allowedHeaders("*")
+                .allowedOrigins("http://localhost:3000")
+                .allowedMethods("*")
+                .allowCredentials(true);
     }
 }
