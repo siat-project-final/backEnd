@@ -5,6 +5,7 @@ import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRe
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemsInsertRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.response.ChallengeRankResponseDto;
 import com.takoyakki.backend.domain.challenge.dto.response.ProblemsSelectResponseDto;
+import com.takoyakki.backend.domain.myPage.dto.response.MyPageProblemSelectResponseDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.time.LocalDate;
@@ -16,4 +17,5 @@ public interface ProblemSolvingMapper {
 
     List<ChallengeRankResponseDto> calculateChallengeRank(LocalDate date);
 
+    List<MyPageProblemSelectResponseDto> selectChallengeDetail(Long memberId, LocalDate date);
 }

@@ -46,4 +46,25 @@
         GROUP BY
             ps.member_id, m.member_name, ps.date::date;
     </select>
+
+    <select id="selectChallengeDetail" resultType="MyPageProblemSelectResponseDto">
+        SELECT
+            p.difficulty AS difficulty,
+            p.title AS title,
+            p.contents AS content,
+            ps.submit_answer AS submitAnswer,
+            p.correct_answer AS correctAnswer,
+            ps.is_correct AS isCorrect,
+            ps.points AS points
+        FROM
+            problem_solving ps
+        LEFT OUTER JOIN
+            problems p ON ps.problem_id = p.problem_id
+        WHERE
+            ps.date::date = #{date}
+        AND
+            ps.member_id = #{memberId}
+        ORDER BY
+            ps.date DESC
+    </select>
 </mapper>
