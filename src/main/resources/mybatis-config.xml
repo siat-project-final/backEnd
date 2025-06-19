@@ -29,5 +29,11 @@
         <typeAlias alias="MentoringCompleteRequestDto" type="com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringCompleteRequestDto"/>
         <typeAlias alias="MentoringResponseDto" type="com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringResponseDto"/>
 
+        <!-- 멘토링 완료 및 상세 DTO -->
+        <typeAlias alias="StudyDiaryInsertRequestDto" type="com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryInsertRequestDto"/>
+        <typeAlias alias="StudyDiarySelectResponseDto" type="com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiarySelectResponseDto"/>
+        <typeAlias alias="StudyDiaryUpdateRequestDto" type="com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryUpdateRequestDto"/>
+
+
     </typeAliases>
 </configuration>
