@@ -23,4 +23,7 @@ public class MemberSelectResponseDto {
     private String nickname;
     @Schema(description = "phone_number")
     private String phoneNumber;
+    @Schema(description = "total_xp")
+    private int totalXp;
+
 }

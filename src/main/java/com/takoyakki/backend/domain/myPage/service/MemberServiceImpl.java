@@ -2,8 +2,11 @@ package com.takoyakki.backend.domain.myPage.service;
 
 import com.takoyakki.backend.common.exception.ResourceNotFoundException;
 import com.takoyakki.backend.common.exception.UnauthorizedException;
+import com.takoyakki.backend.domain.challenge.repository.DailyChallengeRankingsMapper;
+import com.takoyakki.backend.domain.mentoring.repository.MentoringMapper;
 import com.takoyakki.backend.domain.myPage.dto.MemberSelectResponseDto;
 import com.takoyakki.backend.domain.myPage.dto.MemberUpdateRequestDto;
+import com.takoyakki.backend.domain.myPage.dto.response.MyPageStatisticsResponseDto;
 import com.takoyakki.backend.domain.myPage.repository.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,8 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class MemberServiceImpl implements MemberService {
     private final MemberMapper memberMapper;
+    private final DailyChallengeRankingsMapper dailyChallengeRankingsMapper;
+    private final MentoringMapper mentoringMapper;
 
     @Override
     public MemberSelectResponseDto selectMemberInfo(Long memberId) {
@@ -32,5 +37,23 @@ public class MemberServiceImpl implements MemberService {
         }
 
         return memberMapper.updateMemberInfo(updateDto);
+    }
+
+    @Override
+    public MyPageStatisticsResponseDto getStatistics(Long memberId) {
+        try {
+            // 학습일지 추가 필요
+            int challengeCount = dailyChallengeRankingsMapper.selectChallengeCount(memberId);
+            int mentoringCount = mentoringMapper.selectMentoringCount(memberId);
+            int totalXp = memberMapper.selectMemberInfo(memberId).getTotalXp();
+
+            return MyPageStatisticsResponseDto.builder()
+                    .challengeCount(challengeCount)
+                    .mentoringCount(mentoringCount)
+                    .totalXp(totalXp)
+                    .build();
+        } catch (Exception e) {
+            throw new RuntimeException("통계 조회 중 문제가 발생했습니다: " + e.getMessage(), e);
+        }
     }
 }

@@ -32,4 +32,7 @@ public interface MentoringMapper {
     List<MentoringResponseDto> selectCompletedMentoringsByMenteeId(@Param("menteeId") Long menteeId);
 
     List<MyPageMentoringsResponseDto> selectMentoringHistory(Long memberId);
+
+    int selectMentoringCount(Long memberId);
+
 }

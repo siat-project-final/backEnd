@@ -136,4 +136,12 @@
             m.created_at DESC
     </select>
 
+    <select id="selectMentoringCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            mentorings
+        WHERE
+            mentor_id = #{mentorId}
+    </select>
 </mapper>

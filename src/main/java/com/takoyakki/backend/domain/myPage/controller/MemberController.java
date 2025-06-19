@@ -3,6 +3,7 @@ package com.takoyakki.backend.domain.myPage.controller;
 import com.takoyakki.backend.common.api.ApiResult;
 import com.takoyakki.backend.domain.myPage.dto.MemberSelectResponseDto;
 import com.takoyakki.backend.domain.myPage.dto.MemberUpdateRequestDto;
+import com.takoyakki.backend.domain.myPage.dto.response.MyPageStatisticsResponseDto;
 import com.takoyakki.backend.domain.myPage.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -58,5 +59,21 @@ public class MemberController {
             @Valid @RequestBody MemberUpdateRequestDto updateDto) {
         memberService.updateMemberInfo(memberId, updateDto);
         return ResponseEntity.ok(ApiResult.success("회원 정보 수정 성공"));
+    }
+
+    @Operation(
+            summary = "통계 조회",
+            description = "멤버 자신의 통계를 조회합니다",
+            tags = { "statistics" }
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "조회 성공"),
+            @ApiResponse(responseCode = "400", description = "잘못된 요청"),
+            @ApiResponse(responseCode = "500", description = "서버 오류")
+    })
+    @GetMapping("/{memberId}/statistics")
+    public ResponseEntity<MyPageStatisticsResponseDto> getStatistics(@PathVariable("memberId") Long memberId){
+        MyPageStatisticsResponseDto myPageStatisticsResponseDto = memberService.getStatistics(memberId);
+        return ResponseEntity.ok(myPageStatisticsResponseDto);
     }
 }

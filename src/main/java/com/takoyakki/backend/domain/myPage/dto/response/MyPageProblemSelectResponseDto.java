@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Builder
-@Schema(description = "AI 챌린지 랭킹 응답")
+@Schema(description = "마이페이지 문제 풀이 상세 응답")
 public class MyPageProblemSelectResponseDto {
     @Schema(description = "난이도", example = "1")
     private int difficulty;

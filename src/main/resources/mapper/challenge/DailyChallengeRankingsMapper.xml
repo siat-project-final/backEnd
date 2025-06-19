@@ -46,4 +46,13 @@
             r.date DESC
     </select>
 
+    <select id="selectChallengeCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            daily_challenge_rankings
+        WHERE
+            member_id = #{memberId}
+    </select>
+
 </mapper>

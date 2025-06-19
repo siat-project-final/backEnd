@@ -9,6 +9,7 @@
             <result property="memberId" column="member_id" />
             <result property="memberName" column="member_name" />
             <result property="phoneNumber" column="phone_number" />
+            <result property="totalXp" column="total_xp" />
         </resultMap>
 
         <select id="selectMemberInfo" parameterType="java.lang.Long" resultMap="MemberSelectResponseMap">
@@ -19,7 +20,8 @@
                 role,
                 email,
                 nickname,
-                phone_number
+                phone_number,
+                total_xp
             FROM
                 members
             WHERE
