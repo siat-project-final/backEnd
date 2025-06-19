@@ -4,6 +4,67 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.takoyakki.backend.domain.studyDiary.repository.StudyDiraryMapper">
+    <insert id="insertStudyDiary" parameterType="StudyDiaryInsertRequestDto">
+        INSERT INTO study_diary
+        (
+            member_id,
+            title,
+            contents,
+            subject,
+            ai_summary,<!-- Use NOW() for created_at to automatically set the current timestamp -->
+            created_at,
+            study_date,
+            is_public
+        )
+        VALUES
+        (
+            #{memberId},
+            #{title},
+            #{contents},
+            #{subject},
+            #{aISummary},
+            NOW(),
+            #{studyDate},
+            #{isPublic}
+        )
+    </insert>
+
+    <select id="selectStudyDiary" parameterType="long" resultType="StudyDiarySelectResponseDto">
+        SELECT
+        id,
+        member_id,
+        title,
+        content,
+        created_at
+        FROM
+        study_diary
+        WHERE
+        id = #{diaryId}
+    </select>
+
+    <update id="updateStudyDiary">
+        UPDATE study_diary
+        SET
+        title = #{requestDto.title},
+        content = #{requestDto.content}
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="selectStudyDiaryList" parameterType="long" resultType="StudyDiarySelectResponseDto">
+        SELECT
+        id,
+        member_id,
+        title,
+        content,
+        created_at
+        FROM
+        study_diary
+        WHERE
+        member_id = #{memberId}
+        ORDER BY
+        created_at DESC
+    </select>
 
 
 </mapper>

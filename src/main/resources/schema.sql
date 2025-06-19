@@ -108,6 +108,32 @@ CREATE TABLE daily_challenge_rankings (
 	date	TIMESTAMP(0)		NOT NULL
 );
 
+-- 학습일지
+CREATE TABLE study_diary (
+    diary_id    BIGINT      GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    member_id   BIGINT      NOT NULL,
+    contents    VARCHAR(255),
+    title       VARCHAR(255),
+    subject     VARCHAR(255),
+    created_at  TIMESTAMP   DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP   DEFAULT CURRENT_TIMESTAMP,
+    study_date  TIMESTAMP   DEFAULT CURRENT_TIMESTAMP,
+    ai_summary  TEXT,
+    is_deleted  BOOLEAN,
+    is_public   BOOLEAN,
+    likes       INTEGER
+);
+
+CREATE TABLE diary_comments (
+    comment_id   BIGINT       GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    diary_id     BIGINT       NOT NULL,
+    member_id    BIGINT       NOT NULL,
+    contents     VARCHAR(255),
+    created_at   TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
+    updated_at   TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
+    is_deleted   BOOLEAN
+);
+
 -- 기존
 
 CREATE TABLE todos (
@@ -129,27 +155,6 @@ CREATE TABLE notification (
 	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
 );
 
-CREATE TABLE todo_item (
-	todo_item_id BIGINT NOT NULL,
-	todo_date_id BIGINT NOT NULL,
-	title VARCHAR(255) NULL,
-	importance INTEGER NULL,
-	time_priority INTEGER DEFAULT FALSE NULL,
-	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	is_deleted BOOLEAN NULL
-);
-
-CREATE TABLE xp_histories (
-	xp_history_id BIGINT NOT NULL,
-	member_id BIGINT NOT NULL,
-	activity_type INTEGER NULL,
-	xp_amount INTEGER NULL,
-	reference_id BIGINT NULL,
-	description TEXT NULL,
-	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	is_deleted BOOLEAN NULL
-);
 
 CREATE TABLE badges (
 	badge_id BIGINT NOT NULL,
@@ -160,25 +165,6 @@ CREATE TABLE badges (
 	required_level INTEGER NULL,
 	is_active BOOLEAN DEFAULT TRUE NULL,
 	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
-);
-
-CREATE TABLE level_configs (
-	level INTEGER NOT NULL,
-	required_xp INTEGER NULL,
-	level_name VARCHAR(255) NULL,
-	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
-);
-
-CREATE TABLE study_diary (
-	diary_id BIGINT NOT NULL,
-	member_id BIGINT NOT NULL,
-	contents VARCHAR(255) NULL,
-	title VARCHAR(255) NULL,
-	subject VARCHAR(255) NULL,
-	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	AI_summary TEXT NULL,
-	is_deleted BOOLEAN NULL
 );
 
 CREATE TABLE member_badges (
