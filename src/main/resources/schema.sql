@@ -511,4 +511,11 @@ INSERT INTO study_diary
       (1, 'JPA와 Hibernate 매핑 이해', 'JPA 매핑', 'Java', NOW(), NOW(), '2025-06-16 16:00:00', '엔티티 매핑과 연관관계 설명', FALSE, TRUE, 7),
       (4, 'AWS EC2 인스턴스 생성 및 설정', 'AWS 입문', 'Cloud', NOW(), NOW(), '2025-06-15 11:00:00', 'AWS EC2 사용법과 설정 요약', FALSE, FALSE, 1);
 
+INSERT INTO diary_comments (diary_id, member_id, contents)
+VALUES
+    (1, 1, '첫 번째 댓글입니다.'),
+    (1, 1, '두 번째 댓글, 좋은 글이네요!'),
+    (2, 1, '질문이 있습니다. 설명 부탁드려요.'),
+    (3, 1, '감사합니다. 많은 도움이 됐어요.'),
+    (2, 1, '흥미로운 내용이네요. 잘 읽었습니다.');
 
