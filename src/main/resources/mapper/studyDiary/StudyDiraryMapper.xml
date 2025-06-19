@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.takoyakki.backend.domain.studyDiary.repository.StudyDiraryMapper">
+
+    <insert id="insertStudyDiary" parameterType="StudyDiaryInsertRequestDto">
+        INSERT INTO study_diary
+        (
+            member_id,
+            title,
+            contents,
+            subject,
+            ai_summary,<!-- Use NOW() for created_at to automatically set the current timestamp -->
+            created_at,
+            study_date,
+            is_public
+        )
+        VALUES
+        (
+            #{memberId},
+            #{title},
+            #{contents},
+            #{subject},
+            #{aiSummary},
+            NOW(),
+            #{studyDate},
+            #{isPublic}
+        )
+    </insert>
+
+    <select id="selectStudyDiary" parameterType="long" resultType="com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiarySelectResponseDto">
+        SELECT
+            diary_id       AS diaryId,
+            member_id      AS memberId,
+            title,
+            contents,
+            subject        AS subjectName,
+            ai_summary     AS aiSummary,
+            study_date     AS studyDate,
+            is_public      AS isPublic,
+            created_at     AS createdAt,
+            updated_at     AS updatedAt
+        FROM
+            study_diary
+        WHERE
+            diary_id = #{diaryId}
+          AND is_deleted = FALSE
+    </select>
+
+<!--    <update id="updateStudyDiary">-->
+<!--        UPDATE study_diary-->
+<!--        SET-->
+<!--        title = #{title},-->
+<!--        contents = #{contents}-->
+<!--        WHERE-->
+<!--        diary_id = #{diaryId}-->
+<!--    </update>-->
+
+    <update id="updateStudyDiary">
+        UPDATE study_diary
+        SET
+            title = #{param2.title},
+            contents = #{param2.contents}
+        WHERE
+            diary_id = #{param1}
+    </update>
+
+
+    <select id="selectStudyDiaryList" parameterType="long" resultType="StudyDiarySelectResponseDto">
+        SELECT
+            diary_id       AS diaryId,
+            member_id      AS memberId,
+            title,
+            contents,
+            subject        AS subjectName,
+            ai_summary     AS aiSummary,
+            TO_CHAR(study_date, 'YYYY-MM-DD') AS studyDate,
+            is_public      AS isPublic,
+            TO_CHAR(created_at, 'YYYY-MM-DD"T"HH24:MI:SS') AS createdAt,
+            TO_CHAR(updated_at, 'YYYY-MM-DD"T"HH24:MI:SS') AS updatedAt
+        FROM
+            study_diary
+        WHERE
+            member_id = #{memberId}
+          AND is_deleted = FALSE
+        ORDER BY
+            created_at DESC
+    </select>
+
+
+    <!-- StudyDiraryMapper.xml -->
+    <select id="selectStudyDiariesByMemberId"
+            parameterType="long"
+            resultType="com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiarySelectResponseDto">
+        SELECT
+            diary_id       AS diaryId,
+            member_id      AS memberId,
+            title,
+            contents,
+            subject,
+            created_at     AS createdAt,
+            updated_at     AS updatedAt,
+            study_date     AS studyDate,
+            ai_summary     AS aiSummary,
+            is_deleted     AS isDeleted,
+            is_public      AS isPublic,
+            likes
+        FROM
+            study_diary
+        WHERE
+            member_id = #{memberId}
+          AND is_deleted = FALSE
+        ORDER BY
+            study_date DESC
+    </select>
+
+    <select id="selectStudyDiaryById"
+            parameterType="long"
+            resultType="com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiarySelectResponseDto">
+        SELECT
+            diary_id       AS diaryId,
+            member_id      AS memberId,
+            title,
+            contents,
+            subject,
+            created_at     AS createdAt,
+            updated_at     AS updatedAt,
+            study_date     AS studyDate,
+            ai_summary     AS aiSummary,
+            is_deleted     AS isDeleted,
+            is_public      AS isPublic,
+            likes
+        FROM
+            study_diary
+        WHERE
+            diary_id = #{diaryId}
+          AND is_deleted = FALSE
+    </select>
+
+
+</mapper>
