@@ -1,3 +1,5 @@
+SET client_encoding = 'UTF8';
+
 -- #DDL
 -- 유저
 CREATE TABLE members (
@@ -48,7 +50,7 @@ CREATE TABLE mentorings_reservation (
   mentee_id BIGINT NOT NULL,
   introduction TEXT NULL,
   date TIMESTAMP(0) NOT NULL,
-  subject VARCHAR(255) DEFAULT NULL,
+  subject VARCHAR(255) NULL,
   status VARCHAR(255) DEFAULT 'PENDING' NOT NULL,
   created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP,

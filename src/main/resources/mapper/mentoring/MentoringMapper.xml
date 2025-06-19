@@ -117,4 +117,23 @@
             m.created_at DESC
     </select>
 
+    <!-- 마이페이지 관련 메서드 -->
+    <select id="selectMentoringHistory" resultType="MyPageMentoringsResponseDto">
+        SELECT
+            m.mentor_id AS mentorId,
+            mt.mentor_name AS mentorName,
+            mt.mentor_image_url AS imageUrl,
+            mr.subject AS subject
+        FROM
+            mentorings m
+        LEFT OUTER JOIN
+            mentors mt ON m.mentor_id = mt.mentor_id
+        LEFT OUTER JOIN
+            mentorings_reservation mr ON m.reservation_id = mr.reservation_id
+        WHERE
+            m.mentee_id = #{memberId}
+        ORDER BY
+            m.created_at DESC
+    </select>
+
 </mapper>

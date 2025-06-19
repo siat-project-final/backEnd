@@ -48,4 +48,19 @@ public class HistoryController {
     public ResponseEntity<?> selectChallengeDetail(@PathVariable("memberId") Long memberId, @PathVariable("date") LocalDate date) {
         return ResponseEntity.ok(historyService.selectChallengeDetail(memberId, date));
     }
+
+    @Operation(
+            summary = "멘토링 히스토리 조회",
+            description = "내 멘토링 랭킹 기록을 조회합니다",
+            tags = {"mentoring"}
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "멘토링 랭킹 전체 조회 성공"),
+            @ApiResponse(responseCode = "404", description = "리소스를 찾을 수 없음"),
+            @ApiResponse(responseCode = "500", description = "서버 오류")
+    })
+    @GetMapping("/mentoring/{memberId}")
+    public ResponseEntity<?> selectMentoringHistory(@PathVariable("memberId") Long memberId) {
+        return ResponseEntity.ok(historyService.selectMentoringHistory(memberId));
+    }
 }
