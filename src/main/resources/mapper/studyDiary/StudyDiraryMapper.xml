@@ -22,7 +22,7 @@
             #{title},
             #{contents},
             #{subject},
-            #{aISummary},
+            #{aiSummary},
             NOW(),
             #{studyDate},
             #{isPublic}
@@ -34,7 +34,7 @@
         id,
         member_id,
         title,
-        content,
+        contents,
         created_at
         FROM
         study_diary
@@ -46,17 +46,17 @@
         UPDATE study_diary
         SET
         title = #{requestDto.title},
-        content = #{requestDto.content}
+        contents = #{requestDto.contents}
         WHERE
-        id = #{id}
+        diary_id = #{id}
     </update>
 
     <select id="selectStudyDiaryList" parameterType="long" resultType="StudyDiarySelectResponseDto">
         SELECT
-        id,
+        diary_id,
         member_id,
         title,
-        content,
+        contents,
         created_at
         FROM
         study_diary
