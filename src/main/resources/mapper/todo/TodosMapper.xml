@@ -1,0 +1,91 @@
+<mapper namespace="com.takoyakki.backend.domain.todo.repository.TodosMapper">
+
+    <!-- 전체 할 일 목록 조회 (날짜 필터 가능) -->
+    <select id="selectAllTodos" resultType="TodoSelectResponseDto">
+        SELECT
+        todo_id AS id,
+        member_id,
+        contents AS content,
+        DATE_FORMAT(date, '%Y-%m-%d') AS date,
+        DATE_FORMAT(date, '%H:%i') AS time,
+        is_checked AS isImportant,
+        created_at,
+        updated_at
+        FROM
+        todos
+        WHERE
+        member_id = #{memberId}
+        AND is_deleted = FALSE
+        <if test="date != null and date != ''">
+            AND DATE(date) = #{date}
+        </if>
+        ORDER BY
+        date
+    </select>
+
+    <!-- ID 기준 단일 할 일 조회 -->
+    <select id="selectTodoById" resultType="TodoSelectResponseDto">
+        SELECT
+        todo_id AS id,
+        member_id,
+        contents AS content,
+        DATE_FORMAT(date, '%Y-%m-%d') AS date,
+        DATE_FORMAT(date, '%H:%i') AS time,
+        is_checked AS isImportant,
+        created_at,
+        updated_at
+        FROM
+        todos
+        WHERE
+        todo_id = #{id}
+        AND is_deleted = FALSE
+    </select>
+
+    <!-- 할 일 등록 -->
+    <insert id="insertTodo" parameterType="TodoCreateRequestDto" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO todos (
+        member_id,
+        contents,
+        date,
+        is_checked,
+        is_deleted,
+        created_at,
+        updated_at
+        )
+        VALUES (
+        #{memberId},
+        #{content},
+        #{date},
+        FALSE,
+        FALSE,
+        NOW(),
+        NOW()
+        )
+    </insert>
+
+    <!-- 할 일 수정 -->
+    <update id="updateTodo">
+        UPDATE
+        todos
+        SET
+        contents = #{request.content},
+        date = #{request.date},
+        is_checked = #{request.isImportant},
+        updated_at = NOW()
+        WHERE
+        todo_id = #{id}
+        AND is_deleted = FALSE
+    </update>
+
+    <!-- 할 일 소프트 삭제 -->
+    <update id="softDeleteTodo">
+        UPDATE
+        todos
+        SET
+        is_deleted = TRUE,
+        updated_at = #{deletedAt}
+        WHERE
+        todo_id = #{id}
+    </update>
+
+</mapper>

@@ -5,8 +5,11 @@
 
 <mapper namespace="com.takoyakki.backend.domain.todo.repository.TodoItemMapper">
 
-    <insert id="insertTodoItem" parameterType="com.takoyakki.backend.domain.todo.dto.TodoCreateRequestDto"
-            useGeneratedKeys="true" keyProperty="id">
+    <!-- 할 일 항목 등록 -->
+    <insert id="insertTodoItem"
+            parameterType="com.takoyakki.backend.domain.todo.dto.TodoCreateRequestDto"
+            useGeneratedKeys="true"
+            keyProperty="id">
         INSERT INTO todos (
             member_id,
             content,
@@ -27,22 +30,29 @@
                )
     </insert>
 
+    <!-- 할 일 항목 수정 -->
     <update id="updateTodoItem">
-        UPDATE todos
+        UPDATE
+            todos
         SET
-            content = #{request.content},
-            date = #{request.date},
-            time = #{request.time},
-            is_important = #{request.isImportant},
-            updated_at = NOW()
-        WHERE id = #{id}
+            content       = #{request.content},
+            date          = #{request.date},
+            time          = #{request.time},
+            is_important  = #{request.isImportant},
+            updated_at    = NOW()
+        WHERE
+            id = #{id}
           AND deleted_at IS NULL
     </update>
 
+    <!-- 할 일 항목 소프트 삭제 -->
     <update id="softDeleteTodoItem">
-        UPDATE todos
-        SET deleted_at = #{deletedAt}
-        WHERE id = #{id}
+        UPDATE
+            todos
+        SET
+            deleted_at = #{deletedAt}
+        WHERE
+            id = #{id}
           AND deleted_at IS NULL
     </update>
 

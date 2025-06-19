@@ -8,32 +8,39 @@
     <select id="selectTodosByDate" resultType="com.takoyakki.backend.domain.todo.dto.TodoSelectResponseDto">
         SELECT
             id,
-            member_id AS memberId,
+            member_id     AS memberId,
             content,
             date,
             time,
-            is_important AS isImportant,
-            created_at AS createdAt,
-            updated_at AS updatedAt
-        FROM todos
-        WHERE member_id = #{memberId}
+            is_important  AS isImportant,
+            created_at    AS createdAt,
+            updated_at    AS updatedAt
+        FROM
+            todos
+        WHERE
+            member_id = #{memberId}
           AND (#{date} IS NULL OR date = #{date})
           AND deleted_at IS NULL
-        ORDER BY date, time
+        ORDER BY
+            date,
+            time
     </select>
 
+    <!-- ID 기준으로 개별 할 일 조회 -->
     <select id="selectTodoById" resultType="com.takoyakki.backend.domain.todo.dto.TodoSelectResponseDto">
         SELECT
             id,
-            member_id AS memberId,
+            member_id     AS memberId,
             content,
             date,
             time,
-            is_important AS isImportant,
-            created_at AS createdAt,
-            updated_at AS updatedAt
-        FROM todos
-        WHERE id = #{id}
+            is_important  AS isImportant,
+            created_at    AS createdAt,
+            updated_at    AS updatedAt
+        FROM
+            todos
+        WHERE
+            id = #{id}
           AND deleted_at IS NULL
     </select>
 
