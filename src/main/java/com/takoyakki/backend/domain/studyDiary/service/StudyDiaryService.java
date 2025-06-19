@@ -20,4 +20,8 @@ public interface StudyDiaryService {
 
     StudyDiaryAISummaryResponseDto getAISummary(@Valid StudyDiaryAISummaryRequestDto requestDto);
 
+
+    List<StudyDiarySelectResponseDto> getStudyDiariesByMemberId(Long memberId);
+
+    StudyDiarySelectResponseDto getStudyDiaryById(Long diaryId);
 }

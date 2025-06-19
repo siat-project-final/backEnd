@@ -22,7 +22,7 @@ public class StudyDiarySelectResponseDto {
     private String contents;
 
     @Schema(description = "주제명", example = "Spring")
-    private String subjectName;
+    private String subject;
 
     @Schema(description = "AI 요약", example = "AOP 개념 요약")
     private String aiSummary;

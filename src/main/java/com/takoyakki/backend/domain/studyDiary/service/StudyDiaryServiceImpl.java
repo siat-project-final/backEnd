@@ -66,4 +66,20 @@ public class StudyDiaryServiceImpl implements StudyDiaryService{
             throw new RuntimeException("학습 일지 AI 요약 중 오류가 발생했습니다: " + e.getMessage(), e);
         }
     }
+
+
+    @Override
+    public List<StudyDiarySelectResponseDto> getStudyDiariesByMemberId(Long memberId) {
+        return studyDiraryMapper.selectStudyDiariesByMemberId(memberId);
+    }
+
+    @Override
+    public StudyDiarySelectResponseDto getStudyDiaryById(Long diaryId) {
+        StudyDiarySelectResponseDto result = studyDiraryMapper.selectStudyDiaryById(diaryId);
+        if (result == null) {
+            throw new RuntimeException("해당 일지를 찾을 수 없습니다. diaryId=" + diaryId);
+        }
+        return result;
+    }
+
 }

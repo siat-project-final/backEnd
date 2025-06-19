@@ -17,8 +17,11 @@ public interface StudyDiraryMapper {
     int updateStudyDiary(Long id, StudyDiaryUpdateRequestDto requestDto);
 
     List<StudyDiarySelectResponseDto> selectStudyDiaryList(Long memberId);
-//    // 전체 일지 조회 (특정 회원 기준)
-//    List<StudyDiarySelectResponseDto> selectStudyDiariesByMemberId(@Param("memberId") Long memberId);
-//    // 단건 조회
-//    StudyDiarySelectResponseDto selectStudyDiaryById(@Param("diaryId") Long diaryId);
+
+    // 전체 일지 조회 (특정 회원 기준)
+    List<StudyDiarySelectResponseDto> selectStudyDiariesByMemberId(@Param("memberId") Long memberId);
+    // 단건 조회
+    StudyDiarySelectResponseDto selectStudyDiaryById(@Param("diaryId") Long diaryId);
+
+    //퍼블릭이랑 안퍼블랙.
 }
