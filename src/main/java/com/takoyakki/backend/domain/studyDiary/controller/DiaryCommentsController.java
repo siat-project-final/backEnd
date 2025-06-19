@@ -1,5 +1,6 @@
 package com.takoyakki.backend.domain.studyDiary.controller;
 
+import com.takoyakki.backend.domain.studyDiary.dto.request.DiaryCommentsInsertRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryAISummaryRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryInsertRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryUpdateRequestDto;
@@ -36,6 +37,18 @@ public class DiaryCommentsController {
     @GetMapping("/{diaryId}")
     public ResponseEntity<List<DiaryCommentsSelectResponseDto>> selectDiaryComments(@PathVariable Long diaryId) {
         return ResponseEntity.ok(diaryCommentsService.selectDiaryComments(diaryId));
+    }
+
+    @Operation(summary = "학습 일지 댓글 작성", description = "학습 일지에 댓글을 작성합니다")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "댓글 작성 성공"),
+            @ApiResponse(responseCode = "401", description = "인증 실패"),
+            @ApiResponse(responseCode = "500", description = "서버 오류")
+    })
+    @PostMapping
+    public ResponseEntity<?> insertDiaryComment(@Valid @RequestBody DiaryCommentsInsertRequestDto requestDto) {
+        diaryCommentsService.insertDiaryComment(requestDto);
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -1,6 +1,7 @@
 package com.takoyakki.backend.domain.studyDiary.service;
 
 import com.takoyakki.backend.domain.studyDiary.api.SummaryAnthropicClient;
+import com.takoyakki.backend.domain.studyDiary.dto.request.DiaryCommentsInsertRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryAISummaryRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryInsertRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryUpdateRequestDto;
@@ -25,6 +26,19 @@ public class DiaryCommentsServiceImpl implements DiaryCommentsService{
 
     @Override
     public List<DiaryCommentsSelectResponseDto> selectDiaryComments(Long diaryId) {
-        return diaryCommentMapper.selectDiaryComments(diaryId);
+        try {
+            return diaryCommentMapper.selectDiaryComments(diaryId);
+        } catch (Exception e) {
+            throw new RuntimeException("댓글 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public int insertDiaryComment(DiaryCommentsInsertRequestDto requestDto) {
+        try {
+            return diaryCommentMapper.insertDiaryComment(requestDto);
+        } catch (Exception e) {
+            throw new RuntimeException("댓글 입력 중 오류가 발생했습니다: " + e.getMessage(), e);
+        }
     }
 }

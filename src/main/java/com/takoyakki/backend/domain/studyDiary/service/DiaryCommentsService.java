@@ -1,5 +1,6 @@
 package com.takoyakki.backend.domain.studyDiary.service;
 
+import com.takoyakki.backend.domain.studyDiary.dto.request.DiaryCommentsInsertRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryAISummaryRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryInsertRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryUpdateRequestDto;
@@ -14,4 +15,7 @@ import java.util.List;
 public interface DiaryCommentsService {
 
     List<DiaryCommentsSelectResponseDto> selectDiaryComments(Long diaryId);
+
+    int insertDiaryComment(@Valid DiaryCommentsInsertRequestDto requestDto);
+
 }

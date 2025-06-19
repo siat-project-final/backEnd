@@ -17,4 +17,18 @@
             diary_id = #{diaryId}
     </select>
 
+    <insert id="insertDiaryComment" parameterType="DiaryCommentsInsertRequestDto">
+    INSERT INTO diary_comments
+        (
+            diary_id,
+            member_id,
+            contents
+        )
+    VALUES
+        (
+            #{diaryId},
+            #{memberId},
+            #{contents}
+        )
+    </insert>
 </mapper>

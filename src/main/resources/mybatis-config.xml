@@ -38,6 +38,7 @@
         <typeAlias alias="StudyDiarySelectPublicListResponseDto" type="com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiarySelectPublicListResponseDto"/>
 
         <typeAlias alias="DiaryCommentsSelectResponseDto" type="com.takoyakki.backend.domain.studyDiary.dto.response.DiaryCommentsSelectResponseDto"/>
+        <typeAlias alias="DiaryCommentsInsertRequestDto" type="com.takoyakki.backend.domain.studyDiary.dto.request.DiaryCommentsInsertRequestDto"/>
 
 
         <!-- 마이페이지 DTO -->
