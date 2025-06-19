@@ -29,6 +29,10 @@ public class HistoryServiceImpl implements HistoryService{
 
     @Override
     public List<MyPageProblemSelectResponseDto> selectChallengeDetail(Long memberId, LocalDate date) {
-        return problemSolvingMapper.selectChallengeDetail(memberId, date);
+        try {
+            return problemSolvingMapper.selectChallengeDetail(memberId, date);
+        } catch (Exception e) {
+            throw new RuntimeException("풀이 상세 조회 중 문제가 발생했습니다: " + e.getMessage(), e);
+        }
     }
 }
