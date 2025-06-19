@@ -17,7 +17,7 @@ public class TodoSelectResponseDto {
     private String memberId;
 
     @Schema(description = "할 일 내용", example = "스터디 자료 정리")
-    private String content;
+    private String contents;
 
     @Schema(description = "할 일 날짜", example = "2025-06-18")
     private String date;

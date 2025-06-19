@@ -31,21 +31,20 @@
     <!-- ID 기준 단일 할 일 조회 -->
     <select id="selectTodoById" resultType="TodoSelectResponseDto">
         SELECT
-        todo_id AS id,
-        member_id,
-        contents AS content,
-        DATE_FORMAT(date, '%Y-%m-%d') AS date,
-        DATE_FORMAT(date, '%H:%i') AS time,
+            todo_id AS id,
+            member_id,
+            contents AS content,
+            FORMATDATETIME(date, 'yyyy-MM-dd') AS date,
+        FORMATDATETIME(date, 'HH:mm') AS time,
         is_checked AS isImportant,
         created_at,
         updated_at
         FROM
-        todos
+            todos
         WHERE
-        todo_id = #{id}
-        AND is_deleted = FALSE
+            todo_id = #{id}
+          AND is_deleted = FALSE
     </select>
-
     <!-- 할 일 등록 -->
     <insert id="insertTodo" parameterType="TodoCreateRequestDto" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO todos (
@@ -59,7 +58,7 @@
         )
         VALUES (
         #{memberId},
-        #{content},
+        #{contents},
         #{date},
         FALSE,
         FALSE,
@@ -73,7 +72,7 @@
         UPDATE
         todos
         SET
-        contents = #{request.content},
+        contents = #{request.contents},
         date = #{request.date},
         is_checked = #{request.isImportant},
         updated_at = NOW()

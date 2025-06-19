@@ -21,7 +21,7 @@ public class TodoCreateRequestDto {
 
     @NotBlank(message = "내용은 필수입니다.")
     @Schema(description = "할 일 내용", example = "스터디 준비")
-    private String content;
+    private String contents;
 
     @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "날짜 형식은 yyyy-MM-dd 입니다.")
     @Schema(description = "날짜", example = "2025-06-19")
