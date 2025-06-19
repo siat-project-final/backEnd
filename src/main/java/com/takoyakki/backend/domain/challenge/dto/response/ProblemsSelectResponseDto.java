@@ -13,4 +13,9 @@ public class ProblemsSelectResponseDto {
 
     @Schema(description = "배점", example = "1")
     private int points;
+
+    @Schema(description = "문제", example = "Java의 기본 데이터 타입은?")
+    private String contents;
+
+
 }

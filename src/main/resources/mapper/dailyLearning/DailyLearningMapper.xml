@@ -13,4 +13,21 @@
         WHERE
             date = #{date}
     </select>
+
+    <select id="selectDailyLearningProgress" resultType="ChallengeReviewSelectResponseDto">
+        SELECT
+            subject,
+            TO_CHAR(
+                    ROUND(
+                        SUM(CASE WHEN date &lt;= '2025-06-18' THEN 1 ELSE 0 END)::numeric / COUNT(*) * 100, 1
+                    ),
+                'FM999.0'
+            ) AS progressRate
+        FROM
+            daily_learning
+        GROUP BY
+            subject
+        ORDER BY
+            date DESC
+    </select>
 </mapper>

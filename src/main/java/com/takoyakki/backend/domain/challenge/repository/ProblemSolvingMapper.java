@@ -18,4 +18,6 @@ public interface ProblemSolvingMapper {
     List<ChallengeRankResponseDto> calculateChallengeRank(LocalDate date);
 
     List<MyPageProblemSelectResponseDto> selectChallengeDetail(Long memberId, LocalDate date);
+
+    List<ProblemsSelectResponseDto> selectChallengeReviewProblem(Long memberId, String subject);
 }

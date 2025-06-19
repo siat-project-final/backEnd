@@ -5,10 +5,12 @@ import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertIt
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemsInsertRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.response.ChallengeRankResponseDto;
+import com.takoyakki.backend.domain.challenge.dto.response.ChallengeReviewSelectResponseDto;
 import com.takoyakki.backend.domain.challenge.dto.response.ProblemsSelectResponseDto;
 import com.takoyakki.backend.domain.challenge.repository.DailyChallengeRankingsMapper;
 import com.takoyakki.backend.domain.challenge.repository.ProblemSolvingMapper;
 import com.takoyakki.backend.domain.challenge.repository.ProblemsMapper;
+import com.takoyakki.backend.domain.dailyLearning.repository.DailyLearningMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +27,9 @@ public class ChallengeServiceImpl implements ChallengeService{
     private final ProblemsMapper problemsMapper;
     private final ProblemSolvingMapper problemSolvingMapper;
     private final DailyChallengeRankingsMapper dailyChallengeRankingsMapper;
+    private final DailyLearningMapper dailyLearningMapper;
+
+
     private final AnthropicClient anthropicClient;
 
     @Override
@@ -94,6 +100,29 @@ public class ChallengeServiceImpl implements ChallengeService{
             return dailyChallengeRankingsMapper.insertDailyChallengeRanking(challengeRankResponseDtos);
         } catch (Exception e) {
             throw new RuntimeException("랭킹 데이터 삽입 중 오류가 발생했습니다: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public List<ChallengeReviewSelectResponseDto> selectChallengeReviewList() {
+        try {
+            return dailyLearningMapper.selectDailyLearningProgress();
+        } catch (Exception e) {
+            throw new RuntimeException("챌린지 전체 문제 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public ProblemsSelectResponseDto selectChallengeReviewProblem(Long memberId, String subject) {
+        try {
+            List<ProblemsSelectResponseDto> list = problemSolvingMapper.selectChallengeReviewProblem(memberId, subject);
+            int randomIndex = ThreadLocalRandom.current().nextInt(list.size());
+            return list.stream()
+                    .skip(randomIndex)
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException("랜덤 요소를 찾을 수 없습니다."));
+        } catch (IllegalStateException e) {
+            throw new RuntimeException("복습 문제 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
         }
     }
 }

@@ -67,4 +67,19 @@
         ORDER BY
             ps.date DESC
     </select>
+
+    <select id="selectChallengeReviewProblem" resultType="ProblemsSelectResponseDto">
+        SELECT
+            p.correct_answer AS answer,
+            p.difficulty AS points,
+            p.contents
+        FROM
+            problem_solving ps
+        LEFT OUTER JOIN
+            problems p ON ps.problem_id = p.problem_id
+        WHERE
+            p.subject = #{subject}
+        AND
+            ps.member_id = #{memberId}
+    </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.takoyakki.backend.domain.challenge.controller;
 
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRequestDto;
+import com.takoyakki.backend.domain.challenge.dto.response.ChallengeReviewSelectResponseDto;
 import com.takoyakki.backend.domain.challenge.service.ChallengeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -50,5 +52,37 @@ public class ChallengeController {
     @GetMapping("/rank")
     public ResponseEntity<?> selectChallengeRankByDate(@RequestParam("date") LocalDate date) {
         return ResponseEntity.ok(challengeService.selectChallengeRankByDate(date));
+    }
+
+    @Operation(
+            summary = "챌린지 복습 리스트 조회",
+            description = "챌린지 복습 리스트를 조회합니다",
+            tags = {"challenge"}
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "챌린지 복습 리스트 조회 성공"),
+            @ApiResponse(responseCode = "404", description = "리소스를 찾을 수 없음"),
+            @ApiResponse(responseCode = "500", description = "서버 오류")
+    })
+    @GetMapping("/review")
+    public ResponseEntity<List<ChallengeReviewSelectResponseDto>> selectChallengeReviewList() {
+        return ResponseEntity.ok(challengeService.selectChallengeReviewList());
+    }
+
+
+    @Operation(
+            summary = "챌린지 복습 상세",
+            description = "선택한 챌린 복습 문제를 조회합니다",
+            tags = {"challenge"}
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "챌린지 복습 상세 조회 성공"),
+            @ApiResponse(responseCode = "404", description = "리소스를 찾을 수 없음"),
+            @ApiResponse(responseCode = "500", description = "서버 오류")
+    })
+    @GetMapping("/review/{memberId}/{subject}")
+    public ResponseEntity<?> selectChallengeReviewProblem(@PathVariable ("memberId") Long memberId,
+                                                       @PathVariable("subject") String subject) {
+        return ResponseEntity.ok(challengeService.selectChallengeReviewProblem(memberId, subject));
     }
 }

@@ -21,6 +21,8 @@
         <typeAlias alias="ProblemSolvingInsertRequestDto" type="com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRequestDto"/>
         <typeAlias alias="ChallengeRankResponseDto" type="com.takoyakki.backend.domain.challenge.dto.response.ChallengeRankResponseDto"/>
 
+        <typeAlias alias="ChallengeReviewSelectResponseDto" type="com.takoyakki.backend.domain.challenge.dto.response.ChallengeReviewSelectResponseDto"/>
+
         <!-- 멘토링 예약 관련 DTO -->
         <typeAlias alias="MentoringReservationAcceptResponseDto" type="com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationAcceptResponseDto"/>
         <typeAlias alias="MentoringReservationResponseDto" type="com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationResponseDto"/>
