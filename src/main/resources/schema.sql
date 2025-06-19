@@ -111,14 +111,26 @@ CREATE TABLE daily_challenge_rankings (
 -- 기존
 
 CREATE TABLE todos (
-	todo_date_id BIGINT NOT NULL,
-	member_id BIGINT NOT NULL,
-	date TIMESTAMP(0) NULL,
-	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	is_deleted BOOLEAN NULL
+                       todo_id     BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                       member_id   BIGINT NOT NULL,
+                       contents    VARCHAR(255) NOT NULL,
+                       date        DATE,
+                       is_checked  BOOLEAN DEFAULT FALSE,
+                       created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                       updated_at  TIMESTAMP,
+                       is_deleted  BOOLEAN DEFAULT FALSE
 );
 
+-- CREATE TABLE todo_item (
+--                            todo_item_id BIGINT NOT NULL,
+--                            todo_date_id BIGINT NOT NULL,
+--                            title VARCHAR(255) NULL,
+--                            importance INTEGER NULL,
+--                            time_priority INTEGER DEFAULT FALSE NULL,
+--                            created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
+--                            updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
+--                            is_deleted BOOLEAN NULL
+-- );
 
 CREATE TABLE notification (
 	notification_id BIGINT NOT NULL,
@@ -129,16 +141,7 @@ CREATE TABLE notification (
 	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
 );
 
-CREATE TABLE todo_item (
-	todo_item_id BIGINT NOT NULL,
-	todo_date_id BIGINT NOT NULL,
-	title VARCHAR(255) NULL,
-	importance INTEGER NULL,
-	time_priority INTEGER DEFAULT FALSE NULL,
-	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	is_deleted BOOLEAN NULL
-);
+
 
 CREATE TABLE xp_histories (
 	xp_history_id BIGINT NOT NULL,

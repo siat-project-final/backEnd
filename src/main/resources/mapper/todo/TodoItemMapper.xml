@@ -12,7 +12,7 @@
             keyProperty="id">
         INSERT INTO todos (
             member_id,
-            content,
+            contents,
             date,
             time,
             is_important,
@@ -21,7 +21,7 @@
         )
         VALUES (
                    #{memberId},
-                   #{content},
+                   #{contents},
                    #{date},
                    #{time},
                    #{isImportant},
@@ -35,7 +35,7 @@
         UPDATE
             todos
         SET
-            content       = #{request.content},
+            contents       = #{request.contents},
             date          = #{request.date},
             time          = #{request.time},
             is_important  = #{request.isImportant},
