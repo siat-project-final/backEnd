@@ -12,5 +12,6 @@ public interface ProblemsMapper {
 
     ProblemsSelectResponseDto selectProblem(Long problemId);
 
+    List<ProblemsSelectResponseDto> selectChallengeProblems();
 
 }

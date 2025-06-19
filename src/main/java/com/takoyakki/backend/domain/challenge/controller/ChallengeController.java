@@ -2,6 +2,7 @@ package com.takoyakki.backend.domain.challenge.controller;
 
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.response.ChallengeReviewSelectResponseDto;
+import com.takoyakki.backend.domain.challenge.dto.response.ProblemsSelectResponseDto;
 import com.takoyakki.backend.domain.challenge.service.ChallengeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -22,6 +23,22 @@ import java.util.List;
 @Tag(name = "AI 문제 챌린지", description = "AI 문제 챌린지 관련 API")
 public class ChallengeController {
     private final ChallengeService challengeService;
+
+    @Operation(
+            summary = "오늘의 챌린지 문제 조회",
+            description = "오늘의 챌린지 문제를 조회합니다",
+            tags = {"challenge"}
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "챌린지 문제 조회 성공"),
+            @ApiResponse(responseCode = "404", description = "리소스를 찾을 수 없음"),
+            @ApiResponse(responseCode = "500", description = "서버 오류")
+    })
+    @GetMapping
+    public ResponseEntity<List<ProblemsSelectResponseDto>> selectChallengeProblems() {
+        return ResponseEntity.ok(challengeService.selectChallengeProblems());
+    }
+
     @Operation(
             summary = "문제 풀이 제출",
             description = "문제를 풀이하고 제출합니다",
@@ -81,8 +98,8 @@ public class ChallengeController {
             @ApiResponse(responseCode = "500", description = "서버 오류")
     })
     @GetMapping("/review/{memberId}/{subject}")
-    public ResponseEntity<?> selectChallengeReviewProblem(@PathVariable ("memberId") Long memberId,
-                                                       @PathVariable("subject") String subject) {
+    public ResponseEntity<ProblemsSelectResponseDto> selectChallengeReviewProblem(@PathVariable ("memberId") Long memberId,
+                                                                                  @PathVariable("subject") String subject) {
         return ResponseEntity.ok(challengeService.selectChallengeReviewProblem(memberId, subject));
     }
 }

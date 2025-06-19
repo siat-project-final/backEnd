@@ -36,5 +36,16 @@
             problem_id = #{problemId}
     </select>
 
+    <select id="selectChallengeProblems" resultType="ProblemsSelectResponseDto">
+        SELECT
+            correct_answer AS answer,
+            difficulty AS points,
+            contents
+        FROM
+            problems
+        WHERE
+            created_at::date = CURRENT_DATE
+    </select>
+
 
 </mapper>

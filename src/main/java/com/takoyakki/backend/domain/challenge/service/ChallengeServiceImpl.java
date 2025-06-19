@@ -33,6 +33,15 @@ public class ChallengeServiceImpl implements ChallengeService{
     private final AnthropicClient anthropicClient;
 
     @Override
+    public List<ProblemsSelectResponseDto> selectChallengeProblems() {
+        try {
+            return problemsMapper.selectChallengeProblems();
+        } catch (Exception e) {
+            throw new RuntimeException("문제 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
     public int insertChallengeProblem(String subject, int difficulty) {
         try {
             String problem = anthropicClient.createProblem(subject, difficulty);
@@ -125,4 +134,6 @@ public class ChallengeServiceImpl implements ChallengeService{
             throw new RuntimeException("복습 문제 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
         }
     }
+
+
 }

@@ -21,4 +21,7 @@ public interface ChallengeService {
     List<ChallengeReviewSelectResponseDto> selectChallengeReviewList();
 
     ProblemsSelectResponseDto selectChallengeReviewProblem(Long memberId, String subject);
+
+    List<ProblemsSelectResponseDto> selectChallengeProblems();
+
 }
