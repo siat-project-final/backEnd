@@ -2,6 +2,7 @@ package com.takoyakki.backend.domain.studyDiary.repository;
 
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryInsertRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryUpdateRequestDto;
+import com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiarySelectPublicListResponseDto;
 import com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiarySelectResponseDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -22,6 +23,10 @@ public interface StudyDiraryMapper {
     List<StudyDiarySelectResponseDto> selectStudyDiariesByMemberId(@Param("memberId") Long memberId);
     // 단건 조회
     StudyDiarySelectResponseDto selectStudyDiaryById(@Param("diaryId") Long diaryId);
+
+    List<StudyDiarySelectPublicListResponseDto> selectStudyDiaryListPublic(String subject);
+
+    int changeStudyDiaryLike(Long diaryId, boolean isLike);
 
     //퍼블릭이랑 안퍼블랙.
 }

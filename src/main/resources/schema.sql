@@ -197,18 +197,6 @@ CREATE TABLE level_configs (
 	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
 );
 
-CREATE TABLE study_diary (
-	diary_id BIGINT NOT NULL,
-	member_id BIGINT NOT NULL,
-	contents VARCHAR(255) NULL,
-	title VARCHAR(255) NULL,
-	subject VARCHAR(255) NULL,
-	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	AI_summary TEXT NULL,
-	is_deleted BOOLEAN NULL
-);
-
 CREATE TABLE member_badges (
 	member_badge_id BIGINT NOT NULL,
 	member_id BIGINT NOT NULL,
@@ -502,8 +490,6 @@ VALUES
 (2, 2, 12, CAST('2025-06-18' AS DATE)),
 (1, 1, 15, CAST('2025-06-17' AS DATE)),
 (2, 2, 14, CAST('2025-06-17' AS DATE));
-
-
 
 INSERT INTO study_diary
 (

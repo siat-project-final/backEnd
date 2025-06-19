@@ -5,6 +5,7 @@ import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryAISummaryRe
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryInsertRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryUpdateRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiaryAISummaryResponseDto;
+import com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiarySelectPublicListResponseDto;
 import com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiarySelectResponseDto;
 import com.takoyakki.backend.domain.studyDiary.repository.StudyDiraryMapper;
 import lombok.RequiredArgsConstructor;
@@ -70,7 +71,11 @@ public class StudyDiaryServiceImpl implements StudyDiaryService{
 
     @Override
     public List<StudyDiarySelectResponseDto> getStudyDiariesByMemberId(Long memberId) {
-        return studyDiraryMapper.selectStudyDiariesByMemberId(memberId);
+        try {
+            return studyDiraryMapper.selectStudyDiariesByMemberId(memberId);
+        } catch (Exception e) {
+            throw new RuntimeException("학습 일지 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
+        }
     }
 
     @Override
@@ -81,5 +86,24 @@ public class StudyDiaryServiceImpl implements StudyDiaryService{
         }
         return result;
     }
+
+    @Override
+    public List<StudyDiarySelectPublicListResponseDto> selectStudyDiaryListPublic(String subject) {
+        try {
+            return studyDiraryMapper.selectStudyDiaryListPublic(subject);
+        } catch (Exception e) {
+            throw new RuntimeException("학습 일지 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public int changeStudyDiaryLike(Long diaryId, boolean isLike) {
+        try {
+            return studyDiraryMapper.changeStudyDiaryLike(diaryId, isLike);
+        } catch (Exception e) {
+            throw new RuntimeException("학습 일지 좋아요 중 오류가 발생했습니다: " + e.getMessage(), e);
+        }
+    }
+
 
 }

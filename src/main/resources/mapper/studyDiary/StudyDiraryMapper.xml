@@ -139,5 +139,42 @@
           AND is_deleted = FALSE
     </select>
 
+    <select id="selectStudyDiaryListPublic" resultType="StudyDiarySelectPublicListResponseDto">
+        SELECT
+            sd.diary_id       AS diaryId,
+            m.member_name    AS memberName,
+            sd.title,
+            sd.contents,
+            sd.subject        AS subject,
+            sd.ai_summary     AS aiSummary,
+            sd.study_date::date     AS studyDate,
+            sd.likes AS likeCount
+        FROM
+            study_diary sd
+        LEFT JOIN
+            members m ON sd.member_id = m.member_id
+        WHERE
+            sd.is_public = TRUE
+        AND
+            sd.is_deleted = FALSE
+        <if test="subject != null and subject != 'ALL'">
+            AND sd.subject = #{subject}
+        </if>
+        ORDER BY
+            sd.study_date DESC
+    </select>
+
+    <update id="changeStudyDiaryLike">
+        UPDATE study_diary
+        SET
+            likes = likes +
+                CASE
+                    WHEN #{isLike} = TRUE THEN 1
+                    ELSE -1
+            END
+        WHERE
+            diary_id = #{diaryId}
+    </update>
+
 
 </mapper>

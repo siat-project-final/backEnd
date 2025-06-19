@@ -4,10 +4,12 @@ import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryAISummaryRe
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryInsertRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryUpdateRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiaryAISummaryResponseDto;
+import com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiarySelectPublicListResponseDto;
 import com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiarySelectResponseDto;
 import com.takoyakki.backend.domain.studyDiary.service.StudyDiaryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -59,4 +61,29 @@ public class StudyDiaryController {
         studyDiaryService.updateStudyDiary(diaryId, requestDto);
         return ResponseEntity.ok().build();
     }
+
+
+    @Operation(summary = "공개된 학습 일지 목록 전체 조회", description = "공개된 학습 일지 전체 목록을 조회합니다")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "조회 성공"),
+            @ApiResponse(responseCode = "401", description = "인증 실패"),
+            @ApiResponse(responseCode = "500", description = "서버 오류")
+    })
+    @GetMapping("/public")
+    public ResponseEntity<List<StudyDiarySelectPublicListResponseDto>> selectStudyDiaryListPublic(
+            @RequestParam(required = false, defaultValue = "ALL") String subject) {
+        return ResponseEntity.ok(studyDiaryService.selectStudyDiaryListPublic(subject));
+    }
+
+    @Operation(summary = "학습 일지 좋아요", description = "학습 일지에 좋아요를 늘리거나 차감합니다")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "좋아요 수정 성공"),
+            @ApiResponse(responseCode = "401", description = "인증 실패"),
+            @ApiResponse(responseCode = "500", description = "서버 오류")
+    })
+    @PutMapping("/like/{diaryId}")
+    public ResponseEntity<?> updateStudyDiaryLike(@PathVariable Long diaryId, @RequestParam boolean isLike) {
+        return ResponseEntity.ok(studyDiaryService.changeStudyDiaryLike(diaryId, isLike));
+    }
+
 }
