@@ -13,3 +13,4 @@ public interface AuthMapper {
 
     SignUpDuplicationCheckDto checkSignUpDuplication(String memberName, String phoneNumber);
 }
+
