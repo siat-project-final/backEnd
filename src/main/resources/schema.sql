@@ -12,8 +12,8 @@ CREATE TABLE members (
     nickname VARCHAR(255) NOT NULL,
     role VARCHAR(255) DEFAULT 'TRAINEE' NOT NULL,
     status VARCHAR(255) DEFAULT 'ACTIVE' NOT NULL,
-    total_xp INTEGER NULL,
-    usable_points INTEGER NOT NULL,
+    total_xp INTEGER DEFAULT 0 NULL,
+    usable_points INTEGER  DEFAULT 0 NULL,
     current_level INTEGER DEFAULT 1 NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
@@ -232,6 +232,9 @@ INSERT INTO members (
 (
     'user001', 'password123', '홍길동', 'hong@example.com', '010-1234-5678', '길동이',
     'TRAINEE', 'ACTIVE', 500, 100, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
+),(
+    'admin', '1234', '길동', 'hong@example.com', '010-12444-5678', '길동이',
+    'TRAINEE', 'ACTIVE', 500, 100, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
 ),
 (
     'user002', 'securepass456', '김철수', 'chulsoo@example.com', '010-2345-6789', '철수짱',
@@ -290,6 +293,9 @@ INSERT INTO mentors (
 INSERT INTO students (student_name, phone_number)
 VALUES
     ('김철수', '01012345678'),
+    ('홍길동', '01098765432'),
+    ('박영수', '01023456789'),
+    ('최지은', '01034567890'),
     ('이영희', '01087654321');
 
 INSERT INTO daily_learning (contents, title, subject, date)

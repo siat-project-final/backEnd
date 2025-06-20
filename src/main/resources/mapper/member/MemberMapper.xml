@@ -28,6 +28,22 @@
                 member_id = #{memberId}
         </select>
 
+        <select id="selectMemberInfoByAccountId" parameterType="java.lang.String" resultMap="MemberSelectResponseMap">
+            SELECT
+                member_id,
+                id,
+                member_name,
+                role,
+                email,
+                nickname,
+                phone_number,
+                total_xp
+            FROM
+                members
+            WHERE
+                id = #{accountId}
+        </select>
+
         <update id="updateMemberInfo" parameterType="MemberUpdateRequestDto">
             UPDATE
                 members

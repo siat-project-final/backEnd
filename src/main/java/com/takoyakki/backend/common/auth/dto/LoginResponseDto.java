@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 @Schema(description = "로그인 성공")
 @Builder
 public class LoginResponseDto {
+    @Schema(description = "member_id")
+    private Long memberId;
+
     @Schema(description = "access token")
     private String accessToken;
     @Schema(description = "refresh token")
