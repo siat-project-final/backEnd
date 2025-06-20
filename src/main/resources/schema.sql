@@ -138,22 +138,35 @@ CREATE TABLE diary_comments (
 
 -- 기존
 
+-- CREATE TABLE todos (
+-- 	todo_date_id BIGINT NOT NULL,
+-- 	member_id BIGINT NOT NULL,
+-- 	date TIMESTAMP(0) NULL,
+-- 	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
+-- 	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
+-- 	is_deleted BOOLEAN DEFAULT FALSE NOT NULL
+--                        todo_id     BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+--                        member_id   BIGINT NOT NULL,
+--                        contents    VARCHAR(255) NOT NULL,
+--                        date        DATE,
+--                        is_checked  BOOLEAN DEFAULT FALSE,
+--                        created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--                        updated_at  TIMESTAMP,
+--                        is_deleted  BOOLEAN DEFAULT FALSE
+-- );
+
 CREATE TABLE todos (
-	todo_date_id BIGINT NOT NULL,
-	member_id BIGINT NOT NULL,
-	date TIMESTAMP(0) NULL,
-	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-	is_deleted BOOLEAN DEFAULT FALSE NOT NULL
-                       todo_id     BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-                       member_id   BIGINT NOT NULL,
-                       contents    VARCHAR(255) NOT NULL,
-                       date        DATE,
-                       is_checked  BOOLEAN DEFAULT FALSE,
-                       created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                       updated_at  TIMESTAMP,
-                       is_deleted  BOOLEAN DEFAULT FALSE
+                       todo_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                       todo_date_id BIGINT NOT NULL,
+                       member_id BIGINT NOT NULL,
+                       contents VARCHAR(255) NOT NULL,
+                       date DATE,
+                       is_checked BOOLEAN DEFAULT FALSE,
+                       created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
+                       updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
+                       is_deleted BOOLEAN DEFAULT FALSE
 );
+
 
 -- CREATE TABLE todo_item (
 --                            todo_item_id BIGINT NOT NULL,
