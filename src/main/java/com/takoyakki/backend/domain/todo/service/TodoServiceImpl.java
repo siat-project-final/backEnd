@@ -1,7 +1,39 @@
 package com.takoyakki.backend.domain.todo.service;
 
+import com.takoyakki.backend.domain.todo.dto.TodoCreateRequestDto;
+import com.takoyakki.backend.domain.todo.dto.TodoSelectResponseDto;
+import com.takoyakki.backend.domain.todo.dto.TodoUpdateRequestDto;
+import com.takoyakki.backend.domain.todo.repository.TodosMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Service
-public class TodoServiceImpl implements TodoService{
+@RequiredArgsConstructor
+public class TodoServiceImpl implements TodoService {
+
+    private final TodosMapper todosMapper;
+
+    @Override
+    public List<TodoSelectResponseDto> getAllTodos(String memberId, String date) {
+        return todosMapper.selectAllTodos(memberId, date);
+    }
+
+    @Override
+    public TodoSelectResponseDto createTodo(TodoCreateRequestDto request) {
+        todosMapper.insertTodo(request);
+        return todosMapper.selectTodoById(request.getId()).orElse(null);
+    }
+
+    @Override
+    public boolean updateTodo(Long id, TodoUpdateRequestDto request) {
+        return todosMapper.updateTodo(id, request) > 0;
+    }
+
+    @Override
+    public boolean deleteTodo(Long id) {
+        return todosMapper.softDeleteTodo(id, LocalDateTime.now()) > 0;
+    }
 }

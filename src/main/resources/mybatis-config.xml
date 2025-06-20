@@ -17,7 +17,6 @@
         <!-- 챌린지 문제 관련 DTO -->
         <typeAlias alias="ProblemsInsertRequestDto" type="com.takoyakki.backend.domain.challenge.dto.request.ProblemsInsertRequestDto"/>
         <typeAlias alias="ProblemsSelectResponseDto" type="com.takoyakki.backend.domain.challenge.dto.response.ProblemsSelectResponseDto"/>
-
         <typeAlias alias="ProblemSolvingInsertRequestDto" type="com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRequestDto"/>
         <typeAlias alias="ChallengeRankResponseDto" type="com.takoyakki.backend.domain.challenge.dto.response.ChallengeRankResponseDto"/>
 
@@ -30,6 +29,11 @@
         <!-- 멘토링 완료 및 상세 DTO -->
         <typeAlias alias="MentoringCompleteRequestDto" type="com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringCompleteRequestDto"/>
         <typeAlias alias="MentoringResponseDto" type="com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringResponseDto"/>
+
+        <!-- 투두리스트 관련 DTO -->
+        <typeAlias alias="TodoCreateRequestDto" type="com.takoyakki.backend.domain.todo.dto.TodoCreateRequestDto"/>
+        <typeAlias alias="TodoSelectResponseDto" type="com.takoyakki.backend.domain.todo.dto.TodoSelectResponseDto"/>
+        <typeAlias alias="TodoUpdateRequestDto" type="com.takoyakki.backend.domain.todo.dto.TodoUpdateRequestDto"/>
 
         <!-- 학습일지 DTO -->
         <typeAlias alias="StudyDiaryInsertRequestDto" type="com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryInsertRequestDto"/>

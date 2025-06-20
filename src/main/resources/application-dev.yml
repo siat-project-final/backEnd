@@ -16,7 +16,7 @@ spring:
     username: sa
     password:
 mybatis:
-  mapper-locations: classpath*:mapper/**/*.xml
+  mapper-locations: classpath*:mapper/todo/*.xml
   config-location: classpath:/mybatis-config.xml
 jwt:
   secret: yourSecretKey123456789012345678901234567890
