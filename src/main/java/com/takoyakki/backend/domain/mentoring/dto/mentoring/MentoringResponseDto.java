@@ -18,7 +18,7 @@ public class MentoringResponseDto {
 
     private Long mentoringId;         // 멘토링 ID
     private String mentorName;          // 멘토 이름
-    private String menteeName;          // 멘티 이름
+    private String memberName;          // 멘티 이름
     private LocalDateTime createdAt;    //  멘토링 생성 날짜 (YYYY-MM-DD HH:mm)
     private String status; // 멘토링 상태 (예: SCHEDULED, COMPLETED, CANCELED)
 

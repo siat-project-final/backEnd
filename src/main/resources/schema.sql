@@ -47,7 +47,7 @@ CREATE TABLE refresh_tokens (
 CREATE TABLE mentorings_reservation (
   reservation_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   mentor_id BIGINT NOT NULL,
-  mentee_id BIGINT NOT NULL,
+  member_id BIGINT NOT NULL,
   introduction TEXT NULL,
   date TIMESTAMP(0) NOT NULL,
   subject VARCHAR(255) DEFAULT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE mentorings_reservation (
 CREATE TABLE mentorings (
   mentoring_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   mentor_id BIGINT NOT NULL,
-  mentee_id BIGINT NOT NULL,
+  member_id BIGINT NOT NULL,
   reservation_id BIGINT NOT NULL,
   status VARCHAR(255) NOT NULL,
   created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP,
@@ -336,7 +336,7 @@ VALUES
 -- 멘토링
 INSERT INTO mentorings_reservation (
     mentor_id,
-    mentee_id,
+    member_id,
     introduction,
     subject,
     date
@@ -352,7 +352,7 @@ VALUES
 
 INSERT INTO mentorings (
     mentor_id,
-    mentee_id,
+    member_id,
     reservation_id,
     status,
     created_at

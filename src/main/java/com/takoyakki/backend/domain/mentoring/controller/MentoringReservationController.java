@@ -17,15 +17,15 @@ public class MentoringReservationController {
 
     // 멘티 - 멘토링 예약 생성
     @PostMapping
-    public ResponseEntity<Void> createReservation(@RequestBody MenteeReservationRequestDto requestDto) {
+    public ResponseEntity<Void> createReservation(@RequestBody MemberReservationRequestDto requestDto) {
         reservationService.createReservation(requestDto);
         return ResponseEntity.ok().build();
     }
 
     // 멘티 - 본인 예약 목록 조회
-    @GetMapping("/mentee/{menteeId}")
-    public ResponseEntity<List<MentoringReservationResponseDto>> getMenteeReservations(@PathVariable Long menteeId) {
-        List<MentoringReservationResponseDto> reservations = reservationService.getReservationsByMenteeId(menteeId);
+    @GetMapping("/mentee/{memberId}")
+    public ResponseEntity<List<MentoringReservationResponseDto>> getMemberReservations(@PathVariable Long memberId) {
+        List<MentoringReservationResponseDto> reservations = reservationService.getReservationsByMemberId(memberId);
         return ResponseEntity.ok(reservations);
     }
 

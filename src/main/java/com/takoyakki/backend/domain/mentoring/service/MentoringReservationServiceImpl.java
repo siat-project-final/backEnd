@@ -14,13 +14,13 @@ public class MentoringReservationServiceImpl implements MentoringReservationServ
     private final MentoringReservationMapper reservationMapper;
 
     @Override
-    public void createReservation(MenteeReservationRequestDto requestDto) {
+    public void createReservation(MemberReservationRequestDto requestDto) {
         reservationMapper.insertReservation(requestDto);
     }
 
     @Override
-    public List<MentoringReservationResponseDto> getReservationsByMenteeId(Long menteeId) {
-        return reservationMapper.selectReservationsByMenteeId(menteeId);
+    public List<MentoringReservationResponseDto> getReservationsByMemberId(Long memberId) {
+        return reservationMapper.selectReservationsByMemberId(memberId);
     }
 
     @Override

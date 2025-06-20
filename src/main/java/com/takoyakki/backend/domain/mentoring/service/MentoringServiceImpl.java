@@ -39,8 +39,8 @@ public class MentoringServiceImpl implements MentoringService {
     }
 
     @Override
-    public List<MentoringResponseDto> getMentoringListByMenteeId(Long menteeId) {
-        return mentoringMapper.selectCompletedMentoringsByMenteeId(menteeId);
+    public List<MentoringResponseDto> getMentoringListByMemberId(Long memberId) {
+        return mentoringMapper.selectCompletedMentoringsByMemberId(memberId);
     }
 
     @Override

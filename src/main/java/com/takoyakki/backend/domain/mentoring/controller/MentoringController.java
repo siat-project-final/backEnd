@@ -37,9 +37,9 @@ public class MentoringController {
     }
 
     @Operation(summary = "멘티 기준 완료된 멘토링 목록 조회")
-    @GetMapping("/mentee/{menteeId}/completed")
-    public List<MentoringResponseDto> getCompletedMentoringsByMentee(@PathVariable Long menteeId) {
-        return mentoringService.getMentoringListByMenteeId(menteeId);
+    @GetMapping("/mentee/{memberId}/completed")
+    public List<MentoringResponseDto> getCompletedMentoringsByMember(@PathVariable Long memberId) {
+        return mentoringService.getMentoringListByMemberId(memberId);
     }
 
     @Operation(summary = "오픈채팅 URL 조회")

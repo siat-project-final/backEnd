@@ -29,7 +29,7 @@ public interface MentoringMapper {
     List<MentoringResponseDto> selectCompletedMentoringsByMentorId(@Param("mentorId") Long mentorId);
 
     // 멘티 기준 완료된 멘토링 목록
-    List<MentoringResponseDto> selectCompletedMentoringsByMenteeId(@Param("menteeId") Long menteeId);
+    List<MentoringResponseDto> selectCompletedMentoringsByMemberId(@Param("memberId") Long memberId);
 
     List<MyPageMentoringsResponseDto> selectMentoringHistory(Long memberId);
 

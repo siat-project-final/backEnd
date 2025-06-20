@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface MentoringReservationService {
 
-    void createReservation(MenteeReservationRequestDto requestDto);
+    void createReservation(MemberReservationRequestDto requestDto);
 
-    List<MentoringReservationResponseDto> getReservationsByMenteeId(Long menteeId);
+    List<MentoringReservationResponseDto> getReservationsByMemberId(Long memberId);
 
     List<MentoringReservationResponseDto> getReservationsByMentorId(Long mentorId);
 

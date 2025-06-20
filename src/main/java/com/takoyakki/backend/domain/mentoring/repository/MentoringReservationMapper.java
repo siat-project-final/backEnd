@@ -1,6 +1,6 @@
 package com.takoyakki.backend.domain.mentoring.repository;
 
-import com.takoyakki.backend.domain.mentoring.dto.reservation.MenteeReservationRequestDto;
+import com.takoyakki.backend.domain.mentoring.dto.reservation.MemberReservationRequestDto;
 import com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationResponseDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -11,10 +11,10 @@ import java.util.List;
 public interface MentoringReservationMapper {
 
     // 예약 등록 (멘티 신청)
-    void insertReservation(MenteeReservationRequestDto requestDto);
+    void insertReservation(MemberReservationRequestDto requestDto);
 
     // 예약 목록 조회 (멘티 기준)
-    List<MentoringReservationResponseDto> selectReservationsByMenteeId(@Param("menteeId") Long menteeId);
+    List<MentoringReservationResponseDto> selectReservationsByMemberId(@Param("memberId") Long memberId);
 
     // 예약 목록 조회 (멘토 기준)
     List<MentoringReservationResponseDto> selectReservationsByMentorId(@Param("mentorId") Long mentorId);
@@ -36,10 +36,10 @@ public interface MentoringReservationMapper {
     List<MentoringReservationResponseDto> findReservationsByDate(@Param("date") String date);
 
     // 멘티 기준 예약 전체 조회
-    List<MentoringReservationResponseDto> findReservationsByMenteeId(@Param("menteeId") Long menteeId);
+    List<MentoringReservationResponseDto> findReservationsByMemberId(@Param("memberId") Long memberId);
 
     // 멘티 기준 과거 예약 이력 조회
-    List<MentoringReservationResponseDto> findHistoryReservationsByMenteeId(@Param("menteeId") Long menteeId);
+    List<MentoringReservationResponseDto> findHistoryReservationsByMemberId(@Param("memberId") Long memberId);
 
     int updateReservationToAccepted(Long reservationId);
 

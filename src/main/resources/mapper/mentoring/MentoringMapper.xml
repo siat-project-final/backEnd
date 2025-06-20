@@ -9,13 +9,13 @@
     <insert id="completeMentoring" parameterType="MentoringCompleteRequestDto">
         INSERT INTO mentorings (
             mentor_id,
-            mentee_id,
+            member_id,
             reservation_id,
             status,
             created_at
         ) VALUES (
             #{mentorId},
-            #{menteeId},
+            #{memberId},
             #{mentoringReservationId},
             'COMPLETED',
             NOW()
@@ -43,7 +43,7 @@
     <select id="findById" resultType="com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationAcceptResponseDto">
         SELECT
             r.id AS reservationId,
-            r.mentee_id,
+            r.member_id,
             m.mentor_id,
             m.mentor_name,
             m.mentor_image_url,
@@ -60,7 +60,7 @@
         SELECT
             m.mentoring_id AS mentoringId,
             o.mentor_name AS mentorName,
-            e.member_name AS menteeName,
+            e.member_name AS memberName,
             m.created_at AS createdAt,
             m.status
         FROM
@@ -78,7 +78,7 @@
         SELECT
             m.mentoring_id AS mentoringId,
             o.mentor_name AS mentorName,
-            e.member_name AS menteeName,
+            e.member_name AS memberName,
             m.created_at AS createdAt,
             m.status
         FROM
@@ -96,11 +96,11 @@
     </select>
 
     <!-- 멘티 기준 완료된 멘토링 목록 -->
-    <select id="selectCompletedMentoringsByMenteeId" resultType="MentoringResponseDto">
+    <select id="selectCompletedMentoringsByMemberId" resultType="MentoringResponseDto">
         SELECT
             m.mentoring_id AS mentoringId,
             o.mentor_name AS mentorName,
-            e.member_name AS menteeName,
+            e.member_name AS memberName,
             m.created_at AS createdAt,
             m.status
         FROM
@@ -110,7 +110,7 @@
         LEFT OUTER JOIN
             members e ON m.mentor_id = e.member_id
         WHERE
-            e.member_id = #{menteeId}
+            e.member_id = #{memberId}
         AND
             m.status = 'COMPLETED'
         ORDER BY
@@ -131,7 +131,7 @@
         LEFT OUTER JOIN
             mentorings_reservation mr ON m.reservation_id = mr.reservation_id
         WHERE
-            m.mentee_id = #{memberId}
+            m.member_id = #{memberId}
         ORDER BY
             m.created_at DESC
     </select>

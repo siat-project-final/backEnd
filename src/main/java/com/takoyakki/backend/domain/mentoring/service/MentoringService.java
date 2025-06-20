@@ -17,7 +17,7 @@ public interface MentoringService {
     MentoringResponseDto getMentoringById(Long mentoringId);
 
     // 멘티 완료 멘토링 목록 조회
-    List<MentoringResponseDto> getMentoringListByMenteeId(Long menteeId);
+    List<MentoringResponseDto> getMentoringListByMemberId(Long memberId);
 
     // 멘토 완료 멘토링 목록 조회
     List<MentoringResponseDto> getMentoringListByMentorId(Long mentorId);
