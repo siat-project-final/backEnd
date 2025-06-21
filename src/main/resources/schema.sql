@@ -252,7 +252,7 @@ INSERT INTO members (
     total_xp, usable_points, current_level, created_at, updated_at, is_deleted
 ) VALUES
 (
-    'user001', 'password123', '홍길동', 'hong@example.com', '010-1234-5678', '길동이',
+    'admin', '1234', '홍길동', 'hong@example.com', '010-1234-5678', '길동이',
     'TRAINEE', 'ACTIVE', 500, 100, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
 ),
 (
