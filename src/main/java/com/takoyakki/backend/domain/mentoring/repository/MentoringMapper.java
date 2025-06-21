@@ -1,5 +1,6 @@
 package com.takoyakki.backend.domain.mentoring.repository;
 
+import com.takoyakki.backend.domain.calendar.dto.response.CalendarItemMentoringByDateDto;
 import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringCompleteRequestDto;
 import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringResponseDto;
 
@@ -7,6 +8,7 @@ import com.takoyakki.backend.domain.myPage.dto.response.MyPageMentoringsResponse
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Mapper
@@ -34,5 +36,7 @@ public interface MentoringMapper {
     List<MyPageMentoringsResponseDto> selectMentoringHistory(Long memberId);
 
     int selectMentoringCount(Long memberId);
+
+    List<CalendarItemMentoringByDateDto> selectMentoringListInMonthByMemberId(Long memberId, LocalDate startDate, LocalDate endDate);
 
 }
