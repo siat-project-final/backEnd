@@ -3,20 +3,41 @@ package com.takoyakki.backend.domain.calendar.dto.response;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Schema(description = "캘린더 일정 전체 조회 응답")
-@Builder
+@ToString
 public class CalendarScheduleListResponseDto {
+    @Schema(description = "날짜", example = "2025-06-21")
+    private LocalDate date;
 
+    // 아래 멤버들은 각 날짜에 해당하는 데이터를 리스트에 담아 반환
     @Schema(description = "커리큘럼 과목", example = "JAVA")
-    private String subject;
+    private List<String> subjectList;
+
+    @Schema(description = "학습 일지 id", example = "JAVA 학습일지")
+    private List<Long> diaryIdList;
 
     @Schema(description = "학습 일지 제목", example = "JAVA 학습일지")
-    private String studyDiaryTitle;
+    private List<String> studyDiaryList;
+
+    @Schema(description = "멘토링 id", example = "멘토 홍길동, 주제 JAVA 기초")
+    private List<Long> mentoringIdList;
 
     @Schema(description = "멘토링", example = "멘토 홍길동, 주제 JAVA 기초")
-    private String mentoring;
+    private List<String> mentoringList;
 
-
+    public CalendarScheduleListResponseDto(LocalDate date) {
+        this.date = date;
+        this.subjectList = new ArrayList<>();
+        this.diaryIdList = new ArrayList<>();
+        this.studyDiaryList = new ArrayList<>();
+        this.mentoringList = new ArrayList<>();
+        this.mentoringIdList = new ArrayList<>();
+    }
 }

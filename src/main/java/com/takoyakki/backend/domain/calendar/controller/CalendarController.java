@@ -34,7 +34,7 @@ public class CalendarController {
     @GetMapping("/schedule/{memberId}/{month}")
     public ResponseEntity<?> selectScheduleAllByMonth(@PathVariable("memberId") Long memberId, @PathVariable("month") String month ){
         YearMonth yearMonth = YearMonth.parse(month);
-        return ResponseEntity.ok(calendarService.selectScheduleAllByMonth());
+        return ResponseEntity.ok(calendarService.selectScheduleAllByMonth(memberId, yearMonth));
     }
 
 }

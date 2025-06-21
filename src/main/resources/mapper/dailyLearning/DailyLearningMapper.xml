@@ -30,4 +30,15 @@
         ORDER BY
             date DESC
     </select>
+
+    <select id="selectCurriculumInMonthByMemberId" resultType="CalendarItemCurriculumByDateDto">
+        SELECT
+            date,
+            title,
+            subject
+        FROM
+            daily_learning
+        WHERE
+            date BETWEEN #{startDate} AND #{endDate};
+    </select>
 </mapper>

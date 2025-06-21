@@ -144,4 +144,17 @@
         WHERE
             mentor_id = #{mentorId}
     </select>
+    
+    <select id="selectMentoringListInMonthByMemberId" resultType="CalendarItemMentoringByDateDto">
+        SELECT
+            m.created_at::date AS date,
+            m.mentoring_id AS mentoringId,
+            o.mentor_name AS mentorName
+        FROM
+            mentorings m
+        LEFT OUTER JOIN
+            mentors o ON m.mentor_id = o.mentor_id
+        WHERE
+            m.created_at::date BETWEEN #{startDate} AND #{endDate};
+    </select>
 </mapper>
