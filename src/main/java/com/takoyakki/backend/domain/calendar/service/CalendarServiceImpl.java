@@ -40,8 +40,7 @@ public class CalendarServiceImpl implements CalendarService{
         List<CalendarItemCurriculumByDateDto> curriculums = dailyLearningMapper.selectCurriculumInMonthByMemberId(startDate, endDate);
 
         for (CalendarItemMentoringByDateDto m : mentorings) {
-            resultMap.get(m.getDate()).getMentoringList().add(m.getMentorName());
-            resultMap.get(m.getDate()).getMentoringIdList().add(m.getMentoringId());
+            resultMap.get(m.getDate()).getMentoringList().add(m);
         }
 
         for (CalendarItemCurriculumByDateDto c : curriculums) {

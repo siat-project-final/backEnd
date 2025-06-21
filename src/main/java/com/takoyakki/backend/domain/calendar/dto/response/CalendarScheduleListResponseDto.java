@@ -20,24 +20,15 @@ public class CalendarScheduleListResponseDto {
     @Schema(description = "커리큘럼 과목", example = "JAVA")
     private List<String> subjectList;
 
-    @Schema(description = "학습 일지 id", example = "JAVA 학습일지")
-    private List<Long> diaryIdList;
-
-    @Schema(description = "학습 일지 제목", example = "JAVA 학습일지")
-    private List<String> studyDiaryList;
-
-    @Schema(description = "멘토링 id", example = "멘토 홍길동, 주제 JAVA 기초")
-    private List<Long> mentoringIdList;
-
-    @Schema(description = "멘토링", example = "멘토 홍길동, 주제 JAVA 기초")
-    private List<String> mentoringList;
+    @Schema(description = "학습 일지", example = "JAVA 학습일지")
+    private List<CalendarItemStudyDiaryByDateDto> studyDiaryList;
+    @Schema(description = "멘토링", example = "멘토 홍길동, 과목 JAVA 기초")
+    private List<CalendarItemMentoringByDateDto> mentoringList;
 
     public CalendarScheduleListResponseDto(LocalDate date) {
         this.date = date;
         this.subjectList = new ArrayList<>();
-        this.diaryIdList = new ArrayList<>();
         this.studyDiaryList = new ArrayList<>();
         this.mentoringList = new ArrayList<>();
-        this.mentoringIdList = new ArrayList<>();
     }
 }
