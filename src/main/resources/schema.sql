@@ -157,7 +157,6 @@ CREATE TABLE diary_comments (
 
 CREATE TABLE todos (
                        todo_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-                       todo_date_id BIGINT NOT NULL,
                        member_id BIGINT NOT NULL,
                        contents VARCHAR(255) NOT NULL,
                        date DATE,
@@ -541,3 +540,15 @@ VALUES
     (3, 1, '감사합니다. 많은 도움이 됐어요.'),
     (2, 1, '흥미로운 내용이네요. 잘 읽었습니다.');
 
+INSERT INTO todos (member_id, contents, date, is_checked, is_deleted)
+VALUES
+(1, '스터디 준비하기', '2025-06-22', false, false),
+(1, '운동 1시간 하기', '2025-06-22', true, false),
+(1, '강의 수강 완료', '2025-06-21', true, false),
+(1, '코딩 연습 2문제', '2025-06-21', false, false),
+(1, '회의 참석', '2025-06-20', true, false),
+(1, '문서 작성', '2025-06-20', false, true),
+(1, '이메일 정리', '2025-06-19', true, false),
+(1, '플젝 리팩토링', '2025-06-19', false, false),
+(1, '블로그 포스팅', '2025-06-18', true, false),
+(1, '알고리즘 복습', '2025-06-18', false, false);

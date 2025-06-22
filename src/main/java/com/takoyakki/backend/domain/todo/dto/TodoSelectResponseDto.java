@@ -22,11 +22,8 @@ public class TodoSelectResponseDto {
     @Schema(description = "할 일 날짜", example = "2025-06-18")
     private String date;
 
-    @Schema(description = "할 일 시간", example = "14:30")
-    private String time;
-
-    @Schema(description = "할 일 중요 여부", example = "true")
-    private boolean isImportant;
+    @Schema(description = "체크 여부", example = "true")
+    private boolean isChecked;
 
     @Schema(description = "생성일시", example = "2025-06-18T14:00:00")
     private String createdAt;

@@ -7,6 +7,7 @@
 
         <resultMap id="LoginAuthCheckMap" type="LoginAuthCheckDto">
             <result property="memberName" column="member_name" />
+            <result property="memberId" column="member_id" />
         </resultMap>
 
         <resultMap id="SignUpDuplicationCheckMap" type="SignUpDuplicationCheckDto">
@@ -62,6 +63,7 @@
             SELECT
                 id,
                 member_name,
+                member_id,
                 password,
                 role
             FROM

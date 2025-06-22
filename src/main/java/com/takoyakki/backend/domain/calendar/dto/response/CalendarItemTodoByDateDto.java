@@ -21,4 +21,7 @@ public class CalendarItemTodoByDateDto {
     @Schema(description = "내용", example = "JAVA 복습하기")
     private String contents;
 
+    @Schema(description = "체크 여부", example = "true")
+    private boolean isChecked;
+
 }

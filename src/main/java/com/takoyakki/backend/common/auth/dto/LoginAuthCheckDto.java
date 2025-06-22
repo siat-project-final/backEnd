@@ -17,6 +17,8 @@ public class LoginAuthCheckDto {
     private String password;
     @Schema(description = "role")
     private String role;
+    @Schema(description = "member_id")
+    private Long memberId;
     @Schema(description = "member_name")
     private String memberName;
 

@@ -17,7 +17,7 @@ public class TodoServiceImpl implements TodoService {
     private final TodosMapper todosMapper;
 
     @Override
-    public List<TodoSelectResponseDto> getAllTodos(String memberId, String date) {
+    public List<TodoSelectResponseDto> getAllTodos(Long memberId, String date) {
         return todosMapper.selectAllTodos(memberId, date);
     }
 

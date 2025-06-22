@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/todos")
+@RequestMapping("/v1/todos")
 @Tag(name = "Todo API", description = "투두리스트 관리 API")
 public class TodoController {
 
@@ -27,10 +27,10 @@ public class TodoController {
 
     @GetMapping
     public ResponseEntity<List<TodoSelectResponseDto>> getAllTodos(
-            @Parameter(description = "사용자 ID", required = true) @RequestParam String memberId,
+            @Parameter(description = "사용자 ID", required = true) @RequestParam Long memberId,
             @Parameter(description = "날짜 (YYYY-MM-DD)", required = false) @RequestParam(required = false) String date) {
 
-        if (memberId == null || memberId.isEmpty()) {
+        if (memberId == null) {
             return ResponseEntity.badRequest().build();
         }
 

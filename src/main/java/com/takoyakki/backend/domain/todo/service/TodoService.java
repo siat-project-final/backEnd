@@ -7,7 +7,7 @@ import com.takoyakki.backend.domain.todo.dto.TodoUpdateRequestDto;
 import java.util.List;
 
 public interface TodoService {
-    List<TodoSelectResponseDto> getAllTodos(String memberId, String date);
+    List<TodoSelectResponseDto> getAllTodos(Long memberId, String date);
 
     TodoSelectResponseDto createTodo(TodoCreateRequestDto request);
 

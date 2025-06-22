@@ -22,13 +22,18 @@ public class CalendarScheduleListResponseDto {
 
     @Schema(description = "학습 일지", example = "JAVA 학습일지")
     private List<CalendarItemStudyDiaryByDateDto> studyDiaryList;
+
     @Schema(description = "멘토링", example = "멘토 홍길동, 과목 JAVA 기초")
     private List<CalendarItemMentoringByDateDto> mentoringList;
+
+    @Schema(description = "todo 리스트", example = "JS 복습, 알고리즘 특강, sqld 자격증 공부")
+    private List<CalendarItemTodoByDateDto> todoList;
 
     public CalendarScheduleListResponseDto(LocalDate date) {
         this.date = date;
         this.subjectList = new ArrayList<>();
         this.studyDiaryList = new ArrayList<>();
         this.mentoringList = new ArrayList<>();
+        this.todoList = new ArrayList<>();
     }
 }
