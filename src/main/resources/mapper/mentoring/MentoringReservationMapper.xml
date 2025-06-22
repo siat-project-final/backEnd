@@ -74,6 +74,7 @@
             mentors o ON r.mentor_id = o.mentor_id
         WHERE
             r.member_id = #{memberId}
+            AND r.status != 'CANCELED'
         ORDER BY
             r.date DESC
     </select>

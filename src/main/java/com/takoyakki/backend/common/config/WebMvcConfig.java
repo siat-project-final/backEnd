@@ -16,18 +16,18 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authenticationInterceptor)
-            .addPathPatterns("/admin")
-            .excludePathPatterns("/v1")
-            .order(1);
+                .addPathPatterns("/admin/**") // 전체 경로 포함
+                .excludePathPatterns("/v1/auth/**") // 예시: 인증만 제외할 경우
+                .order(1);
     }
 
     @Override
     public void addCorsMappings(CorsRegistry corsRegistry) {
         corsRegistry
                 .addMapping("/**")
+                .allowedOriginPatterns("*") // 더 유연한 설정
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
-                .allowedOrigins("http://localhost:3000")
-                .allowedMethods("*")
                 .allowCredentials(true);
     }
 }
