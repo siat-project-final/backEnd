@@ -26,8 +26,7 @@ public class ChallengeController {
 
     @Operation(
             summary = "오늘의 챌린지 문제 조회",
-            description = "오늘의 챌린지 문제를 조회합니다",
-            tags = {"challenge"}
+            description = "오늘의 챌린지 문제를 조회합니다"
     )
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "챌린지 문제 조회 성공"),
@@ -41,8 +40,7 @@ public class ChallengeController {
 
     @Operation(
             summary = "문제 풀이 제출",
-            description = "문제를 풀이하고 제출합니다",
-            tags = {"challenge"}
+            description = "문제를 풀이하고 제출합니다"
     )
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "문제 풀이 제출 성공"),
@@ -58,8 +56,7 @@ public class ChallengeController {
 
     @Operation(
             summary = "챌린지 랭킹 조회",
-            description = "오늘의 챌린지 랭킹을 조회합니다",
-            tags = {"challenge"}
+            description = "오늘의 챌린지 랭킹을 조회합니다"
     )
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "챌린지 랭킹 조회 성공"),
@@ -73,8 +70,7 @@ public class ChallengeController {
 
     @Operation(
             summary = "챌린지 복습 리스트 조회",
-            description = "챌린지 복습 리스트를 조회합니다",
-            tags = {"challenge"}
+            description = "챌린지 복습 리스트를 조회합니다"
     )
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "챌린지 복습 리스트 조회 성공"),
@@ -89,8 +85,7 @@ public class ChallengeController {
 
     @Operation(
             summary = "챌린지 복습 상세",
-            description = "선택한 챌린 복습 문제를 조회합니다",
-            tags = {"challenge"}
+            description = "선택한 챌린 복습 문제를 조회합니다"
     )
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "챌린지 복습 상세 조회 성공"),

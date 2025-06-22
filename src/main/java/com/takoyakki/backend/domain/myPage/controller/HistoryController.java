@@ -21,8 +21,7 @@ public class HistoryController {
 
     @Operation(
             summary = "챌린지 히스토리 조회",
-            description = "내 챌린지 랭킹 기록을 조회합니다",
-            tags = {"challenge"}
+            description = "내 챌린지 랭킹 기록을 조회합니다"
     )
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "챌린지 랭킹 전체 조회 성공"),
@@ -36,8 +35,7 @@ public class HistoryController {
 
     @Operation(
             summary = "챌린지 히스토리 상세 조회",
-            description = "챌린지 히스토리 클릭시 상세 내용을 조회합니다",
-            tags = {"challenge"}
+            description = "챌린지 히스토리 클릭시 상세 내용을 조회합니다"
     )
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "챌린지 랭킹 단건 조회 성공"),
@@ -51,8 +49,7 @@ public class HistoryController {
 
     @Operation(
             summary = "멘토링 히스토리 조회",
-            description = "내 멘토링 랭킹 기록을 조회합니다",
-            tags = {"mentoring"}
+            description = "내 멘토링 랭킹 기록을 조회합니다"
     )
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "멘토링 랭킹 전체 조회 성공"),

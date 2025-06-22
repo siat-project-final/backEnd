@@ -11,9 +11,8 @@ import lombok.*;
 @Builder
 @Schema(description = "할 일 생성 요청 DTO")
 public class TodoCreateRequestDto {
-
-    @Schema(description = "할 일 ID", example = "1")
-    private Long id;
+    @Schema(description = "todo ID", example = "123", accessMode = Schema.AccessMode.READ_ONLY)
+    private Long todoId;
 
     @NotBlank(message = "사용자 ID는 필수입니다.")
     @Schema(description = "사용자 ID", example = "123")
@@ -26,11 +25,4 @@ public class TodoCreateRequestDto {
     @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "날짜 형식은 yyyy-MM-dd 입니다.")
     @Schema(description = "날짜", example = "2025-06-19")
     private String date;
-
-    @Schema(description = "중요 여부", example = "true")
-    private boolean isImportant;
-
-    public Long getId() {
-        return id;
-    }
 }

@@ -25,8 +25,7 @@ public class MemberController {
 
     @Operation(
             summary = "내 정보 조회",
-            description = "멤버 자신의 정보를 조회합니다",
-            tags = { "member" }
+            description = "멤버 자신의 정보를 조회합니다"
     )
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "조회 성공"),
@@ -44,8 +43,7 @@ public class MemberController {
 
     @Operation(
             summary = "회원 정보 수정",
-            description = "멤버 자신의 정보를 수정합니다",
-            tags = { "member" }
+            description = "멤버 자신의 정보를 수정합니다"
     )
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "수정 성공"),
@@ -63,8 +61,7 @@ public class MemberController {
 
     @Operation(
             summary = "통계 조회",
-            description = "멤버 자신의 통계를 조회합니다",
-            tags = { "statistics" }
+            description = "멤버 자신의 통계를 조회합니다"
     )
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "조회 성공"),

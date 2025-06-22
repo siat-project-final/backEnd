@@ -7,9 +7,7 @@
 
     <!-- 할 일 항목 등록 -->
     <insert id="insertTodoItem"
-            parameterType="com.takoyakki.backend.domain.todo.dto.TodoCreateRequestDto"
-            useGeneratedKeys="true"
-            keyProperty="id">
+            parameterType="com.takoyakki.backend.domain.todo.dto.TodoCreateRequestDto">
         INSERT INTO todos (
             member_id,
             contents,

@@ -9,9 +9,10 @@ import java.util.List;
 public interface TodoService {
     List<TodoSelectResponseDto> getAllTodos(Long memberId, String date);
 
-    TodoSelectResponseDto createTodo(TodoCreateRequestDto request);
+    Long createTodo(TodoCreateRequestDto request);
 
     boolean updateTodo(Long id, TodoUpdateRequestDto request);
 
-    boolean deleteTodo(Long id);
+    boolean softDeleteTodo(Long id);
+
 }

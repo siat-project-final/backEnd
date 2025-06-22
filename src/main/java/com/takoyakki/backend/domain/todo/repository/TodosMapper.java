@@ -23,7 +23,7 @@ public interface TodosMapper {
 
     int updateTodo(@Param("id") Long id, @Param("request") TodoUpdateRequestDto request);
 
-    int softDeleteTodo(@Param("id") Long id, @Param("deletedAt") LocalDateTime deletedAt);
+    int softDeleteTodo(@Param("id") Long id);
 
     List<CalendarItemTodoByDateDto> selectTodoListInMonthByMemberId(Long memberId, LocalDate startDate, LocalDate endDate);
 

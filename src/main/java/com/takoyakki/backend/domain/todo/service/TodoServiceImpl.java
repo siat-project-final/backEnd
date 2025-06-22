@@ -22,9 +22,9 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public TodoSelectResponseDto createTodo(TodoCreateRequestDto request) {
+    public Long createTodo(TodoCreateRequestDto request) {
         todosMapper.insertTodo(request);
-        return todosMapper.selectTodoById(request.getId()).orElse(null);
+        return request.getTodoId();
     }
 
     @Override
@@ -33,7 +33,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public boolean deleteTodo(Long id) {
-        return todosMapper.softDeleteTodo(id, LocalDateTime.now()) > 0;
+    public boolean softDeleteTodo(Long id) {
+        return todosMapper.softDeleteTodo(id) > 0;
     }
 }

@@ -4,6 +4,7 @@ import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringCompleteReq
 import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringResponseDto;
 import com.takoyakki.backend.domain.mentoring.service.MentoringService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/mentoring")
+@RequestMapping("/v1/mentoring")
 @RequiredArgsConstructor
+@Tag(name = "멘토링 관리", description = "실제 멘토링 세션 이후의 관리 API")
 public class MentoringController {
 
     private final MentoringService mentoringService;

@@ -2,6 +2,7 @@ package com.takoyakki.backend.domain.mentoring.controller;
 
 import com.takoyakki.backend.domain.mentoring.dto.reservation.*;
 import com.takoyakki.backend.domain.mentoring.service.MentoringReservationService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/reservations")
+@RequestMapping("/v1/reservations")
+@Tag(name = "멘토링 예약 관리", description = "멘토링 예약 관리 API")
 public class MentoringReservationController {
 
     private final MentoringReservationService reservationService;

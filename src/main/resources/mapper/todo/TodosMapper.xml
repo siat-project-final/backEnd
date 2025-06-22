@@ -47,39 +47,42 @@
           AND is_deleted = FALSE
     </select>
     <!-- 할 일 등록 -->
-    <insert id="insertTodo" parameterType="TodoCreateRequestDto" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertTodo" parameterType="TodoCreateRequestDto"
+            useGeneratedKeys="true"
+            keyProperty="todoId">
         INSERT INTO todos (
-        member_id,
-        contents,
-        date,
-        is_checked,
-        is_deleted,
-        created_at,
-        updated_at
+            member_id,
+            contents,
+            date,
+            is_checked,
+            is_deleted,
+            created_at,
+            updated_at
         )
-        VALUES (
-        #{memberId},
-        #{contents},
-        #{date},
-        FALSE,
-        FALSE,
-        NOW(),
-        NOW()
+        VALUES
+        (
+            #{memberId},
+            #{contents},
+            #{date},
+            FALSE,
+            FALSE,
+            NOW(),
+            NOW()
         )
     </insert>
 
     <!-- 할 일 수정 -->
     <update id="updateTodo">
         UPDATE
-        todos
+            todos
         SET
-        contents = #{request.contents},
-        date = #{request.date},
-        is_checked = #{request.isImportant},
-        updated_at = NOW()
+            contents = #{request.contents},
+            is_checked = #{request.isChecked},
+            updated_at = NOW()
         WHERE
-        todo_id = #{id}
-        AND is_deleted = FALSE
+            todo_id = #{id}
+        AND
+            is_deleted = FALSE
     </update>
 
     <!-- 할 일 소프트 삭제 -->
@@ -88,7 +91,7 @@
             todos
         SET
             is_deleted = TRUE,
-            updated_at = #{deletedAt}
+            updated_at = NOW()
         WHERE
             todo_id = #{id}
     </update>
