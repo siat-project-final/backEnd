@@ -19,16 +19,17 @@
             subject,
             TO_CHAR(
                     ROUND(
-                        SUM(CASE WHEN date &lt;= '2025-06-18' THEN 1 ELSE 0 END)::numeric / COUNT(*) * 100, 1
+                        SUM(CASE WHEN date &lt;= CURRENT_DATE THEN 1 ELSE 0 END)::numeric / COUNT(*) * 100, 1
                     ),
                 'FM999.0'
-            ) AS progressRate
+            ) AS progressRate,
+            MAX(date) AS latestDate
         FROM
             daily_learning
         GROUP BY
             subject
         ORDER BY
-            date DESC
+            latestDate;
     </select>
 
     <select id="selectCurriculumInMonthByMemberId" resultType="CalendarItemCurriculumByDateDto">

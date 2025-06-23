@@ -17,7 +17,8 @@ CREATE TABLE members (
     current_level INTEGER DEFAULT 1 NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-    is_deleted BOOLEAN DEFAULT FALSE NOT NULL
+    is_deleted BOOLEAN DEFAULT FALSE NOT NULL,
+    member_image_url VARCHAR(255) DEFAULT 'DEFAULT.com' NULL
 );
 
 CREATE TABLE mentors (
@@ -309,7 +310,15 @@ VALUES
 ('Python의 기본 데이터 타입에 대해 학습했습니다. int, char, boolean 등의 특징을 익혔습니다.',
         'Python 기본 데이터 타입',
         'Vue.js',
-        '2025-06-22');
+        '2025-06-22'),
+('Python의 기본 데이터 타입에 대해 학습했습니다. int, char, boolean 등의 특징을 익혔습니다.',
+        'Python 기본 데이터 타입',
+        'Vue.js',
+        '2025-06-23'),
+('Python의 기본 데이터 타입에 대해 학습했습니다. int, char, boolean 등의 특징을 익혔습니다.',
+        'Python 기본 데이터 타입',
+        'Vue.js',
+        '2025-06-24');
 
 -- 멘토링
 INSERT INTO mentorings_reservation (

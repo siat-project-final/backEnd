@@ -9,19 +9,26 @@
             <result property="memberId" column="member_id" />
             <result property="memberName" column="member_name" />
             <result property="phoneNumber" column="phone_number" />
+            <result property="currentLevel" column="current_level" />
+            <result property="usablePoints" column="usable_points" />
             <result property="totalXp" column="total_xp" />
+            <result property="memberImageUrl" column="member_image_url" />
         </resultMap>
 
         <select id="selectMemberInfo" parameterType="java.lang.Long" resultMap="MemberSelectResponseMap">
             SELECT
                 member_id,
                 id,
+                password,
                 member_name,
                 role,
                 email,
                 nickname,
                 phone_number,
-                total_xp
+                current_level,
+                usable_points,
+                total_xp,
+                member_image_url
             FROM
                 members
             WHERE
@@ -32,6 +39,7 @@
             UPDATE
                 members
             SET
+                password = #{password},
                 email = #{email},
                 nickname = #{nickname},
                 phone_number = #{phoneNumber}

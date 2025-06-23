@@ -27,4 +27,6 @@ public class ChallengeRankResponseDto {
 
     @Schema(description = "날짜", example = "2025-06-01")
     private LocalDate date;
+
+
 }
