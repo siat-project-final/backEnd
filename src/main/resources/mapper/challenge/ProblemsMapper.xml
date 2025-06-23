@@ -16,13 +16,15 @@
             contents,
             difficulty,
             subject,
-            correct_answer
+            correct_answer,
+            choices
         ) VALUES (
             #{title},
             #{contents},
             #{difficulty},
             #{subject},
-            #{correctAnswer}
+            #{correctAnswer},
+            CAST(#{choices, jdbcType=OTHER, typeHandler=com.takoyakki.backend.common.util.JsonbTypeHandler} AS jsonb)
         )
     </insert>
 
@@ -38,10 +40,13 @@
 
     <select id="selectChallengeProblems" resultType="ProblemsSelectResponseDto">
         SELECT
-            correct_answer AS answer,
-            difficulty AS points,
+            problem_id,
+            title,
+            correct_answer,
+            difficulty,
             contents,
-            subject
+            subject,
+            choices
         FROM
             problems
         WHERE

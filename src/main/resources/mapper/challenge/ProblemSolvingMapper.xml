@@ -70,6 +70,8 @@
 
     <select id="selectChallengeReviewProblem" resultType="ProblemsSelectResponseDto">
         SELECT
+            p.problem_id AS problemId,
+            p.title AS title,
             p.correct_answer AS answer,
             p.difficulty AS points,
             p.contents,

@@ -1,5 +1,6 @@
 package com.takoyakki.backend.domain.challenge.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.takoyakki.backend.domain.challenge.api.AnthropicClient;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertItemRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRequestDto;
@@ -49,12 +50,16 @@ public class ChallengeServiceImpl implements ChallengeService{
             String contents = anthropicClient.extractContents(problem);
             int answer = anthropicClient.extractAnswer(problem);
 
+            String title = anthropicClient.extractTitle(contents);
+            List<String> choices = anthropicClient.extractChoice(contents);
+
             ProblemsInsertRequestDto requestDto = ProblemsInsertRequestDto.builder()
-                    .title(subject + ": " + difficulty)
+                    .title(title)
                     .contents(contents)
                     .difficulty(difficulty)
                     .subject(subject)
                     .correctAnswer(answer)
+                    .choices(choices)
                     .build();
 
             return problemsMapper.insertProblem(requestDto);
@@ -83,7 +88,7 @@ public class ChallengeServiceImpl implements ChallengeService{
                         .createdAt(requestDto.getCreatedAt())
                         .answer(answer)
                         .isCorrect(answer == responseDto.getAnswer()? "Y" : "N")
-                        .points(answer == responseDto.getAnswer()? responseDto.getPoints() : 0)
+                        .points(answer == responseDto.getAnswer()? responseDto.getDifficulty() : 0)
                         .build();
                 list.add(item);
             }

@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,7 +42,7 @@ public class AnthropicClient {
                     "model": "claude-3-5-sonnet-20241022",
                     "max_tokens": 1024,
                     "messages": [
-                        {"role": "user", "content": "난이도는 %d이고, 주제는 \\"%s\\"인 객관식 개념 문제를 하나 만들어줘. 문제와 선지 및 정답만 존재하고, 정답은 숫자 형식으로 주되 \\"정답 : (정답)\\"이라고 명시해줘."}
+                        {"role": "user", "content": "난이도는 %d이고, 주제는 \\"%s\\"인 객관식 개념 문제를 하나 만들어줘. 문제와 선지 및 정답만 존재하고, 정답은 숫자 형식으로 주되 \\"정답 : (정답)\\"이라고 명시해줘. 선지는 1. AA 2.BB ... 형식으로 4개를 줘"}
                     ]
                 }
                 """.formatted(difficulty, subject);
@@ -79,5 +81,57 @@ public class AnthropicClient {
         }
 
         throw new IllegalArgumentException("정답을 찾을 수 없습니다.");
+    }
+
+    public String extractTitle(String text) {
+        String extracted = text.replaceAll("\\\\n", "\n");
+
+        // 문제와 선택지를 분리
+        String[] lines = extracted.split("\n");
+        StringBuilder question = new StringBuilder();
+        List<String> choices = new ArrayList<>();
+
+        Pattern choicePattern = Pattern.compile("^\\d+\\.\\s");
+
+        for (String line : lines) {
+            if (choicePattern.matcher(line).find()) {
+                choices.add(line.trim());
+            } else {
+                question.append(line).append(" ");
+            }
+        }
+
+        if (extracted.isEmpty()) {
+            throw new IllegalArgumentException("문제를 찾을 수 없습니다.");
+        }
+
+        return question.toString().trim();
+    }
+
+    public List<String> extractChoice(String text) {
+        String extracted = text.split("정답\\s*:")[0].trim();
+
+        String title = text.replaceAll("\\\\n", "\n");
+
+        // 문제와 선택지를 분리
+        String[] lines = title.split("\n");
+        StringBuilder question = new StringBuilder();
+        List<String> choices = new ArrayList<>();
+
+        Pattern choicePattern = Pattern.compile("^\\d+\\.\\s");
+
+        for (String line : lines) {
+            if (choicePattern.matcher(line).find()) {
+                choices.add(line.trim());
+            } else {
+                question.append(line).append(" ");
+            }
+        }
+
+        if (extracted.isEmpty()) {
+            throw new IllegalArgumentException("문제를 찾을 수 없습니다.");
+        }
+
+        return choices;
     }
 }

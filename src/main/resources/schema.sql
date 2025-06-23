@@ -83,7 +83,8 @@ CREATE TABLE problems (
 	created_at	TIMESTAMP(0)	DEFAULT CURRENT_TIMESTAMP	NULL,
 	updated_at	TIMESTAMP(0)	DEFAULT CURRENT_TIMESTAMP	NULL,
 	correct_answer	INTEGER	NOT NULL,
-	is_deleted	BOOLEAN	DEFAULT FALSE	NULL
+	is_deleted	BOOLEAN	DEFAULT FALSE	NULL,
+	choices TEXT    DEFAULT '[]' NULL
 );
 
 
@@ -224,7 +225,7 @@ INSERT INTO members (
     total_xp, usable_points, current_level, created_at, updated_at, is_deleted
 ) VALUES
 (
-    'admin', '1234', '홍길동', 'hong@example.com', '010-1234-5678', '길동이',
+    'admin', '1234', '홍길동x', 'hong@example.com', '010-1234-5678', '길동이',
     'TRAINEE', 'ACTIVE', 500, 100, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
 ),
 (
@@ -335,6 +336,12 @@ VALUES
    'Spring',
    'Spring Boot JPA',
    '2025-06-20T14:30'
+),(
+   1,
+   1,
+   'Spring',
+   'JAVA',
+   '2025-06-21T14:30'
 );
 
 INSERT INTO mentorings (
@@ -349,7 +356,13 @@ INSERT INTO mentorings (
     1,
     'COMPLETED',
     NOW()
-);
+),(
+    '1',
+    '1',
+    2,
+    'COMPLETED',
+    NOW()
+ );
 
 -- 챌린지
 INSERT INTO problems (
@@ -357,43 +370,73 @@ INSERT INTO problems (
             contents,
             difficulty,
             subject,
-            correct_answer
+            correct_answer,
+            created_at,
+            updated_at
 ) VALUES (
     'React.js: 1',
     'React.js는 무엇인가요?',
     1,
     'React.js',
-    1
+    1,
+    '2025-06-22T21:36:55',
+    '2025-06-22T21:36:55'
 ), (
     'React.js: 2',
     'React.js는 무엇인가요?',
     2,
     'React.js',
-    2
+    2,
+         '2025-06-22T21:36:55',
+         '2025-06-22T21:36:55'
 ), (
     'React.js: 3',
     'React.js는 무엇인가요?',
     3,
     'React.js',
-    3
+    3,
+         '2025-06-22T21:36:55',
+         '2025-06-22T21:36:55'
 ), (
     'React.js: 4',
     'React.js는 무엇인가요?',
     4,
     'React.js',
-    4
+    4,
+         '2025-06-22T21:36:55',
+         '2025-06-22T21:36:55'
 ), (
     'React.js: 5',
     'React.js는 무엇인가요?',
     5,
     'React.js',
-    5
+    5,
+         '2025-06-22T21:36:55',
+         '2025-06-22T21:36:55'
 ), (
     'Vue.js: 5',
     'Vue.js는 무엇인가요?',
     5,
     'Vue.js',
-    5
+    5,
+         '2025-06-22T21:36:55',
+         '2025-06-22T21:36:55'
+), (
+    'React.js: 5',
+    'React.js는 무엇인가요?',
+    5,
+    'React.js',
+    5,
+         '2025-06-23T21:36:55',
+         '2025-06-23T21:36:55'
+), (
+    'React.js: 5',
+    'React.js는 무엇인가요?',
+    5,
+    'React.js',
+    5,
+         NOW(),
+         NOW()
 );
 
 INSERT INTO problem_solving
