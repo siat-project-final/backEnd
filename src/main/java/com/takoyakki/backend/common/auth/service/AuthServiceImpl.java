@@ -35,6 +35,7 @@ public class AuthServiceImpl implements AuthService{
 
         return LoginResponseDto.builder()
                 .id(loginAuthCheckDto.getId())
+                .memberId(loginAuthCheckDto.getMemberId())
                 .memberName(loginAuthCheckDto.getMemberName())
                 .role(loginAuthCheckDto.getRole())
                 .accessToken(tokenInfo.getAccessToken())

@@ -4,7 +4,7 @@
 -- 유저
 CREATE TABLE members (
     member_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    login_id VARCHAR(255) NOT NULL UNIQUE,
+    id VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     member_name VARCHAR(255),
     email VARCHAR(255),
@@ -267,7 +267,7 @@ CREATE TABLE daily_learning (
 -- );
 
 INSERT INTO members (
-    login_id,
+    id,
     password,
     member_name,
     email,

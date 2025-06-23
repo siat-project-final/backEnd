@@ -11,6 +11,9 @@ import lombok.ToString;
 @Builder
 @ToString
 public class LoginAuthCheckDto {
+
+    @Schema(description = "member id")
+    private Long memberId;
     @Schema(description = "id")
     private String id;
     @Schema(description = "password")

@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/reservations")
+@RequestMapping("/v1/reservations")
 public class MentoringReservationController {
 
     private final MentoringReservationService reservationService;

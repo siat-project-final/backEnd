@@ -4,10 +4,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Schema(description = "로그인 성공")
 @Builder
+@ToString
 public class LoginResponseDto {
     @Schema(description = "access token")
     private String accessToken;
@@ -16,6 +18,9 @@ public class LoginResponseDto {
     @Schema(description = "성공 메세지")
     private String message;
 
+
+    @Schema(description = "member id")
+    private Long memberId;
     @Schema(description = "id")
     private String id;
     @Schema(description = "role")
