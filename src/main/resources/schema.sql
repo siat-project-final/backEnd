@@ -285,7 +285,7 @@ INSERT INTO members (
       (
           'admin',
           '1234',
-          '이수현',
+          '홍길동',
           'hong@example.com',
           '010-1234-5678',
           '길동이',
@@ -300,12 +300,12 @@ INSERT INTO members (
       ),
       (
           'mentor',
-          'mentor1234',
-          '이수현',
+          '1234',
+          '안철수',
           'chulsoo@example.com',
           '010-2345-6789',
           '철수짱',
-          'TRAINEE',
+          'MENTOR',
           'ACTIVE',
           FALSE,
           CURRENT_TIMESTAMP,
@@ -317,11 +317,11 @@ INSERT INTO members (
       (
           'mentee',
           'mentee1234',
-          '이현',
+          '이영희',
           'younghee@example.com',
           '010-3456-7890',
           '영희',
-          'MENTOR',
+          'TRAINEE',
           'ACTIVE',
           FALSE,
           CURRENT_TIMESTAMP,
@@ -331,14 +331,6 @@ INSERT INTO members (
           3000
       );
 
-
--- INSERT INTO mentorings_reservation (mentor_id, member_id, introduction, subject, date, status)
--- VALUES
---     (2, 1, '안녕하세요, 프론트엔드 배우고 싶어요!', '프론트엔드', '2025-07-01 14:00:00', 'WAITING'),
---     (3, 1, '자바 백엔드 관련 멘토링 신청합니다.', '백엔드', '2025-07-02 15:30:00', 'WAITING'),
---     (4, 1, 'AI 쪽 진로가 고민입니다.', 'AI/데이터', '2025-07-03 11:00:00', 'WAITING'),
---     (5, 1, '컴퓨터공학 진로 멘토링 요청드립니다.', '진로상담', '2025-07-05 09:00:00', 'WAITING'),
---     (2, 1, 'React 중급 이상 내용 멘토링 부탁드려요.', 'React', '2025-07-06 20:00:00', 'WAITING');
 
 
 INSERT INTO mentors (
