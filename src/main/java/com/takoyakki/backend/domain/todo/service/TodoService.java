@@ -15,4 +15,5 @@ public interface TodoService {
 
     boolean softDeleteTodo(Long id);
 
+    boolean updateTodoToggle(Long id);
 }

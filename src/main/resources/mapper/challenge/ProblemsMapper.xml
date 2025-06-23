@@ -40,7 +40,8 @@
         SELECT
             correct_answer AS answer,
             difficulty AS points,
-            contents
+            contents,
+            subject
         FROM
             problems
         WHERE

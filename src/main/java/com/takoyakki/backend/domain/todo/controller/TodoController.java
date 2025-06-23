@@ -80,6 +80,20 @@ public class TodoController {
                 .body(Map.of("success", success));
     }
 
+    @Operation(summary = "todo 토글", description = "투두의 체크 토글을 check/unchecked 합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "성공적으로 수정됨", content = @Content),
+            @ApiResponse(responseCode = "400", description = "잘못된 요청", content = @Content),
+            @ApiResponse(responseCode = "500", description = "서버 오류", content = @Content)
+    })
+    @PutMapping("/{id}/toggle")
+    public ResponseEntity<Map<String, Boolean>> toggleTodo(
+            @Parameter(description = "투두 ID") @PathVariable Long id) {
+        boolean success = todoService.updateTodoToggle(id);
+        return ResponseEntity.status(success ? HttpStatus.OK : HttpStatus.NOT_FOUND)
+                .body(Map.of("success", success));
+    }
+
     @Operation(summary = "todo 삭제", description = "기존 투두 항목을 삭제합니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "성공적으로 삭제됨", content = @Content),

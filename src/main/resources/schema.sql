@@ -308,8 +308,8 @@ VALUES
         '2025-06-16'),
 ('Python의 기본 데이터 타입에 대해 학습했습니다. int, char, boolean 등의 특징을 익혔습니다.',
         'Python 기본 데이터 타입',
-        'React.js',
-        '2025-05-16');
+        'Vue.js',
+        '2025-06-22');
 
 -- 멘토링
 INSERT INTO mentorings_reservation (
@@ -378,6 +378,12 @@ INSERT INTO problems (
     'React.js는 무엇인가요?',
     5,
     'React.js',
+    5
+), (
+    'Vue.js: 5',
+    'Vue.js는 무엇인가요?',
+    5,
+    'Vue.js',
     5
 );
 
@@ -473,6 +479,22 @@ VALUES
           'Y',
           4,
           NOW()
+      ),
+      (
+          6,
+          2,
+          5,
+          'Y',
+          4,
+          CAST('2025-06-22' AS DATE)
+      ),
+      (
+          6,
+          2,
+          5,
+          'Y',
+          4,
+          CAST('2025-06-22' AS DATE)
       );
 
 INSERT INTO daily_challenge_rankings

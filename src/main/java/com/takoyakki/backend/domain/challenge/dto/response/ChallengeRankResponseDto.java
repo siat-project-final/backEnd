@@ -19,15 +19,12 @@ public class ChallengeRankResponseDto {
     @Schema(description = "유저 이름", example = "홍길동")
     private String memberName;
 
-    @Schema(description = "랭킹", example = "1")
-    private int rank;
-
     @Schema(description = "총 점수", example = "15")
     private int totalPoints;
 
+    @Schema(description = "랭킹", example = "1")
+    private int rank;
+
     @Schema(description = "날짜", example = "2025-06-01")
     private LocalDate date;
-
-    @Schema(description = "과목", example = "JAVA")
-    private String subject;
 }
