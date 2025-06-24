@@ -5,6 +5,8 @@ import com.takoyakki.backend.domain.challenge.dto.response.ChallengeRankResponse
 import com.takoyakki.backend.domain.challenge.service.ChallengeService;
 import com.takoyakki.backend.domain.dailyLearning.repository.DailyLearningMapper;
 import com.takoyakki.backend.domain.myPage.repository.MemberMapper;
+import com.takoyakki.backend.domain.notification.dto.NotificationChallengeToMenteeDto;
+import com.takoyakki.backend.domain.notification.repository.NotificationMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,7 +22,7 @@ import java.util.Optional;
 @Slf4j
 public class ChallengeScheduler {
     private final DailyLearningMapper dailyLearningMapper;
-    private final MemberMapper memberMapper;
+    private final NotificationMapper notificationMapper;
     private final ChallengeService challengeService;
 
     @Scheduled(cron = "0 09 12 * * *") // 매일 오전 7시
@@ -59,7 +61,8 @@ public class ChallengeScheduler {
     }
 
 
-    @Scheduled(cron = "0 40 17 * * *") // 매일 오후 11시 59분
+    @Scheduled(cron = "0 22" +
+            " 18 * * *") // 매일 오후 11시 59분
     public void createDailyChallengeRanking() {
         log.info("챌린지 랭킹 생성 스케줄러 실행 시작: {}", LocalDateTime.now());
 
@@ -83,11 +86,17 @@ public class ChallengeScheduler {
                 int rank = dto.getRank();
                 Long memberId = dto.getMemberId();
                 challengeService.getPointsByDailyChallengeRank(memberId, rank);
+
+                // 포인트 지급 알림
+                String message = String.format("데일리 챌린지 결과 %d등 축하드립니다! 포인트를 지급해드렸습니다.", rank);
+
+                NotificationChallengeToMenteeDto pointsDto = NotificationChallengeToMenteeDto.builder()
+                        .memberId(memberId)
+                        .title("챌린지 포인트 지급 알림")
+                        .contents(message)
+                        .build();
+                notificationMapper.insertNotificationChallengeRankPointsToMentee(pointsDto);
             }
-
-            // 포인트 지급 알림
-
-
 
         } catch (Exception e) {
             log.error("챌린지 랭킹 생성 중 오류 발생: {}", e.getMessage(), e);

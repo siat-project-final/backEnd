@@ -8,10 +8,13 @@ import lombok.Data;
 @Schema(description = "챌린지 포인트 보상 알림 DTO")
 @Builder
 public class NotificationChallengeToMenteeDto {
-    @Schema(description = "제목", example = "멘토링 예약 거절")
-    private String contents;
+    @Schema(description = "멤버 id", example = "1")
+    private Long memberId;;
 
-    @Schema(description = "내용", example = "멘토링 예약이 거절 되었습니다.")
+    @Schema(description = "제목", example = "챌린지 랭크 보상이 지급되었습니다.")
     private String title;
+
+    @Schema(description = "내용", example = "데일리 챌린지 결과 랭크에 따라 포인트가 지급되었습니다.")
+    private String contents;
 
 }

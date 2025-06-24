@@ -58,5 +58,8 @@
         <typeAlias alias="CalendarItemStudyDiaryByDateDto" type="com.takoyakki.backend.domain.calendar.dto.response.CalendarItemStudyDiaryByDateDto"/>
         <typeAlias alias="CalendarItemCurriculumByDateDto" type="com.takoyakki.backend.domain.calendar.dto.response.CalendarItemCurriculumByDateDto"/>
 
+        <!-- 알림 DTO -->
+        <typeAlias alias="NotificationChallengeToMenteeDto" type="com.takoyakki.backend.domain.notification.dto.NotificationChallengeToMenteeDto"/>
+
     </typeAliases>
 </configuration>

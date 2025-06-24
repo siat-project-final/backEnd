@@ -1,5 +1,6 @@
 package com.takoyakki.backend.domain.notification.repository;
 
+import com.takoyakki.backend.domain.notification.dto.NotificationChallengeToMenteeDto;
 import com.takoyakki.backend.domain.notification.dto.NotificationMentoringReservationToMenteeDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,5 +17,5 @@ public interface NotificationMapper {
 
 
     // 챌린지
-    int insertNotificationChallengeRankPointsToMentee(Long memberId, String content);
+    int insertNotificationChallengeRankPointsToMentee(NotificationChallengeToMenteeDto dto);
 }
