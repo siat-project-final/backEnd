@@ -4,6 +4,7 @@ import com.takoyakki.backend.common.exception.ResourceNotFoundException;
 import com.takoyakki.backend.domain.challenge.dto.response.ChallengeRankResponseDto;
 import com.takoyakki.backend.domain.challenge.service.ChallengeService;
 import com.takoyakki.backend.domain.dailyLearning.repository.DailyLearningMapper;
+import com.takoyakki.backend.domain.myPage.repository.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @Slf4j
 public class ChallengeScheduler {
     private final DailyLearningMapper dailyLearningMapper;
+    private final MemberMapper memberMapper;
     private final ChallengeService challengeService;
 
     @Scheduled(cron = "0 09 12 * * *") // 매일 오전 7시
@@ -57,7 +59,7 @@ public class ChallengeScheduler {
     }
 
 
-    @Scheduled(cron = "0 34 10 * * *") // 매일 오후 11시 59분
+    @Scheduled(cron = "0 40 17 * * *") // 매일 오후 11시 59분
     public void createDailyChallengeRanking() {
         log.info("챌린지 랭킹 생성 스케줄러 실행 시작: {}", LocalDateTime.now());
 
@@ -73,7 +75,19 @@ public class ChallengeScheduler {
                 log.info("오늘의 챌린지 랭킹 데이터 생성 완료: {}", today);
             }
 
+            // 데일리 랭킹 기록
             challengeService.insertDailyChallengeRanking(challengeRankResponseDtos);
+
+            // 데일리 랭킹 마감시 1~3등에게 포인트 지급
+            for (ChallengeRankResponseDto dto : challengeRankResponseDtos) {
+                int rank = dto.getRank();
+                Long memberId = dto.getMemberId();
+                challengeService.getPointsByDailyChallengeRank(memberId, rank);
+            }
+
+            // 포인트 지급 알림
+
+
 
         } catch (Exception e) {
             log.error("챌린지 랭킹 생성 중 오류 발생: {}", e.getMessage(), e);

@@ -26,4 +26,6 @@ public interface ChallengeService {
     List<ProblemsSelectResponseDto> selectChallengeProblems();
 
     List<ProblemSolvingResultResponseDto> selectProblemSolvingResult(Long memberId);
+
+    int getPointsByDailyChallengeRank(Long memberId, int rank);
 }

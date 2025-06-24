@@ -13,4 +13,6 @@ public interface MemberMapper {
     List<MemberSelectResponseDto> selectMemberInfoByAccountId(String accountId);
 
     int updateMemberInfo(MemberUpdateRequestDto updateDto);
+
+    int getPointsByDailyChallengeRank(Long memberId, int points);
 }

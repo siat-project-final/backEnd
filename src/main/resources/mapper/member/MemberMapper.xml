@@ -66,4 +66,14 @@
             WHERE
                 member_id = #{memberId}
         </update>
+
+        <update id="getPointsByDailyChallengeRank">
+            UPDATE
+                members
+            SET
+                usable_points = usable_points + #{points},
+                total_xp = total_xp + #{points}
+            WHERE
+                member_id = #{memberId}
+        </update>
     </mapper>

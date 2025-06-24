@@ -151,10 +151,11 @@ CREATE TABLE todos (
 
 
 CREATE TABLE notification (
-	notification_id BIGINT NOT NULL,
-	user_id BIGINT NOT NULL,
+	notification_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	member_id BIGINT NOT NULL,
 	title VARCHAR(255) NULL,
 	contents VARCHAR(255) NULL,
+	type VARCHAR(50) DEFAULT 'DEFAULT' NULL,
 	is_confirmed BOOLEAN DEFAULT FALSE NULL,
 	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
 );
@@ -457,7 +458,7 @@ VALUES
         1,
         'Y',
         1,
-        '2025-06-23'
+        '2025-06-24'
     )
  ,
     (
@@ -508,7 +509,7 @@ VALUES
           2,
           'Y',
           2,
-          '2025-06-23'
+          '2025-06-24'
       ),
       (
           3,
@@ -544,11 +545,11 @@ VALUES
       ),
       (
           6,
-          2,
+          3,
           5,
           'Y',
           4,
-          CAST('2025-06-22' AS DATE)
+          CAST('2025-06-24' AS DATE)
       );
 
 INSERT INTO daily_challenge_rankings

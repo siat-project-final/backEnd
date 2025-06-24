@@ -10,7 +10,9 @@ import com.takoyakki.backend.domain.challenge.repository.DailyChallengeRankingsM
 import com.takoyakki.backend.domain.challenge.repository.ProblemSolvingMapper;
 import com.takoyakki.backend.domain.challenge.repository.ProblemsMapper;
 import com.takoyakki.backend.domain.dailyLearning.repository.DailyLearningMapper;
+import com.takoyakki.backend.domain.myPage.repository.MemberMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,14 +24,20 @@ import java.util.concurrent.ThreadLocalRandom;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class ChallengeServiceImpl implements ChallengeService{
     private final ProblemsMapper problemsMapper;
     private final ProblemSolvingMapper problemSolvingMapper;
+
     private final DailyChallengeRankingsMapper dailyChallengeRankingsMapper;
     private final DailyLearningMapper dailyLearningMapper;
 
+    private final MemberMapper memberMapper;
+
 
     private final AnthropicClient anthropicClient;
+
+    // 챌린지 메인
 
     @Override
     public List<ProblemsSelectResponseDto> selectChallengeProblems() {
@@ -44,6 +52,7 @@ public class ChallengeServiceImpl implements ChallengeService{
     public List<ProblemSolvingResultResponseDto> selectProblemSolvingResult(Long memberId) {
         return problemsMapper.selectProblemSolvingResult(memberId);
     }
+
 
     @Override
     public int insertChallengeProblem(String subject, int difficulty) {
@@ -119,6 +128,35 @@ public class ChallengeServiceImpl implements ChallengeService{
             throw new RuntimeException("랭킹 데이터 삽입 중 오류가 발생했습니다: " + e.getMessage(), e);
         }
     }
+
+    @Override
+    public int getPointsByDailyChallengeRank(Long memberId, int rank) {
+        try {
+            int bonusPoints = 0;
+            switch (rank) {
+                case 1:
+                    bonusPoints = 30;
+                    break;
+                case 2:
+                    bonusPoints = 20;
+                    break;
+                case 3:
+                    bonusPoints = 10;
+                    break;
+                default:
+                    return 0;
+            }
+
+            log.info("포인트 지급 완료 - memberId: {}, rank: {}, 지급 포인트: {}",
+                    memberId, rank, bonusPoints);
+
+            return memberMapper.getPointsByDailyChallengeRank(memberId, bonusPoints);
+        } catch (Exception e) {
+            throw new RuntimeException("챌린지 포인트 지급 중 오류가 발생했습니다: " + e.getMessage(), e);
+        }
+    }
+
+    // 챌린지 복습
 
     @Override
     public List<ChallengeReviewSelectResponseDto> selectChallengeReviewList() {
