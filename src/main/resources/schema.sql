@@ -148,8 +148,6 @@ CREATE TABLE todos (
 );
 
 
-
-
 CREATE TABLE notification (
 	notification_id BIGINT NOT NULL,
 	user_id BIGINT NOT NULL,
@@ -158,8 +156,6 @@ CREATE TABLE notification (
 	is_confirmed BOOLEAN DEFAULT FALSE NULL,
 	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
 );
-
-
 
 CREATE TABLE xp_histories (
 	xp_history_id BIGINT NOT NULL,

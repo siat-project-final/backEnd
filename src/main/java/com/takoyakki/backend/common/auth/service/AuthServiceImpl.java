@@ -6,10 +6,13 @@ import com.takoyakki.backend.common.auth.dto.*;
 import com.takoyakki.backend.common.auth.mapper.AuthMapper;
 import com.takoyakki.backend.common.exception.TokenExpiredException;
 import com.takoyakki.backend.common.exception.UnauthorizedException;
+import com.takoyakki.backend.domain.myPage.dto.MemberSelectResponseDto;
+import com.takoyakki.backend.domain.myPage.repository.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +21,8 @@ import java.util.Optional;
 public class AuthServiceImpl implements AuthService{
 
     private final AuthMapper authMapper;
+    private final MemberMapper memberMapper;
+
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
@@ -31,9 +36,12 @@ public class AuthServiceImpl implements AuthService{
             throw new UnauthorizedException("비밀번호가 일치하지 않습니다.");
         }
 
+        List<MemberSelectResponseDto> memberSelectResponseDto = memberMapper.selectMemberInfoByAccountId(request.getId());
+
         JwtTokenProvider.TokenInfo tokenInfo = jwtTokenProvider.createToken(loginAuthCheckDto);
 
         return LoginResponseDto.builder()
+                .memberId(memberSelectResponseDto.get(0).getMemberId())
                 .id(loginAuthCheckDto.getId())
                 .memberId(loginAuthCheckDto.getMemberId())
                 .memberName(loginAuthCheckDto.getMemberName())
