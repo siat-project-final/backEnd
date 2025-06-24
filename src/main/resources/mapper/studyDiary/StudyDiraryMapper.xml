@@ -41,21 +41,24 @@
 
     <select id="selectStudyDiary" parameterType="long" resultType="com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiarySelectResponseDto">
         SELECT
-            diary_id       AS diaryId,
-            member_id      AS memberId,
-            title,
-            contents,
-            subject        AS subject,
-            ai_summary     AS aiSummary,
-            study_date     AS studyDate,
-            is_public      AS isPublic,
-            created_at     AS createdAt,
-            updated_at     AS updatedAt
+            sd.diary_id       AS diaryId,
+            sd.member_id      AS memberId,
+            m.member_name      AS memberName,
+            sd.title,
+            sd.contents,
+            sd.subject        AS subject,
+            sd.ai_summary     AS aiSummary,
+            sd.study_date     AS studyDate,
+            sd.is_public      AS isPublic,
+            sd.created_at     AS createdAt,
+            sd.updated_at     AS updatedAt
         FROM
-            study_diary
+            study_diary sd
+                LEFT OUTER JOIN
+            members m ON sd.member_id = m.member_id
         WHERE
-            diary_id = #{diaryId}
-          AND is_deleted = FALSE
+            sd.diary_id = #{diaryId}
+          AND sd.is_deleted = FALSE
     </select>
 
 <!--    <update id="updateStudyDiary">-->
