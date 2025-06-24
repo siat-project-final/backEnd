@@ -15,6 +15,9 @@ public class StudyDiarySelectResponseDto {
     @Schema(description = "회원 ID", example = "123")
     private Long memberId;
 
+    @Schema(description = "회원 이름", example = "홍길동")
+    private String memberName;
+
     @Schema(description = "제목", example = "Java")
     private String title;
 
