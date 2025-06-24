@@ -338,49 +338,7 @@ INSERT INTO mentors (
     completion_date, open_chat_url, is_deleted,
     created_at, updated_at, mentor_image_url, mentor_name
 ) VALUES
--- -- 1
--- (
---     'Kakao',
---     'Lead Software Engineer',
---     'React와 Spring Boot 연동, MSA 아키텍처 설계 전문가입니다.',
---     'MON,WED,FRI',
---     '2025-11-30 23:59:59',
---     'https://open.kakao.com/o/kakaodev',
---     false,
---     CURRENT_TIMESTAMP,
---     CURRENT_TIMESTAMP,
---     'https://example.com/profile/mentor2.jpg',
---     '이프론트'
--- ),
--- -- 2
--- (
---     'Naver',
---     'Principal Engineer',
---     'QueryDSL과 JPA 성능 최적화, 대용량 데이터 처리 경험을 공유합니다.',
---     'TUE,THU,SAT',
---     '2026-01-31 23:59:59',
---     'https://open.kakao.com/o/naverdev',
---     false,
---     CURRENT_TIMESTAMP,
---     CURRENT_TIMESTAMP,
---     'https://example.com/profile/mentor3.jpg',
---     '박데이터'
--- ),
--- -- 3
--- (
---     'Coupang',
---     'Staff Software Engineer',
---     'Docker와 Kubernetes를 활용한 CI/CD 파이프라인 구축 전문가입니다.',
---     'MON,TUE,THU,FRI',
---     '2025-10-31 23:59:59',
---     'https://open.kakao.com/o/coupangdev',
---     false,
---     CURRENT_TIMESTAMP,
---     CURRENT_TIMESTAMP,
---     'https://example.com/profile/mentor4.jpg',
---     '최데브옵스'
--- ),
--- 4
+
 (
     'SK 쉴더스',
     'Business Analyst',
@@ -392,7 +350,7 @@ INSERT INTO mentors (
     CURRENT_TIMESTAMP,
     CURRENT_TIMESTAMP,
     '/assets/img/mentors/mentor1.jpg',
-    'Walter White'
+    '안철수'
 ),
 -- 5
 (
@@ -573,7 +531,7 @@ VALUES
         'React.js',
         '2025-06-16');
 
--- -- 멘토링
+-- 멘토링
 -- INSERT INTO mentorings_reservation (
 --     mentor_id,
 --     member_id,
@@ -588,7 +546,28 @@ VALUES
 --    'Spring',
 --    'Spring Boot JPA',
 --    '2025-06-20T14:30'
--- );
+-- -- );
+-- INSERT INTO mentorings_reservation (
+--     reservationId,
+--     mentorId,
+--     menteeId,
+--     date,
+--     status,
+--     memberName,
+--     mentorImageUrl,
+--     subject,
+--     openChatUrl
+-- ) VALUES (
+--              1001,                -- 예약 ID (PK)
+--              2,                   -- 멘토 ID
+--              5,                   -- 멘티 ID
+--              '2024-06-01 14:00:00', -- 예약 날짜/시간
+--              'CANCELED',          -- 상태 (PENDING, CONFIRMED, CANCELED, REJECTED 등)
+--              '테스트 멘티',        -- 멘티 이름
+--              '/assets/img/mentors/mentor1.jpg', -- 멘토 이미지 URL
+--              'React, Node.js',    -- 주제
+--              'https://open.kakao.com/o/testchat' -- 오픈채팅 URL
+--          );
 
 INSERT INTO mentorings (
     mentor_id,
