@@ -53,6 +53,7 @@
 
         <!-- 캘린더 DTO -->
         <typeAlias alias="CalendarItemMentoringByDateDto" type="com.takoyakki.backend.domain.calendar.dto.response.CalendarItemMentoringByDateDto"/>
+        <typeAlias alias="CalendarItemMentoringReservationByDateDto" type="com.takoyakki.backend.domain.calendar.dto.response.CalendarItemMentoringReservationByDateDto"/>
         <typeAlias alias="CalendarItemTodoByDateDto" type="com.takoyakki.backend.domain.calendar.dto.response.CalendarItemTodoByDateDto"/>
         <typeAlias alias="CalendarItemStudyDiaryByDateDto" type="com.takoyakki.backend.domain.calendar.dto.response.CalendarItemStudyDiaryByDateDto"/>
         <typeAlias alias="CalendarItemCurriculumByDateDto" type="com.takoyakki.backend.domain.calendar.dto.response.CalendarItemCurriculumByDateDto"/>

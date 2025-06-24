@@ -124,4 +124,21 @@
             reservation_id = #{reservationId}
     </update>
 
+    <select id="selectMentoringReservationListInMonthByMemberId" resultType="CalendarItemMentoringReservationByDateDto">
+        SELECT
+            m.date::date AS date,
+            m.reservation_id AS reservationId,
+            o.mentor_name AS mentorName
+        FROM
+            mentorings_reservation m
+        LEFT OUTER JOIN
+            mentors o ON m.mentor_id = o.mentor_id
+        WHERE
+            m.date::date BETWEEN #{startDate} AND #{endDate}
+        AND
+            status = 'COMPLETED'
+        AND
+            m.mentee_id = #{memberId}
+    </select>
+
 </mapper>

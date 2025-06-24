@@ -327,7 +327,8 @@ INSERT INTO mentorings_reservation (
     mentee_id,
     introduction,
     subject,
-    date
+    date,
+    status
 )
 VALUES
 (
@@ -335,19 +336,22 @@ VALUES
    1,
    'Spring',
    'Spring Boot JPA',
-   '2025-06-20T14:30'
+   '2025-06-20T14:30',
+   'COMPLETED'
 ),(
    1,
    1,
    'Spring',
    'Spring Boot JPA',
-   '2025-05-20T14:30'
+   '2025-05-20T14:30',
+                        'COMPLETED'
 ),(
    1,
    1,
    'Spring',
    'JAVA',
-   '2025-06-21T14:30'
+   '2025-06-21T14:30',
+                        'COMPLETED'
 );
 
 INSERT INTO mentorings (

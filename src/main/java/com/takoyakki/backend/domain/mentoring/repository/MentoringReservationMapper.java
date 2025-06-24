@@ -1,10 +1,13 @@
 package com.takoyakki.backend.domain.mentoring.repository;
 
+import com.takoyakki.backend.domain.calendar.dto.response.CalendarItemMentoringByDateDto;
+import com.takoyakki.backend.domain.calendar.dto.response.CalendarItemMentoringReservationByDateDto;
 import com.takoyakki.backend.domain.mentoring.dto.reservation.MenteeReservationRequestDto;
 import com.takoyakki.backend.domain.mentoring.dto.reservation.MentoringReservationResponseDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Mapper
@@ -46,4 +49,6 @@ public interface MentoringReservationMapper {
     int updateReservationToRejected(Long reservationId, String rejectReason);
 
     int updateReservationToCompleted(Long reservationId);
+
+    List<CalendarItemMentoringReservationByDateDto> selectMentoringReservationListInMonthByMemberId(Long memberId, LocalDate startDate, LocalDate endDate);
 }

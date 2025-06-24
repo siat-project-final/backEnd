@@ -1,11 +1,9 @@
 package com.takoyakki.backend.domain.calendar.service;
 
-import com.takoyakki.backend.domain.calendar.dto.response.CalendarItemCurriculumByDateDto;
-import com.takoyakki.backend.domain.calendar.dto.response.CalendarItemMentoringByDateDto;
-import com.takoyakki.backend.domain.calendar.dto.response.CalendarItemTodoByDateDto;
-import com.takoyakki.backend.domain.calendar.dto.response.CalendarScheduleListResponseDto;
+import com.takoyakki.backend.domain.calendar.dto.response.*;
 import com.takoyakki.backend.domain.dailyLearning.repository.DailyLearningMapper;
 import com.takoyakki.backend.domain.mentoring.repository.MentoringMapper;
+import com.takoyakki.backend.domain.mentoring.repository.MentoringReservationMapper;
 import com.takoyakki.backend.domain.todo.repository.TodosMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +22,7 @@ import java.util.Map;
 @Transactional(readOnly = true)
 public class CalendarServiceImpl implements CalendarService{
     private final MentoringMapper mentoringMapper;
+    private final MentoringReservationMapper mentoringReservationMapper;
     private final DailyLearningMapper dailyLearningMapper;
     private final TodosMapper todosMapper;
 
@@ -42,6 +41,8 @@ public class CalendarServiceImpl implements CalendarService{
         List<CalendarItemMentoringByDateDto> mentorings = mentoringMapper.selectMentoringListInMonthByMemberId(memberId, startDate, endDate);
         List<CalendarItemCurriculumByDateDto> curriculums = dailyLearningMapper.selectCurriculumInMonthByMemberId(startDate, endDate);
         List<CalendarItemTodoByDateDto> todos = todosMapper.selectTodoListInMonthByMemberId(memberId, startDate, endDate);
+        List<CalendarItemMentoringReservationByDateDto> mentoringsReservations = mentoringReservationMapper.selectMentoringReservationListInMonthByMemberId(memberId, startDate, endDate);
+
 
         for (CalendarItemMentoringByDateDto m : mentorings) {
             resultMap.get(m.getDate()).getMentoringList().add(m);
@@ -53,6 +54,10 @@ public class CalendarServiceImpl implements CalendarService{
 
         for (CalendarItemTodoByDateDto t : todos) {
             resultMap.get(t.getDate()).getTodoList().add(t);
+        }
+
+        for (CalendarItemMentoringReservationByDateDto r : mentoringsReservations) {
+            resultMap.get(r.getDate()).getMentoringReservationList().add(r);
         }
 
         return resultMap;

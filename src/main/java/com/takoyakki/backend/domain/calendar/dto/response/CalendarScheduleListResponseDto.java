@@ -26,6 +26,9 @@ public class CalendarScheduleListResponseDto {
     @Schema(description = "멘토링", example = "멘토 홍길동, 과목 JAVA 기초")
     private List<CalendarItemMentoringByDateDto> mentoringList;
 
+    @Schema(description = "멘토링 예약", example = "멘토 홍길동, 과목 JAVA 기초")
+    private List<CalendarItemMentoringReservationByDateDto> mentoringReservationList;
+
     @Schema(description = "todo 리스트", example = "JS 복습, 알고리즘 특강, sqld 자격증 공부")
     private List<CalendarItemTodoByDateDto> todoList;
 
@@ -34,6 +37,7 @@ public class CalendarScheduleListResponseDto {
         this.subjectList = new ArrayList<>();
         this.studyDiaryList = new ArrayList<>();
         this.mentoringList = new ArrayList<>();
+        this.mentoringReservationList = new ArrayList<>();
         this.todoList = new ArrayList<>();
     }
 }
