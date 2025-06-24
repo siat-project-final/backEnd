@@ -3,6 +3,7 @@ package com.takoyakki.backend.domain.challenge.service;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.response.ChallengeRankResponseDto;
 import com.takoyakki.backend.domain.challenge.dto.response.ChallengeReviewSelectResponseDto;
+import com.takoyakki.backend.domain.challenge.dto.response.ProblemSolvingResultResponseDto;
 import com.takoyakki.backend.domain.challenge.dto.response.ProblemsSelectResponseDto;
 import jakarta.validation.Valid;
 
@@ -24,4 +25,5 @@ public interface ChallengeService {
 
     List<ProblemsSelectResponseDto> selectChallengeProblems();
 
+    List<ProblemSolvingResultResponseDto> selectProblemSolvingResult(Long memberId);
 }

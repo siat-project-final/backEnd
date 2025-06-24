@@ -19,6 +19,8 @@
         <typeAlias alias="ProblemsSelectResponseDto" type="com.takoyakki.backend.domain.challenge.dto.response.ProblemsSelectResponseDto"/>
         <typeAlias alias="ProblemSolvingInsertRequestDto" type="com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRequestDto"/>
         <typeAlias alias="ChallengeRankResponseDto" type="com.takoyakki.backend.domain.challenge.dto.response.ChallengeRankResponseDto"/>
+        <typeAlias alias="ProblemSolvingSubmitResponseDto" type="com.takoyakki.backend.domain.challenge.dto.response.ProblemSolvingSubmitResponseDto"/>
+        <typeAlias alias="ProblemSolvingResultResponseDto" type="com.takoyakki.backend.domain.challenge.dto.response.ProblemSolvingResultResponseDto"/>
 
         <typeAlias alias="ChallengeReviewSelectResponseDto" type="com.takoyakki.backend.domain.challenge.dto.response.ChallengeReviewSelectResponseDto"/>
 

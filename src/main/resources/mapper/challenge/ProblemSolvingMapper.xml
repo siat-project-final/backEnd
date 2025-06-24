@@ -75,7 +75,8 @@
             p.correct_answer AS answer,
             p.difficulty AS points,
             p.contents,
-            p.subject
+            p.subject,
+            p.choices
         FROM
             problem_solving ps
         LEFT OUTER JOIN

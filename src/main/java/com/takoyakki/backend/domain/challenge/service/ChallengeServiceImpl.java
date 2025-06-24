@@ -5,9 +5,7 @@ import com.takoyakki.backend.domain.challenge.api.AnthropicClient;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertItemRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemsInsertRequestDto;
-import com.takoyakki.backend.domain.challenge.dto.response.ChallengeRankResponseDto;
-import com.takoyakki.backend.domain.challenge.dto.response.ChallengeReviewSelectResponseDto;
-import com.takoyakki.backend.domain.challenge.dto.response.ProblemsSelectResponseDto;
+import com.takoyakki.backend.domain.challenge.dto.response.*;
 import com.takoyakki.backend.domain.challenge.repository.DailyChallengeRankingsMapper;
 import com.takoyakki.backend.domain.challenge.repository.ProblemSolvingMapper;
 import com.takoyakki.backend.domain.challenge.repository.ProblemsMapper;
@@ -40,6 +38,11 @@ public class ChallengeServiceImpl implements ChallengeService{
         } catch (Exception e) {
             throw new RuntimeException("문제 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
         }
+    }
+
+    @Override
+    public List<ProblemSolvingResultResponseDto> selectProblemSolvingResult(Long memberId) {
+        return problemsMapper.selectProblemSolvingResult(memberId);
     }
 
     @Override
@@ -80,7 +83,7 @@ public class ChallengeServiceImpl implements ChallengeService{
                 Long problemId = problemIds.get(i);
                 Integer answer = answers.get(i);
 
-                ProblemsSelectResponseDto responseDto = problemsMapper.selectProblem(problemId);
+                ProblemSolvingSubmitResponseDto responseDto = problemsMapper.selectProblem(problemId);
 
                 ProblemSolvingInsertItemRequestDto item = ProblemSolvingInsertItemRequestDto.builder()
                         .memberId(requestDto.getMemberId())

@@ -229,7 +229,7 @@ INSERT INTO members (
     'TRAINEE', 'ACTIVE', 500, 100, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
 ),
 (
-    'user002', 'securepass456', '김철수', 'chulsoo@example.com', '010-2345-6789', '철수짱',
+    'test', '1234', '김철수', 'chulsoo@example.com', '010-2345-6789', '철수짱',
     'TRAINEE', 'ACTIVE', 1200, 300, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
 ),
 (
@@ -429,14 +429,6 @@ INSERT INTO problems (
     5,
          '2025-06-23T21:36:55',
          '2025-06-23T21:36:55'
-), (
-    'React.js: 5',
-    'React.js는 무엇인가요?',
-    5,
-    'React.js',
-    5,
-         NOW(),
-         NOW()
 );
 
 INSERT INTO problem_solving
@@ -455,7 +447,7 @@ VALUES
         1,
         'Y',
         1,
-        NOW()
+        '2025-06-23'
     )
  ,
     (
@@ -464,7 +456,7 @@ VALUES
         2,
         'Y',
         2,
-        NOW()
+        '2025-06-23'
     )
  ,
     (
@@ -473,7 +465,7 @@ VALUES
         1,
         'N',
         0,
-        NOW()
+        '2025-06-23'
     )
  ,
     (
@@ -482,7 +474,7 @@ VALUES
         4,
         'Y',
         4,
-        NOW()
+        '2025-06-23'
     )
  ,
     (
@@ -491,14 +483,14 @@ VALUES
         5,
         'Y',
         5,
-        NOW()
+        '2025-06-23'
     ),(
           1,
           2,
           1,
           'Y',
           1,
-          NOW()
+          '2025-06-23'
       ),
       (
           2,
@@ -506,7 +498,7 @@ VALUES
           2,
           'Y',
           2,
-          NOW()
+          '2025-06-23'
       ),
       (
           3,
@@ -514,7 +506,7 @@ VALUES
           1,
           'N',
           0,
-          NOW()
+          '2025-06-23'
       ),
       (
           4,
@@ -522,7 +514,7 @@ VALUES
           4,
           'Y',
           4,
-          NOW()
+          '2025-06-23'
       ),
       (
           5,
@@ -530,7 +522,7 @@ VALUES
           5,
           'Y',
           4,
-          NOW()
+          '2025-06-23'
       ),
       (
           6,

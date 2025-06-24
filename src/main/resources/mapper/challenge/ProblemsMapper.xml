@@ -4,12 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.takoyakki.backend.domain.challenge.repository.ProblemsMapper">
-
-    <resultMap id="ProblemsSelectResponseMap" type="ProblemsSelectResponseDto">
-        <result property="answer" column="correct_answer" />
-        <result property="points" column="difficulty" />
-    </resultMap>
-
     <insert id="insertProblem"  parameterType="ProblemsInsertRequestDto">
         INSERT INTO problems (
             title,
@@ -28,10 +22,10 @@
         )
     </insert>
 
-    <select id="selectProblem" parameterType="java.lang.Long" resultMap="ProblemsSelectResponseMap">
+    <select id="selectProblem" parameterType="java.lang.Long" resultType="ProblemSolvingSubmitResponseDto">
         SELECT
             difficulty,
-            correct_answer
+            correct_answer AS answer
         FROM
             problems
         WHERE
@@ -51,6 +45,25 @@
             problems
         WHERE
             created_at::date = CURRENT_DATE
+    </select>
+
+    <select id="selectProblemSolvingResult" resultType="ProblemSolvingResultResponseDto">
+        SELECT
+            ps.problem_id AS problemId,
+            p.title,
+            p.difficulty AS difficulty,
+            p.correct_answer AS correctAnswer,
+            ps.submit_answer AS submitAnswer,
+            ps.is_correct AS correct,
+            p.choices AS options
+        FROM
+            problem_solving ps
+        LEFT OUTER JOIN
+            problems p ON ps.problem_id = p.problem_id
+        WHERE
+            ps.member_id = #{memberId}
+        AND
+            date::date = CURRENT_DATE
     </select>
 
 

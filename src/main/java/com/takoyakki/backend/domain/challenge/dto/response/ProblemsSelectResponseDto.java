@@ -20,7 +20,7 @@ public class ProblemsSelectResponseDto {
     private int answer;
 
     @Schema(description = "배점", example = "1")
-    private int difficulty;
+    private int points;
 
     @Schema(description = "문제", example = "Java의 기본 데이터 타입은?")
     private String contents;
