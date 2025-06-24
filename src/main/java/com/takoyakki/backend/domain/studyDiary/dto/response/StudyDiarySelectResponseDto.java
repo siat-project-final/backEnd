@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Schema(description = "학습 일지 조회 응답")
-@Builder
+// @Builder
 public class StudyDiarySelectResponseDto {
 
     @Schema(description = "학습 일지 ID", example = "10")

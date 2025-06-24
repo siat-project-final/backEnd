@@ -36,7 +36,7 @@
             member_id      AS memberId,
             title,
             contents,
-            subject        AS subjectName,
+            subject        AS subject,
             ai_summary     AS aiSummary,
             study_date     AS studyDate,
             is_public      AS isPublic,

@@ -33,5 +33,5 @@ public class StudyDiarySelectPublicListResponseDto {
     private LocalDate studyDate;
 
     @Schema(description = "좋아요 수", example = "15")
-    private int likeCount;
+    private Integer likeCount;
 }

@@ -1,4 +1,4 @@
-SET client_encoding = 'UTF8';
+-- SET client_encoding = 'UTF8';
 
 -- #DDL
 -- 유저
