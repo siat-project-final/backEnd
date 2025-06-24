@@ -110,7 +110,17 @@
             member_id = #{memberId}
         AND
             date BETWEEN #{startDate} AND #{endDate};
-
-
     </select>
+
+    <update id="updateTodoToggle">
+        UPDATE
+            todos
+        SET
+            is_checked = NOT is_checked,
+            updated_at = NOW()
+        WHERE
+            todo_id = #{id}
+        AND
+            is_deleted = FALSE;
+    </update>
 </mapper>

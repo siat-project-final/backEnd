@@ -36,4 +36,9 @@ public class TodoServiceImpl implements TodoService {
     public boolean softDeleteTodo(Long id) {
         return todosMapper.softDeleteTodo(id) > 0;
     }
+
+    @Override
+    public boolean updateTodoToggle(Long id) {
+        return todosMapper.updateTodoToggle(id) > 0;
+    }
 }

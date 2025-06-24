@@ -68,7 +68,7 @@ public class MemberController {
             @ApiResponse(responseCode = "400", description = "잘못된 요청"),
             @ApiResponse(responseCode = "500", description = "서버 오류")
     })
-    @GetMapping("/{memberId}/statistics")
+    @GetMapping("/{memberId}/stats")
     public ResponseEntity<MyPageStatisticsResponseDto> getStatistics(@PathVariable("memberId") Long memberId){
         MyPageStatisticsResponseDto myPageStatisticsResponseDto = memberService.getStatistics(memberId);
         return ResponseEntity.ok(myPageStatisticsResponseDto);

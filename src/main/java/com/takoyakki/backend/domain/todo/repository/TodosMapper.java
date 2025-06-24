@@ -27,4 +27,6 @@ public interface TodosMapper {
 
     List<CalendarItemTodoByDateDto> selectTodoListInMonthByMemberId(Long memberId, LocalDate startDate, LocalDate endDate);
 
+    int updateTodoToggle(Long id);
+
 }

@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Schema(description = "문제 등록 요청")
 @Builder
@@ -22,4 +24,7 @@ public class ProblemsInsertRequestDto {
 
     @Schema(description = "정답 번호", example = "2")
     private Integer correctAnswer;
+
+    @Schema(description = "선택지 리스트", example = "[\"int\", \"String\", \"float\", \"double\"]")
+    private List<String> choices;
 }

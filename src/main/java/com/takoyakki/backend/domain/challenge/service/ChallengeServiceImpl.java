@@ -1,12 +1,11 @@
 package com.takoyakki.backend.domain.challenge.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.takoyakki.backend.domain.challenge.api.AnthropicClient;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertItemRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemsInsertRequestDto;
-import com.takoyakki.backend.domain.challenge.dto.response.ChallengeRankResponseDto;
-import com.takoyakki.backend.domain.challenge.dto.response.ChallengeReviewSelectResponseDto;
-import com.takoyakki.backend.domain.challenge.dto.response.ProblemsSelectResponseDto;
+import com.takoyakki.backend.domain.challenge.dto.response.*;
 import com.takoyakki.backend.domain.challenge.repository.DailyChallengeRankingsMapper;
 import com.takoyakki.backend.domain.challenge.repository.ProblemSolvingMapper;
 import com.takoyakki.backend.domain.challenge.repository.ProblemsMapper;
@@ -42,6 +41,11 @@ public class ChallengeServiceImpl implements ChallengeService{
     }
 
     @Override
+    public List<ProblemSolvingResultResponseDto> selectProblemSolvingResult(Long memberId) {
+        return problemsMapper.selectProblemSolvingResult(memberId);
+    }
+
+    @Override
     public int insertChallengeProblem(String subject, int difficulty) {
         try {
             String problem = anthropicClient.createProblem(subject, difficulty);
@@ -49,12 +53,16 @@ public class ChallengeServiceImpl implements ChallengeService{
             String contents = anthropicClient.extractContents(problem);
             int answer = anthropicClient.extractAnswer(problem);
 
+            String title = anthropicClient.extractTitle(contents);
+            List<String> choices = anthropicClient.extractChoice(contents);
+
             ProblemsInsertRequestDto requestDto = ProblemsInsertRequestDto.builder()
-                    .title(subject + ": " + difficulty)
+                    .title(title)
                     .contents(contents)
                     .difficulty(difficulty)
                     .subject(subject)
                     .correctAnswer(answer)
+                    .choices(choices)
                     .build();
 
             return problemsMapper.insertProblem(requestDto);
@@ -75,7 +83,7 @@ public class ChallengeServiceImpl implements ChallengeService{
                 Long problemId = problemIds.get(i);
                 Integer answer = answers.get(i);
 
-                ProblemsSelectResponseDto responseDto = problemsMapper.selectProblem(problemId);
+                ProblemSolvingSubmitResponseDto responseDto = problemsMapper.selectProblem(problemId);
 
                 ProblemSolvingInsertItemRequestDto item = ProblemSolvingInsertItemRequestDto.builder()
                         .memberId(requestDto.getMemberId())
@@ -83,7 +91,7 @@ public class ChallengeServiceImpl implements ChallengeService{
                         .createdAt(requestDto.getCreatedAt())
                         .answer(answer)
                         .isCorrect(answer == responseDto.getAnswer()? "Y" : "N")
-                        .points(answer == responseDto.getAnswer()? responseDto.getPoints() : 0)
+                        .points(answer == responseDto.getAnswer()? responseDto.getDifficulty() : 0)
                         .build();
                 list.add(item);
             }

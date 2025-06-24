@@ -11,6 +11,8 @@ import lombok.Data;
 public class MemberUpdateRequestDto {
     @Schema(description = "member_id")
     private Long memberId;
+    @Schema(description = "password")
+    private String password;
 
     @NotBlank
     @Schema(description = "email")

@@ -17,7 +17,8 @@ CREATE TABLE members (
     current_level INTEGER DEFAULT 1 NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-    is_deleted BOOLEAN DEFAULT FALSE NOT NULL
+    is_deleted BOOLEAN DEFAULT FALSE NOT NULL,
+    member_image_url VARCHAR(255) DEFAULT 'DEFAULT.com' NULL
 );
 
 CREATE TABLE mentors (
@@ -82,7 +83,8 @@ CREATE TABLE problems (
 	created_at	TIMESTAMP(0)	DEFAULT CURRENT_TIMESTAMP	NULL,
 	updated_at	TIMESTAMP(0)	DEFAULT CURRENT_TIMESTAMP	NULL,
 	correct_answer	INTEGER	NOT NULL,
-	is_deleted	BOOLEAN	DEFAULT FALSE	NULL
+	is_deleted	BOOLEAN	DEFAULT FALSE	NULL,
+	choices TEXT    DEFAULT '[]' NULL
 );
 
 
@@ -219,11 +221,11 @@ INSERT INTO members (
     total_xp, usable_points, current_level, created_at, updated_at, is_deleted
 ) VALUES
 (
-    'admin', '1234', '홍길동', 'hong@example.com', '010-1234-5678', '길동이',
+    'admin', '1234', '홍길동x', 'hong@example.com', '010-1234-5678', '길동이',
     'TRAINEE', 'ACTIVE', 500, 100, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
 ),
 (
-    'user002', 'securepass456', '김철수', 'chulsoo@example.com', '010-2345-6789', '철수짱',
+    'test', '1234', '김철수', 'chulsoo@example.com', '010-2345-6789', '철수짱',
     'TRAINEE', 'ACTIVE', 1200, 300, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
 ),
 (
@@ -304,8 +306,16 @@ VALUES
         '2025-06-16'),
 ('Python의 기본 데이터 타입에 대해 학습했습니다. int, char, boolean 등의 특징을 익혔습니다.',
         'Python 기본 데이터 타입',
-        'React.js',
-        '2025-05-16');
+        'Vue.js',
+        '2025-06-22'),
+('Python의 기본 데이터 타입에 대해 학습했습니다. int, char, boolean 등의 특징을 익혔습니다.',
+        'Python 기본 데이터 타입',
+        'Vue.js',
+        '2025-06-23'),
+('Python의 기본 데이터 타입에 대해 학습했습니다. int, char, boolean 등의 특징을 익혔습니다.',
+        'Python 기본 데이터 타입',
+        'Vue.js',
+        '2025-06-24');
 
 -- 멘토링
 INSERT INTO mentorings_reservation (
@@ -322,6 +332,12 @@ VALUES
    'Spring',
    'Spring Boot JPA',
    '2025-06-20T14:30'
+),(
+   1,
+   1,
+   'Spring',
+   'JAVA',
+   '2025-06-21T14:30'
 );
 
 INSERT INTO mentorings (
@@ -336,7 +352,13 @@ INSERT INTO mentorings (
     1,
     'COMPLETED',
     NOW()
-);
+),(
+    '1',
+    '1',
+    2,
+    'COMPLETED',
+    NOW()
+ );
 
 -- 챌린지
 INSERT INTO problems (
@@ -344,37 +366,65 @@ INSERT INTO problems (
             contents,
             difficulty,
             subject,
-            correct_answer
+            correct_answer,
+            created_at,
+            updated_at
 ) VALUES (
     'React.js: 1',
     'React.js는 무엇인가요?',
     1,
     'React.js',
-    1
+    1,
+    '2025-06-22T21:36:55',
+    '2025-06-22T21:36:55'
 ), (
     'React.js: 2',
     'React.js는 무엇인가요?',
     2,
     'React.js',
-    2
+    2,
+         '2025-06-22T21:36:55',
+         '2025-06-22T21:36:55'
 ), (
     'React.js: 3',
     'React.js는 무엇인가요?',
     3,
     'React.js',
-    3
+    3,
+         '2025-06-22T21:36:55',
+         '2025-06-22T21:36:55'
 ), (
     'React.js: 4',
     'React.js는 무엇인가요?',
     4,
     'React.js',
-    4
+    4,
+         '2025-06-22T21:36:55',
+         '2025-06-22T21:36:55'
 ), (
     'React.js: 5',
     'React.js는 무엇인가요?',
     5,
     'React.js',
-    5
+    5,
+         '2025-06-22T21:36:55',
+         '2025-06-22T21:36:55'
+), (
+    'Vue.js: 5',
+    'Vue.js는 무엇인가요?',
+    5,
+    'Vue.js',
+    5,
+         '2025-06-22T21:36:55',
+         '2025-06-22T21:36:55'
+), (
+    'React.js: 5',
+    'React.js는 무엇인가요?',
+    5,
+    'React.js',
+    5,
+         '2025-06-23T21:36:55',
+         '2025-06-23T21:36:55'
 );
 
 INSERT INTO problem_solving
@@ -393,7 +443,7 @@ VALUES
         1,
         'Y',
         1,
-        NOW()
+        '2025-06-23'
     )
  ,
     (
@@ -402,7 +452,7 @@ VALUES
         2,
         'Y',
         2,
-        NOW()
+        '2025-06-23'
     )
  ,
     (
@@ -411,7 +461,7 @@ VALUES
         1,
         'N',
         0,
-        NOW()
+        '2025-06-23'
     )
  ,
     (
@@ -420,7 +470,7 @@ VALUES
         4,
         'Y',
         4,
-        NOW()
+        '2025-06-23'
     )
  ,
     (
@@ -429,14 +479,14 @@ VALUES
         5,
         'Y',
         5,
-        NOW()
+        '2025-06-23'
     ),(
           1,
           2,
           1,
           'Y',
           1,
-          NOW()
+          '2025-06-23'
       ),
       (
           2,
@@ -444,7 +494,7 @@ VALUES
           2,
           'Y',
           2,
-          NOW()
+          '2025-06-23'
       ),
       (
           3,
@@ -452,7 +502,7 @@ VALUES
           1,
           'N',
           0,
-          NOW()
+          '2025-06-23'
       ),
       (
           4,
@@ -460,7 +510,7 @@ VALUES
           4,
           'Y',
           4,
-          NOW()
+          '2025-06-23'
       ),
       (
           5,
@@ -468,7 +518,23 @@ VALUES
           5,
           'Y',
           4,
-          NOW()
+          '2025-06-23'
+      ),
+      (
+          6,
+          2,
+          5,
+          'Y',
+          4,
+          CAST('2025-06-22' AS DATE)
+      ),
+      (
+          6,
+          2,
+          5,
+          'Y',
+          4,
+          CAST('2025-06-22' AS DATE)
       );
 
 INSERT INTO daily_challenge_rankings

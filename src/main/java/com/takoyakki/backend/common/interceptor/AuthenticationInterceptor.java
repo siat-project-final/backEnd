@@ -38,6 +38,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         인증
          */
 
+        System.out.println("auth filter~~~~~~~~~~~~~~");
+
         // 토큰 추출
         String token = jwtTokenProvider.extractToken(request);
         if (token == null) {
