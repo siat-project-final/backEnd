@@ -315,6 +315,10 @@ VALUES
 ('Python의 기본 데이터 타입에 대해 학습했습니다. int, char, boolean 등의 특징을 익혔습니다.',
         'Python 기본 데이터 타입',
         'Vue.js',
+        '2025-05-23'),
+('Python의 기본 데이터 타입에 대해 학습했습니다. int, char, boolean 등의 특징을 익혔습니다.',
+        'Python 기본 데이터 타입',
+        'Vue.js',
         '2025-06-24');
 
 -- 멘토링
@@ -332,6 +336,12 @@ VALUES
    'Spring',
    'Spring Boot JPA',
    '2025-06-20T14:30'
+),(
+   1,
+   1,
+   'Spring',
+   'Spring Boot JPA',
+   '2025-05-20T14:30'
 ),(
    1,
    1,

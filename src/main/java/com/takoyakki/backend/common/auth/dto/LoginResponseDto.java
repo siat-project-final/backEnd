@@ -23,8 +23,6 @@ public class LoginResponseDto {
     private String id;
     @Schema(description = "role")
     private String role;
-    @Schema(description = "member_id")
-    private Long memberId;
     @Schema(description = "member_name")
     private String memberName;
 }

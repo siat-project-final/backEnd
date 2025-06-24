@@ -39,12 +39,16 @@
             SELECT
                 member_id,
                 id,
+                password,
                 member_name,
                 role,
                 email,
                 nickname,
                 phone_number,
-                total_xp
+                current_level,
+                usable_points,
+                total_xp,
+                member_image_url
             FROM
                 members
             WHERE

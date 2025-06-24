@@ -27,8 +27,6 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public LoginResponseDto login(LoginRequestDto request) {
-        System.out.println("authMapper.selectUserInfo(request.getId() = " + authMapper.selectUserInfo(request.getId()));
-
         LoginAuthCheckDto loginAuthCheckDto = Optional.ofNullable(authMapper.selectUserInfo(request.getId()))
                 .orElseThrow(() -> new UnauthorizedException("해당하는 유저가 존재하지 않습니다."));
 
