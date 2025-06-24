@@ -35,3 +35,4 @@ public class StudyDiarySelectPublicListResponseDto {
     @Schema(description = "좋아요 수", example = "15")
     private Integer likeCount;
 }
+

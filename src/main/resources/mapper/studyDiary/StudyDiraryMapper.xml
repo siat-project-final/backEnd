@@ -9,26 +9,35 @@
         INSERT INTO study_diary
         (
             member_id,
+            member_name,
             title,
             contents,
             subject,
-            ai_summary,<!-- Use NOW() for created_at to automatically set the current timestamp -->
+            ai_summary,
             created_at,
+            updated_at,
             study_date,
-            is_public
+            is_public,
+            is_deleted,
+            likes
         )
         VALUES
-        (
-            #{memberId},
-            #{title},
-            #{contents},
-            #{subject},
-            #{aiSummary},
-            NOW(),
-            #{studyDate},
-            #{isPublic}
-        )
+            (
+                #{memberId},
+                #{memberName},
+                #{title},
+                #{contents},
+                #{subject},
+                #{aiSummary},
+                NOW(),
+                NOW(),
+                #{studyDate},
+                #{isPublic},
+                FALSE,
+                0
+            )
     </insert>
+
 
     <select id="selectStudyDiary" parameterType="long" resultType="com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiarySelectResponseDto">
         SELECT

@@ -114,6 +114,7 @@ CREATE TABLE daily_challenge_rankings (
 CREATE TABLE study_diary (
     diary_id    BIGINT      GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     member_id   BIGINT      NOT NULL,
+    member_name VARCHAR(255) NOT NULL,
     contents    VARCHAR(255),
     title       VARCHAR(255),
     subject     VARCHAR(255),
@@ -491,6 +492,7 @@ VALUES
 INSERT INTO study_diary
 (
     member_id,
+    member_name,  -- member_name 추가
     contents,
     title,
     subject,
@@ -501,12 +503,13 @@ INSERT INTO study_diary
     is_deleted,
     is_public,
     likes
-) VALUES
-      (1, 'Java와 Spring Boot 기본 개념 정리', 'Java 스프링 입문', 'Java', NOW(), NOW(), '2025-06-19 10:00:00', '스프링 부트의 핵심 개념 요약', FALSE, TRUE, 5),
-      (2, '데이터베이스 트랜잭션과 인덱스 이해', 'DB 트랜잭션 공부', 'Database', NOW(), NOW(), '2025-06-18 14:30:00', '트랜잭션의 중요성과 인덱스 활용법 요약', FALSE, FALSE, 3),
-      (3, 'REST API 설계 원칙', 'REST API 설계', 'API', NOW(), NOW(), '2025-06-17 09:00:00', 'REST API의 기본 설계 원칙 설명', FALSE, TRUE, 10),
-      (1, 'JPA와 Hibernate 매핑 이해', 'JPA 매핑', 'Java', NOW(), NOW(), '2025-06-16 16:00:00', '엔티티 매핑과 연관관계 설명', FALSE, TRUE, 7),
-      (4, 'AWS EC2 인스턴스 생성 및 설정', 'AWS 입문', 'Cloud', NOW(), NOW(), '2025-06-15 11:00:00', 'AWS EC2 사용법과 설정 요약', FALSE, FALSE, 1);
+)
+VALUES
+    (1, '가길동', 'Java와 Spring Boot 기본 개념 정리', 'Java 스프링 입문', 'Java', NOW(), NOW(), '2025-06-19 10:00:00', '스프링 부트의 핵심 개념 요약', FALSE, TRUE, 5),
+    (2, '나길동', '데이터베이스 트랜잭션과 인덱스 이해', 'DB 트랜잭션 공부', 'Database', NOW(), NOW(), '2025-06-18 14:30:00', '트랜잭션의 중요성과 인덱스 활용법 요약', FALSE, FALSE, 3),
+    (3, '다길동', 'REST API 설계 원칙', 'REST API 설계', 'API', NOW(), NOW(), '2025-06-17 09:00:00', 'REST API의 기본 설계 원칙 설명', FALSE, TRUE, 10),
+    (1, '라길동', 'JPA와 Hibernate 매핑 이해', 'JPA 매핑', 'Java', NOW(), NOW(), '2025-06-16 16:00:00', '엔티티 매핑과 연관관계 설명', FALSE, TRUE, 7),
+    (4, '마길동', 'AWS EC2 인스턴스 생성 및 설정', 'AWS 입문', 'Cloud', NOW(), NOW(), '2025-06-15 11:00:00', 'AWS EC2 사용법과 설정 요약', FALSE, FALSE, 1);
 
 INSERT INTO diary_comments (diary_id, member_id, contents)
 VALUES

@@ -9,7 +9,6 @@ import com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiarySelectResp
 import jakarta.validation.Valid;
 
 import java.util.List;
-
 public interface StudyDiaryService {
     int insertStudyDiary(@Valid StudyDiaryInsertRequestDto requestDto);
 
@@ -21,13 +20,11 @@ public interface StudyDiaryService {
 
     StudyDiaryAISummaryResponseDto getAISummary(@Valid StudyDiaryAISummaryRequestDto requestDto);
 
-
     List<StudyDiarySelectResponseDto> getStudyDiariesByMemberId(Long memberId);
 
     StudyDiarySelectResponseDto getStudyDiaryById(Long diaryId);
 
     List<StudyDiarySelectPublicListResponseDto> selectStudyDiaryListPublic(String subject);
 
-    int changeStudyDiaryLike(Long diaryId, boolean isLike);
-
+    int changeStudyDiaryLike(Long diaryId, boolean isLike);  // 좋아요 기능 처리 메서드
 }

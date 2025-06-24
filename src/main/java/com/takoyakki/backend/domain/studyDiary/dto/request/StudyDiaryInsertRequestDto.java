@@ -1,16 +1,20 @@
 package com.takoyakki.backend.domain.studyDiary.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Data
-@Schema(description = "학습 일지 작성 요청")
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
+@Schema(description = "학습 일지 작성 요청")
 public class StudyDiaryInsertRequestDto {
 
     @Schema(description = "회원 ID", example = "123")
     private Long memberId;
+
+    @Schema(description = "회원 이름", example = "이수현")
+    private String memberName;
 
     @Schema(description = "제목", example = "Java")
     private String title;
