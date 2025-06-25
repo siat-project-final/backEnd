@@ -62,6 +62,14 @@ public class StudyDiaryController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "학습 일지 삭제", description = "학습 일지를 삭제합니다")
+    @ApiResponse(responseCode = "200", description = "학습 일지 삭제 성공")
+    @DeleteMapping("/{diaryId}")
+    public ResponseEntity<?> deleteStudyDiary(@PathVariable Long diaryId) {
+        studyDiaryService.deleteStudyDiary(diaryId);
+        return ResponseEntity.ok().build();
+    }
+
 
     @Operation(summary = "공개된 학습 일지 목록 전체 조회", description = "공개된 학습 일지 전체 목록을 조회합니다")
     @ApiResponses({

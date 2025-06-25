@@ -27,4 +27,5 @@ public interface StudyDiaryService {
     List<StudyDiarySelectPublicListResponseDto> selectStudyDiaryListPublic(String subject);
 
     int changeStudyDiaryLike(Long diaryId, boolean isLike);  // 좋아요 기능 처리 메서드
+    void deleteStudyDiary(Long diaryId);
 }
