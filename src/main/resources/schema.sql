@@ -33,7 +33,8 @@ CREATE TABLE mentors (
   created_at TIMESTAMP(0),
   updated_at TIMESTAMP(0),
   mentor_image_url VARCHAR(255),
-  mentor_name VARCHAR(255)
+  mentor_name VARCHAR(255),
+  member_id BIGINT NOT NULL
 );
 
 CREATE TABLE refresh_tokens (
@@ -96,10 +97,7 @@ CREATE TABLE problem_solving (
 	is_correct	BOOLEAN		NULL,
 	points INTEGER		DEFAULT 0 NOT NULL,
 	date	TIMESTAMP(0)		NULL,
-	is_deleted	BOOLEAN		DEFAULT FALSE NOT NULL,
-	CONSTRAINT fk_problem FOREIGN KEY (problem_id) REFERENCES problems (problem_id),
-    CONSTRAINT fk_member FOREIGN KEY (member_id) REFERENCES members (member_id)
-
+	is_deleted	BOOLEAN		DEFAULT FALSE NOT NULL
 );
 
 CREATE TABLE daily_challenge_rankings (
@@ -258,7 +256,8 @@ INSERT INTO mentors (
     open_chat_url,
     is_deleted,
     created_at,
-    updated_at
+    updated_at,
+    member_id
 )
 SELECT
     m.member_name,
@@ -295,7 +294,8 @@ SELECT
     END,
     FALSE,
     NOW(),
-    NOW()
+    NOW(),
+    m.member_id
 FROM members m
 WHERE m.role = 'MENTOR';
 

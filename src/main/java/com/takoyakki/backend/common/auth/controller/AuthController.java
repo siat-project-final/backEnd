@@ -3,6 +3,7 @@ package com.takoyakki.backend.common.auth.controller;
 import com.takoyakki.backend.common.auth.JwtTokenProvider;
 import com.takoyakki.backend.common.auth.dto.SignUpRequestDto;
 import com.takoyakki.backend.common.auth.service.AuthService;
+import com.takoyakki.backend.common.auth.service.MentorQueryService;
 import com.takoyakki.backend.common.auth.dto.LoginRequestDto;
 import com.takoyakki.backend.common.auth.dto.LoginResponseDto;
 import com.takoyakki.backend.common.exception.TokenExpiredException;
@@ -23,7 +24,9 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final AuthService authService;
     private final JwtTokenProvider jwtTokenProvider;
-
+    // 필드 추가
+    private final MentorQueryService mentorQueryService;
+    
     @Operation(
             summary = "회원가입",
             description = "최초 접속시 회원가입을 수행합니다."
@@ -91,4 +94,14 @@ public class AuthController {
         authService.logout(id);
         return ResponseEntity.ok().body("로그아웃 되었습니다.");
     }
+
+    @Operation(
+        summary = "멘토 ID 조회",
+        description = "memberId로 mentors 테이블에서 mentorId를 조회합니다 (MENTOR 전용)"
+        )
+        @GetMapping("/mentor-id")
+        public ResponseEntity<Long> getMentorId(@RequestParam Long memberId) {
+        Long mentorId = mentorQueryService.getMentorIdByMemberId(memberId);
+        return ResponseEntity.ok(mentorId);
+        }
 }
