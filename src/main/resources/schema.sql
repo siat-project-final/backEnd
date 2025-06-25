@@ -114,7 +114,7 @@ CREATE TABLE daily_challenge_rankings (
 CREATE TABLE study_diary (
     diary_id    BIGINT      GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     member_id   BIGINT      NOT NULL,
-    contents    VARCHAR(255),
+    contents    VARCHAR(2000),
     title       VARCHAR(255),
     subject     VARCHAR(255),
     created_at  TIMESTAMP   DEFAULT CURRENT_TIMESTAMP,

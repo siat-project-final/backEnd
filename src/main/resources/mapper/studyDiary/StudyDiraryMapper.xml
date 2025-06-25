@@ -9,7 +9,6 @@
         INSERT INTO study_diary
         (
             member_id,
-            member_name,
             title,
             contents,
             subject,
@@ -24,14 +23,13 @@
         VALUES
             (
                 #{memberId},
-                #{memberName},
                 #{title},
-                #{contents},
+                #{content},
                 #{subject},
-                #{aiSummary},
+                #{summary},
                 NOW(),
                 NOW(),
-                #{studyDate},
+                #{date},
                 #{isPublic},
                 FALSE,
                 0
