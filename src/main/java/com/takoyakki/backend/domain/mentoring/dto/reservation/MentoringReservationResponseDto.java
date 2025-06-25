@@ -13,11 +13,14 @@ public class MentoringReservationResponseDto {
     @Schema(description = "예약 ID", example = "1001")
     private Long reservationId;
 
-    @Schema(description = "멘토 이름", example = "이수현")
+    @Schema(description = "멘토 id", example = "이수현")
+    private Long mentorId;
+
+    @Schema(description = "멘토 이름", example = "홍길동")
     private String mentorName;
 
     @Schema(description = "멘티 id", example = "1")
-    private String menteeId;
+    private Long menteeId;
 
     @Schema(description = "멘티 이름", example = "홍길동")
     private String menteeName;

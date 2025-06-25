@@ -156,7 +156,8 @@ CREATE TABLE notification (
 	contents VARCHAR(255) NULL,
 	type VARCHAR(50) DEFAULT 'DEFAULT' NULL,
 	is_confirmed BOOLEAN DEFAULT FALSE NULL,
-	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
+	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
+	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
 );
 
 CREATE TABLE xp_histories (
@@ -474,7 +475,7 @@ VALUES
         1,
         'Y',
         1,
-        '2025-06-24'
+        '2025-06-25'
     )
  ,
     (
@@ -483,7 +484,7 @@ VALUES
         2,
         'Y',
         2,
-        '2025-06-23'
+        '2025-06-25'
     )
  ,
     (
@@ -492,7 +493,7 @@ VALUES
         1,
         'N',
         0,
-        '2025-06-23'
+        '2025-06-25'
     )
  ,
     (
@@ -501,7 +502,7 @@ VALUES
         4,
         'Y',
         4,
-        '2025-06-23'
+        '2025-06-25'
     )
  ,
     (
@@ -510,14 +511,14 @@ VALUES
         5,
         'Y',
         5,
-        '2025-06-23'
+        '2025-06-25'
     ),(
           1,
           2,
           1,
           'Y',
           1,
-          '2025-06-23'
+          '2025-06-25'
       ),
       (
           2,
@@ -525,7 +526,7 @@ VALUES
           2,
           'Y',
           2,
-          '2025-06-24'
+          '2025-06-25'
       ),
       (
           3,
@@ -533,7 +534,7 @@ VALUES
           1,
           'N',
           0,
-          '2025-06-23'
+          '2025-06-25'
       ),
       (
           4,
@@ -541,7 +542,7 @@ VALUES
           4,
           'Y',
           4,
-          '2025-06-23'
+          '2025-06-25'
       ),
       (
           5,
@@ -549,7 +550,7 @@ VALUES
           5,
           'Y',
           4,
-          '2025-06-23'
+          '2025-06-25'
       ),
       (
           6,
@@ -557,7 +558,7 @@ VALUES
           5,
           'Y',
           4,
-          CAST('2025-06-22' AS DATE)
+          CAST('2025-06-25' AS DATE)
       ),
       (
           6,
@@ -565,7 +566,31 @@ VALUES
           5,
           'Y',
           4,
-          CAST('2025-06-24' AS DATE)
+          CAST('2025-06-25' AS DATE)
+      ),
+      (
+          6,
+          4,
+          5,
+          'Y',
+          4,
+          CAST('2025-06-25' AS DATE)
+      ),
+      (
+          6,
+          4,
+          5,
+          'Y',
+          4,
+          CAST('2025-06-25' AS DATE)
+      ),
+      (
+          6,
+          5,
+          5,
+          'Y',
+          4,
+          CAST('2025-06-25' AS DATE)
       );
 
 INSERT INTO daily_challenge_rankings

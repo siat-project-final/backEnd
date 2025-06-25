@@ -6,6 +6,7 @@
 
     <resultMap id="MentoringReservationResponseMap" type="MentoringReservationResponseDto">
         <result property="reservationId" column="reservation_id" />
+        <result property="mentorId" column="mentor_id" />
         <result property="mentorName" column="mentor_name" />
         <result property="menteeId" column="mentee_id" />
         <result property="menteeName" column="mentee_name" />
@@ -17,7 +18,10 @@
     </resultMap>
 
     <!-- 예약 생성 -->
-    <insert id="insertReservation" parameterType="com.takoyakki.backend.domain.mentoring.dto.reservation.MenteeReservationRequestDto">
+    <insert id="insertReservation"
+            parameterType="MenteeReservationRequestDto"
+            useGeneratedKeys="true"
+            keyProperty="reservationId">
         INSERT INTO mentorings_reservation (
             mentor_id,
             mentee_id,
@@ -155,4 +159,26 @@
             m.mentee_id = #{memberId}
     </select>
 
+    <select id="selectMentoringReservationInfoById" resultMap="MentoringReservationResponseMap">
+        SELECT
+            r.reservation_id AS reservation_id,
+            r.mentor_id,
+            r.mentee_id,
+            r.introduction,
+            r.subject,
+            r.date,
+            r.status,
+            m.member_name AS mentee_name,
+            o.mentor_name AS mentor_name,
+            o.mentor_image_url AS mentor_image_url,
+            o.open_chat_url AS open_chat_url
+        FROM
+            mentorings_reservation r
+        LEFT OUTER JOIN
+            members m ON r.mentee_id = m.member_id
+        LEFT OUTER JOIN
+            mentors o ON r.mentor_id = o.mentor_id
+        WHERE
+            r.reservation_id = #{reservationId}
+    </select>
 </mapper>

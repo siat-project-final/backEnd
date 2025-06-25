@@ -2,15 +2,17 @@ package com.takoyakki.backend.domain.notification.controller;
 
 import com.takoyakki.backend.domain.notification.service.NotificationService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,5 +49,19 @@ public class NotificationController {
     @GetMapping("/mentee/{memberId}")
     public ResponseEntity<?> selectNotificationToMentee(@PathVariable("memberId") Long memberId) {
         return ResponseEntity.ok(notificationService.selectNotificationToMentee(memberId));
+    }
+
+    @Operation(summary = "알림 닫기", description = "닫기를 누른 알림을 목록에서 삭제합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "성공적으로 삭제됨", content = @Content),
+            @ApiResponse(responseCode = "400", description = "잘못된 요청", content = @Content),
+            @ApiResponse(responseCode = "500", description = "서버 오류", content = @Content)
+    })
+    @DeleteMapping("/{notificationId}")
+    public ResponseEntity<Map<String, Boolean>> softDeleteTodo(
+            @Parameter(description = "알림 ID") @PathVariable Long notificationId) {
+        boolean success = notificationService.softDeleteNotification(notificationId);
+        return ResponseEntity.status(success ? HttpStatus.OK : HttpStatus.NOT_FOUND)
+                .body(Map.of("success", success));
     }
 }

@@ -8,6 +8,9 @@ import lombok.Data;
 @Schema(description = "멘토링 예약 승인/거절 및 취소 알림 DTO")
 @Builder
 public class NotificationMentoringReservationToMenteeDto {
+    @Schema(description = "알림 id", example = "1")
+    private Long notificationId;
+
     @Schema(description = "제목", example = "멘토링 예약 거절")
     private String contents;
 
