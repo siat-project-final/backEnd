@@ -1,5 +1,6 @@
 package com.takoyakki.backend.domain.mentoring.service;
 
+import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentorSimpleResponseDto;
 import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringCompleteRequestDto;
 import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringResponseDto;
 
@@ -24,4 +25,7 @@ public interface MentoringService {
 
     // 오픈채팅 URL 조회
     String getOpenChatUrlByReservationId(Long reservationId);
+
+    List<MentorSimpleResponseDto> getAllMentors();
+
 }

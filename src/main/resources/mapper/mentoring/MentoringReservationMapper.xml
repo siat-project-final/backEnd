@@ -7,8 +7,13 @@
     <resultMap id="MentoringReservationResponseMap" type="MentoringReservationResponseDto">
         <result property="reservationId" column="reservation_id" />
         <result property="mentorName" column="mentor_name" />
+        <result property="menteeId" column="mentee_id" />
+        <result property="menteeName" column="mentee_name" />
         <result property="mentorImageUrl" column="mentor_image_url" />
         <result property="openChatUrl" column="open_chat_url" />
+        <result property="date" column="date" />
+        <result property="status" column="status" />
+        <result property="subject" column="subject" /> <!-- ✅ 추가됨 -->
     </resultMap>
 
     <!-- 예약 생성 -->
@@ -113,8 +118,17 @@
             reservation_id = #{reservationId}
     </update>
 
-    <!-- 예약 상태 수동 변경 (optional) -->
-    <update id="updateReservationToCompleted">
+    <!-- 예약 상태 수동 변경 -->
+    <!-- <update id="updateReservationToCompleted">
+        UPDATE
+            mentorings_reservation
+        SET
+            status = 'COMPLETED',
+            updated_at = NOW()
+        WHERE
+            reservation_id = #{reservationId}
+    </update> -->
+    <update id="updateReservationToCompleted" parameterType="java.lang.Long">
         UPDATE
             mentorings_reservation
         SET
@@ -123,7 +137,7 @@
         WHERE
             reservation_id = #{reservationId}
     </update>
-
+    <!-- 월별 멘토링 조회 -->
     <select id="selectMentoringReservationListInMonthByMemberId" resultType="CalendarItemMentoringReservationByDateDto">
         SELECT
             m.date::date AS date,

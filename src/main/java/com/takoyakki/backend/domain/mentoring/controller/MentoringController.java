@@ -1,5 +1,6 @@
 package com.takoyakki.backend.domain.mentoring.controller;
 
+import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentorSimpleResponseDto;
 import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringCompleteRequestDto;
 import com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringResponseDto;
 import com.takoyakki.backend.domain.mentoring.service.MentoringService;
@@ -49,6 +50,12 @@ public class MentoringController {
     public String getOpenChatUrl(@PathVariable Long reservationId) {
         return mentoringService.getOpenChatUrlByReservationId(reservationId);
     }
+
+    @Operation(summary = "전체 멘토 목록 조회")
+    @GetMapping("/mentors")
+    public List<MentorSimpleResponseDto> getAllMentors() {
+        return mentoringService.getAllMentors(); // 이 메서드를 서비스에 추가하면 됨
+}
 
 //    @Operation(summary = "멘토링 상태 수동 변경 (강제완료, 취소 등)")
 //    @PatchMapping("/mentor/{reservationId}/status")

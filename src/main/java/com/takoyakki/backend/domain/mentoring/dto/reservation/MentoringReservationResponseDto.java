@@ -4,18 +4,23 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-//멘토링 예약 상태를 멘티 , 멘토에게 보여줄때,
-//얘약 목록 조회용
 
+// 멘토링 예약 상태를 멘티 , 멘토에게 보여줄때,
+// 예약 목록 조회용
 @Data
-
 public class MentoringReservationResponseDto {
 
-    @Schema(description = "예약 ID", example ="1001")
+    @Schema(description = "예약 ID", example = "1001")
     private Long reservationId;
 
     @Schema(description = "멘토 이름", example = "이수현")
     private String mentorName;
+
+    @Schema(description = "멘티 id", example = "1")
+    private String menteeId;
+
+    @Schema(description = "멘티 이름", example = "홍길동")
+    private String menteeName;
 
     @Schema(description = "멘토 프로필 이미지 URL", example = "https://example.com/mentor.jpg")
     private String mentorImageUrl;
@@ -24,9 +29,11 @@ public class MentoringReservationResponseDto {
     private LocalDateTime date;
 
     @Schema(description = "예약 상태", example = "waiting")
-    private String status; // 예약 상태 (예: WAITING ,ACCEPT , Rejected, CANCELED)
+    private String status;
 
-    @Schema(description = "오픈채팅 URL(수락한 경우에만 제공)", example = "https://open.kakao.com/o/g1a2b3c4")
-    private String openChatUrl; // 오픈채팅 URL
+    @Schema(description = "오픈채팅 URL", example = "https://open.kakao.com/o/g1a2b3c4")
+    private String openChatUrl;
+
+    @Schema(description = "멘토링 주제", example = "Spring 심화")
+    private String subject;
 }
-

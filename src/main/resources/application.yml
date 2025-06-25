@@ -1,17 +1,24 @@
-server:
+﻿server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
   port: 8087
 spring:
-  config:
-    import: optional:application-secret.yml
   sql:
     init:
-      schema-locations: classpath:schema.sql
+      mode: always
       encoding: UTF-8
+  config:
+    import: application-secret.yml
+  messages:
+    encoding: UTF-8
   application:
     name: backend
   datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:testdb
+    driverClassName: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:h2:mem:testdb?useUnicode=true&characterEncoding=utf8;MODE=PostgreSQL;DATABASE_TO_UPPER=false;
     username: sa
     password:
 mybatis:
@@ -33,6 +40,3 @@ p6spy:
     logMessageFormat: com.p6spy.engine.spy.appender.MultiLineFormat
     appender: com.p6spy.engine.spy.appender.Slf4JLogger
     logLevel: debug
-anthropic:
-  api:
-    key: ${ANTHROPIC_API_KEY:not-defined}

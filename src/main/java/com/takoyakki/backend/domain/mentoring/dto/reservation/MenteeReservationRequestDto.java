@@ -8,14 +8,20 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
-public class MenteeReservationRequestDto {
-    private Long mentorId; // 멘토 ID
-    private Long menteeId;
-    private LocalDateTime date; // 예약 시간 (YYYY-MM-DD HH:mm)
-    private String subject; // 멘토링 주제
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-    private String introduction; // 자기소개
-    private String etcMessage; // 기타
+@Data
+@NoArgsConstructor
+public class MenteeReservationRequestDto {
+    private Long mentorId;
+    private Long menteeId;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime date;
+
+    private String subject;
+    private String introduction;
+    private String etcMessage;
 }
+
 
