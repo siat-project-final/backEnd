@@ -9,7 +9,7 @@ import lombok.Data;
 @Builder
 public class NotificationChallengeToMenteeDto {
     @Schema(description = "멤버 id", example = "1")
-    private Long memberId;;
+    private Long memberId;
 
     @Schema(description = "제목", example = "챌린지 랭크 보상이 지급되었습니다.")
     private String title;
