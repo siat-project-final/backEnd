@@ -136,18 +136,19 @@ CREATE TABLE diary_comments (
     is_deleted   BOOLEAN DEFAULT FALSE
 );
 
+-- 투두
 CREATE TABLE todos (
-                       todo_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-                       member_id BIGINT NOT NULL,
-                       contents VARCHAR(255) NOT NULL,
-                       date DATE,
-                       is_checked BOOLEAN DEFAULT FALSE,
-                       created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-                       updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
-                       is_deleted BOOLEAN DEFAULT FALSE
+   todo_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+   member_id BIGINT NOT NULL,
+   contents VARCHAR(255) NOT NULL,
+   date DATE,
+   is_checked BOOLEAN DEFAULT FALSE,
+   created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
+   updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL,
+   is_deleted BOOLEAN DEFAULT FALSE
 );
 
-
+-- 멤버 귀속 테이블
 CREATE TABLE notification (
 	notification_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	member_id BIGINT NOT NULL,
@@ -159,7 +160,7 @@ CREATE TABLE notification (
 );
 
 CREATE TABLE xp_histories (
-	xp_history_id BIGINT NOT NULL,
+	xp_history_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	member_id BIGINT NOT NULL,
 	activity_type INTEGER NULL,
 	xp_amount INTEGER NULL,
@@ -170,7 +171,7 @@ CREATE TABLE xp_histories (
 );
 
 CREATE TABLE badges (
-	badge_id BIGINT NOT NULL,
+	badge_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	name VARCHAR(255) NULL,
 	description TEXT NULL,
 	icon_url VARCHAR(255) NULL,
@@ -180,15 +181,8 @@ CREATE TABLE badges (
 	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
 );
 
-CREATE TABLE level_configs (
-	level INTEGER NOT NULL,
-	required_xp INTEGER NULL,
-	level_name VARCHAR(255) NULL,
-	created_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
-);
-
 CREATE TABLE member_badges (
-	member_badge_id BIGINT NOT NULL,
+	member_badge_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	member_id BIGINT NOT NULL,
 	badge_id BIGINT NOT NULL,
 	is_equipped BOOLEAN DEFAULT FALSE NULL,
@@ -196,6 +190,7 @@ CREATE TABLE member_badges (
 	is_deleted BOOLEAN NULL
 );
 
+-- 관리자 입력 테이블
 CREATE TABLE students (
 	student_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	student_name VARCHAR(255) NOT NULL,
