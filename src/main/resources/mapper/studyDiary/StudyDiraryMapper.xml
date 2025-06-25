@@ -73,7 +73,7 @@
             member_id      AS memberId,
             title,
             contents,
-            subject         AS subjectName,
+            subject         AS subject,
             ai_summary      AS aiSummary,
             TO_CHAR(study_date, 'YYYY-MM-DD') AS studyDate,
             is_public       AS isPublic,
