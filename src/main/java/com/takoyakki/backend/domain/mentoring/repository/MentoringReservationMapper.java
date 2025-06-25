@@ -51,4 +51,6 @@ public interface MentoringReservationMapper {
     int updateReservationToCompleted(Long reservationId);
 
     List<CalendarItemMentoringReservationByDateDto> selectMentoringReservationListInMonthByMemberId(Long memberId, LocalDate startDate, LocalDate endDate);
+
+    MentoringReservationResponseDto selectMentoringReservationInfoById(Long reservationId);
 }

@@ -32,6 +32,8 @@
         <typeAlias alias="MentoringCompleteRequestDto" type="com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringCompleteRequestDto"/>
         <typeAlias alias="MentoringResponseDto" type="com.takoyakki.backend.domain.mentoring.dto.mentoring.MentoringResponseDto"/>
 
+        <typeAlias alias="MenteeReservationRequestDto" type="com.takoyakki.backend.domain.mentoring.dto.reservation.MenteeReservationRequestDto"/>
+
         <!-- 투두리스트 관련 DTO -->
         <typeAlias alias="TodoCreateRequestDto" type="com.takoyakki.backend.domain.todo.dto.TodoCreateRequestDto"/>
         <typeAlias alias="TodoSelectResponseDto" type="com.takoyakki.backend.domain.todo.dto.TodoSelectResponseDto"/>

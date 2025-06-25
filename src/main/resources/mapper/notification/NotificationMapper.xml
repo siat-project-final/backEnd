@@ -5,7 +5,7 @@
 
 <mapper namespace="com.takoyakki.backend.domain.notification.repository.NotificationMapper">
     <!--    insertNotificationChallengeRankPointsToMentee-->
-    <insert id="insertNotificationChallengeRankPointsToMentee" parameterType="NotificationChallengeToMenteeDto">
+    <insert id="insertNotificationMentoringReservationToMentor" parameterType="MenteeReservationRequestDto">
         INSERT INTO notification
         (
             member_id,
@@ -16,10 +16,10 @@
         )
         VALUES
         (
-            #{memberId},
-            'CHALLENGE',
-            #{title},
-            #{contents},
+            #{mentorId},
+            'REGISTER',
+            '멘토링 예약 알림',
+            #{notificationContents},
             NOW()
         );
     </insert>
@@ -33,6 +33,66 @@
     <select id="selectNotificationToMentee" resultType="NotificationToMenteeSelectResponseDto">
 
     </select>
+
+<!--    insertAcceptNotificationMentoringReservationToMentee-->
+    <insert id="insertAcceptNotificationMentoringReservationToMentee">
+        INSERT INTO notification
+        (
+            member_id,
+            type,
+            title,
+            contents,
+            created_at
+        )
+        VALUES
+        (
+            #{memberId},
+            'ACCEPT',
+            '멘토링 예약 확정 알림',
+            #{contents},
+            NOW()
+        );
+    </insert>
+
+<!--    insertRejectNotificationMentoringReservationToMentee-->
+    <insert id="insertRejectNotificationMentoringReservationToMentee">
+        INSERT INTO notification
+        (
+            member_id,
+            type,
+            title,
+            contents,
+            created_at
+        )
+        VALUES
+        (
+            #{memberId},
+            'ACCEPT',
+            '멘토링 예약 거절 알림',
+            #{contents},
+            NOW()
+        );
+    </insert>
+
+<!--    insertCancelNotificationMentoringReservationToMentor-->
+    <insert id="insertCancelNotificationMentoringReservationToMentor">
+        INSERT INTO notification
+        (
+            member_id,
+            type,
+            title,
+            contents,
+            created_at
+        )
+        VALUES
+        (
+            #{memberId},
+            'CANCEL',
+            '멘토링 예약 취소 알림',
+            #{contents},
+            NOW()
+        );
+    </insert>
 
 
 </mapper>
