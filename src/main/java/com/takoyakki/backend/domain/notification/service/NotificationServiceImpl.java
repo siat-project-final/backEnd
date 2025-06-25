@@ -17,11 +17,16 @@ public class NotificationServiceImpl implements NotificationService{
 
     @Override
     public List<NotificationToMentorSelectResponseDto> selectNotificationToMentor(Long memberId) {
-        return List.of();
+        return notificationMapper.selectNotificationToMentor(memberId);
     }
 
     @Override
     public List<NotificationToMenteeSelectResponseDto> selectNotificationToMentee(Long memberId) {
-        return List.of();
+        return notificationMapper.selectNotificationToMentee(memberId);
+    }
+
+    @Override
+    public boolean softDeleteNotification(Long notificationId) {
+        return notificationMapper.softDeleteNotification(notificationId);
     }
 }

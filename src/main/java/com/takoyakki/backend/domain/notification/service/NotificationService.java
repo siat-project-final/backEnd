@@ -9,4 +9,6 @@ public interface NotificationService {
     List<NotificationToMentorSelectResponseDto> selectNotificationToMentor(Long memberId);
 
     List<NotificationToMenteeSelectResponseDto> selectNotificationToMentee(Long memberId);
+
+    boolean softDeleteNotification(Long notificationId);
 }

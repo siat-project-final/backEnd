@@ -13,7 +13,8 @@
             type,
             title,
             contents,
-            created_at
+            created_at,
+            updated_at
         )
         VALUES
         (
@@ -21,21 +22,24 @@
             'CHALLENGE',
             '챌린지 랭킹 포인트 지급 알림',
             #{contents},
+            NOW(),
             NOW()
         );
 
     </insert>
 
 
-<!--    insertNotificationMentoringReservationToMentor-->
+
     <insert id="insertNotificationMentoringReservationToMentor" parameterType="MenteeReservationRequestDto">
+        <!--    insertNotificationMentoringReservationToMentor-->
         INSERT INTO notification
         (
             member_id,
             type,
             title,
             contents,
-            created_at
+            created_at,
+            updated_at
         )
         VALUES
         (
@@ -43,18 +47,47 @@
             'REGISTER',
             '멘토링 예약 알림',
             #{notificationContents},
+            NOW(),
             NOW()
         );
     </insert>
 
-    <!--  selectNotificationToMentor  -->
-    <select id="selectNotificationToMentor" resultType="NotificationToMentorSelectResponseDto">
 
+    <select id="selectNotificationToMentor" resultType="NotificationToMentorSelectResponseDto">
+        <!--  selectNotificationToMentor  -->
+        SELECT
+            n.notification_id AS notificationId,
+            n.type AS type,
+            n.title AS title,
+            n.contents AS contents,
+            n.created_at AS createdAt
+        FROM
+            notification n
+        WHERE
+            n.member_id = #{memberId}
+        AND
+            n.is_confirmed = false
+        ORDER BY
+            n.created_at DESC;
     </select>
 
-    <!--  selectNotificationToMentee  -->
-    <select id="selectNotificationToMentee" resultType="NotificationToMenteeSelectResponseDto">
 
+    <select id="selectNotificationToMentee" resultType="NotificationToMenteeSelectResponseDto">
+        <!--  selectNotificationToMentee  -->
+        SELECT
+            n.notification_id AS notificationId,
+            n.type AS type,
+            n.title AS title,
+            n.contents AS contents,
+            n.created_at AS createdAt
+        FROM
+            notification n
+        WHERE
+            n.member_id = #{memberId}
+        AND
+            n.is_confirmed = false
+        ORDER BY
+            n.created_at DESC;
     </select>
 
 <!--    insertAcceptNotificationMentoringReservationToMentee-->
@@ -65,7 +98,8 @@
             type,
             title,
             contents,
-            created_at
+            created_at,
+            updated_at
         )
         VALUES
         (
@@ -73,6 +107,7 @@
             'ACCEPT',
             '멘토링 예약 확정 알림',
             #{contents},
+            NOW(),
             NOW()
         );
     </insert>
@@ -85,7 +120,8 @@
             type,
             title,
             contents,
-            created_at
+            created_at,
+            updated_at
         )
         VALUES
         (
@@ -93,6 +129,7 @@
             'ACCEPT',
             '멘토링 예약 거절 알림',
             #{contents},
+            NOW(),
             NOW()
         );
     </insert>
@@ -105,7 +142,8 @@
             type,
             title,
             contents,
-            created_at
+            created_at,
+            updated_at
         )
         VALUES
         (
@@ -113,9 +151,19 @@
             'CANCEL',
             '멘토링 예약 취소 알림',
             #{contents},
+            NOW(),
             NOW()
         );
     </insert>
 
+    <update id="softDeleteNotification" >
+<!--        softDeleteNotification-->
+        UPDATE notification
+        SET
+            is_confirmed = true,
+            updated_at = NOW()
+        WHERE
+            notification_id = #{notificationId}
+    </update>
 
 </mapper>

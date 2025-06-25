@@ -25,7 +25,7 @@ public class MentoringReservationServiceImpl implements MentoringReservationServ
             String contents = requestDto.getMenteeName() + "님께서 " +
                     requestDto.getDate().toLocalDate() + "에 멘토링을 신청하셨습니다. " +
                     "멘티 자기소개 : " + requestDto.getIntroduction() + " " +
-                    "주제 : " + requestDto.getSubject() + "입니다. 수락하시겠습니까?";
+                    "주제 : " + requestDto.getSubject() + "입니다. 멘토링 예약 페이지에서 확인해주세요.";
             requestDto.setNotificationContents(contents);
             notificationMapper.insertNotificationMentoringReservationToMentor(requestDto);
         } catch (RuntimeException e) {
@@ -63,7 +63,7 @@ public class MentoringReservationServiceImpl implements MentoringReservationServ
             // 멘티에게 알림 전송
             MentoringReservationResponseDto responseDto = reservationMapper.selectMentoringReservationInfoById(reservationId);
             String contents = responseDto.getMenteeName() + "님, " +
-                    responseDto.getDate() + "에 예약된" +
+                    responseDto.getDate() + "에 예약된 " +
                     responseDto.getMentorName() + "님과의 멘토링이 확정되었습니다. " +
                     responseDto.getOpenChatUrl() + " 이 링크의 오픈채팅방에 참여해주세요.";
             notificationMapper.insertAcceptNotificationMentoringReservationToMentee(responseDto.getMenteeId(), reservationId, contents);

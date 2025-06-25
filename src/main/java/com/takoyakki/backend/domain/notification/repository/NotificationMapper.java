@@ -27,4 +27,6 @@ public interface NotificationMapper {
 
     // 챌린지
     int insertNotificationChallengeRankPointsToMentee(NotificationChallengeToMenteeDto dto);
+
+    boolean softDeleteNotification(Long notificationId);
 }

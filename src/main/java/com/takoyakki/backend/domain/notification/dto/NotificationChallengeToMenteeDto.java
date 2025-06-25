@@ -8,6 +8,9 @@ import lombok.Data;
 @Schema(description = "챌린지 포인트 보상 알림 DTO")
 @Builder
 public class NotificationChallengeToMenteeDto {
+    @Schema(description = "알림 id", example = "1")
+    private Long notificationId;
+
     @Schema(description = "멤버 id", example = "1")
     private Long memberId;
 
