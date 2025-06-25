@@ -216,13 +216,13 @@ CREATE TABLE daily_learning (
 
 
 -- # DML
-
+-- 1. members 테이블에 insert
 INSERT INTO members (
     id, password, member_name, email, phone_number, nickname, role, status,
     total_xp, usable_points, current_level, created_at, updated_at, is_deleted
 ) VALUES
 (
-    'admin', '1234', '홍길동x', 'hong@example.com', '010-1234-5678', '길동이',
+    'admin', '1234', '홍길동', 'hong@example.com', '010-1234-5678', '길동이',
     'TRAINEE', 'ACTIVE', 500, 100, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
 ),
 (
@@ -231,90 +231,23 @@ INSERT INTO members (
 ),
 (
     'user', '1234', '이영희', 'younghee@example.com', '010-3456-7890', '영희',
-    'MENTOR', 'ACTIVE', 3000, 500, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
+    'TRAINEE', 'ACTIVE', 3000, 500, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
+),
+(
+    'alice', '1234', '최수정', 'alice@example.com', '010-4567-8901', '수정이',
+    'MENTOR', 'ACTIVE', 800, 150, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
+),
+(
+    'bob', '1234', '박지훈', 'bob@example.com', '010-5678-9012', '지훈박',
+    'MENTOR', 'INACTIVE', 200, 50, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
+),
+(
+    'carol', '1234', '한예린', 'carol@example.com', '010-6789-0123', '예린쨩',
+    'MENTOR', 'ACTIVE', 4000, 700, 7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
 );
 
--- INSERT INTO mentors (
---     mentor_id,              -- ✅ member_id와 동일하게 설정
---     company,
---     position,
---     description,
---     avail_weekdays,
---     completion_date,
---     open_chat_url,
---     is_deleted,
---     created_at,
---     updated_at,
---     mentor_image_url,
---     mentor_name
--- ) VALUES
--- (
---     2,  -- 기존: Kakao 멘토
---     'Kakao',
---     'Lead Software Engineer',
---     'React와 Spring Boot 연동, MSA 아키텍처 설계 전문가입니다.',
---     'MON,WED,FRI',
---     '2025-11-30 23:59:59',
---     'https://open.kakao.com/o/kakaodev',
---     false,
---     CURRENT_TIMESTAMP,
---     CURRENT_TIMESTAMP,
---     'https://example.com/profile/mentor2.jpg',
---     '이프론트'
--- ),
--- (
---     4,  -- 기존: Naver 멘토
---     'Naver',
---     'Principal Engineer',
---     'QueryDSL과 JPA 성능 최적화, 대용량 데이터 처리 경험을 공유합니다.',
---     'TUE,THU,SAT',
---     '2026-01-31 23:59:59',
---     'https://open.kakao.com/o/naverdev',
---     false,
---     CURRENT_TIMESTAMP,
---     CURRENT_TIMESTAMP,
---     'https://example.com/profile/mentor3.jpg',
---     '박데이터'
--- ),
--- (
---     5,  -- 기존: Coupang 멘토
---     'Coupang',
---     'Staff Software Engineer',
---     'Docker와 Kubernetes를 활용한 CI/CD 파이프라인 구축 전문가입니다.',
---     'MON,TUE,THU,FRI',
---     '2025-10-31 23:59:59',
---     'https://open.kakao.com/o/coupangdev',
---     false,
---     CURRENT_TIMESTAMP,
---     CURRENT_TIMESTAMP,
---     'https://example.com/profile/mentor4.jpg',
---     '최데브옵스'
--- ),
--- (
---     3,  -- ✅ 이영희 (members 테이블의 member_id)
---     'AI 스타트업',
---     'AI 리서처',
---     '머신러닝과 딥러닝 연구 중심의 교육 설계자입니다.',
---     'WED,FRI',
---     '2025-12-31 23:59:59',
---     'https://open.kakao.com/o/younghee-ai',
---     false,
---     CURRENT_TIMESTAMP,
---     CURRENT_TIMESTAMP,
---     'https://example.com/profile/younghee.jpg',
---     '이영희'
--- );
--- 💡 mentors에 수료한 멤버 이영희 (member_id = 3) 자동 등록
-
--- 1. role을 MENTOR로 설정
-UPDATE members
-SET role = 'MENTOR',
-    updated_at = NOW()
-WHERE member_id = 3;
-
--- 2. mentors 테이블에 자동 등록
+-- 2. role이 MENTOR인 사람만 mentors 테이블에도 삽입
 INSERT INTO mentors (
-    mentor_id,
     mentor_name,
     mentor_image_url,
     company,
@@ -328,20 +261,43 @@ INSERT INTO mentors (
     updated_at
 )
 SELECT
-    m.member_id,
     m.member_name,
-    m.member_image_url,
-    'AI 스타트업',
-    'AI 리서처',
-    '머신러닝과 딥러닝 연구 중심의 교육 설계자입니다.',
-    'WED,FRI',
+    NULL,  -- 이미지 URL 미리 없으면 NULL로
+    CASE m.id
+        WHEN 'user' THEN 'AI 스타트업'
+        WHEN 'alice' THEN '삼성전자'
+        WHEN 'bob' THEN '네이버'
+        WHEN 'carol' THEN '카카오'
+        ELSE '기타'
+    END,
+    CASE m.id
+        WHEN 'user' THEN 'AI 리서처'
+        WHEN 'alice' THEN 'Frontend Developer'
+        WHEN 'bob' THEN 'Backend Developer'
+        WHEN 'carol' THEN 'DevOps Engineer'
+        ELSE '멘토'
+    END,
+    CASE m.id
+        WHEN 'user' THEN '머신러닝과 딥러닝 연구 중심의 교육 설계자입니다.'
+        WHEN 'alice' THEN 'React, TypeScript 기반 UI 설계 경험을 나눕니다.'
+        WHEN 'bob' THEN 'Spring Boot, JPA 성능 최적화를 도와드립니다.'
+        WHEN 'carol' THEN 'CI/CD, Docker, Kubernetes 멘토링 가능'
+        ELSE ''
+    END,
+    'MON,TUE,WED', -- 공통 요일 예시
     '2025-12-31 23:59:59',
-    'https://open.kakao.com/o/younghee-ai',
+    CASE m.id
+        WHEN 'user' THEN 'https://open.kakao.com/o/younghee-ai'
+        WHEN 'alice' THEN 'https://open.kakao.com/o/alice-dev'
+        WHEN 'bob' THEN 'https://open.kakao.com/o/bob-dev'
+        WHEN 'carol' THEN 'https://open.kakao.com/o/carol-dev'
+        ELSE ''
+    END,
     FALSE,
     NOW(),
     NOW()
 FROM members m
-WHERE m.member_id = 3;
+WHERE m.role = 'MENTOR';
 
 
 INSERT INTO students (student_name, phone_number)
