@@ -25,7 +25,7 @@ public interface StudyDiraryMapper {
     StudyDiarySelectResponseDto selectStudyDiaryById(@Param("diaryId") Long diaryId);
 
     List<StudyDiarySelectPublicListResponseDto> selectStudyDiaryListPublic(String subject);
-
+    int deleteDiary(@Param("diaryId") Long diaryId);
     int changeStudyDiaryLike(Long diaryId, boolean isLike);
 
     //퍼블릭이랑 안퍼블랙.

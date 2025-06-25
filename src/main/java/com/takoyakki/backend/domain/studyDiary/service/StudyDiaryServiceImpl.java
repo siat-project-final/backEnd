@@ -1,12 +1,12 @@
 package com.takoyakki.backend.domain.studyDiary.service;
 
-import com.takoyakki.backend.domain.studyDiary.api.SummaryAnthropicClient;
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryAISummaryRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryInsertRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryUpdateRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiaryAISummaryResponseDto;
 import com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiarySelectPublicListResponseDto;
 import com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiarySelectResponseDto;
+import com.takoyakki.backend.domain.studyDiary.api.SummaryAnthropicClient;
 import com.takoyakki.backend.domain.studyDiary.repository.StudyDiraryMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,11 +17,13 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class StudyDiaryServiceImpl implements StudyDiaryService{
+public class StudyDiaryServiceImpl implements StudyDiaryService {
+
     private final StudyDiraryMapper studyDiraryMapper;
     private final SummaryAnthropicClient summaryAnthropicClient;
 
     @Override
+    @Transactional
     public int insertStudyDiary(StudyDiaryInsertRequestDto requestDto) {
         try {
             return studyDiraryMapper.insertStudyDiary(requestDto);
@@ -40,6 +42,20 @@ public class StudyDiaryServiceImpl implements StudyDiaryService{
     }
 
     @Override
+    public StudyDiarySelectResponseDto selectStudyDiary(Long diaryId) {
+        try {
+            StudyDiarySelectResponseDto result = studyDiraryMapper.selectStudyDiary(diaryId);
+            if (result == null) {
+                throw new RuntimeException("해당 학습 일지를 찾을 수 없습니다. diaryId=" + diaryId);
+            }
+            return result;
+        } catch (Exception e) {
+            throw new RuntimeException("학습 일지 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    @Transactional
     public int updateStudyDiary(Long id, StudyDiaryUpdateRequestDto requestDto) {
         try {
             return studyDiraryMapper.updateStudyDiary(id, requestDto);
@@ -49,11 +65,34 @@ public class StudyDiaryServiceImpl implements StudyDiaryService{
     }
 
     @Override
-    public StudyDiarySelectResponseDto selectStudyDiary(Long diaryId) {
+    public StudyDiarySelectResponseDto getStudyDiaryById(Long diaryId) {
         try {
-            return studyDiraryMapper.selectStudyDiary(diaryId);
+            StudyDiarySelectResponseDto result = studyDiraryMapper.selectStudyDiaryById(diaryId);
+            if (result == null) {
+                throw new RuntimeException("해당 일지를 찾을 수 없습니다. diaryId=" + diaryId);
+            }
+            return result;
         } catch (Exception e) {
-            throw new RuntimeException("학습 일지 단건 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
+            throw new RuntimeException("학습 일지 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public List<StudyDiarySelectPublicListResponseDto> selectStudyDiaryListPublic(String subject) {
+        try {
+            return studyDiraryMapper.selectStudyDiaryListPublic(subject);
+        } catch (Exception e) {
+            throw new RuntimeException("공개 학습 일지 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    @Transactional
+    public int changeStudyDiaryLike(Long diaryId, boolean isLike) {
+        try {
+            return studyDiraryMapper.changeStudyDiaryLike(diaryId, isLike);
+        } catch (Exception e) {
+            throw new RuntimeException("학습 일지 좋아요 처리 중 오류가 발생했습니다: " + e.getMessage(), e);
         }
     }
 
@@ -68,42 +107,26 @@ public class StudyDiaryServiceImpl implements StudyDiaryService{
         }
     }
 
-
     @Override
     public List<StudyDiarySelectResponseDto> getStudyDiariesByMemberId(Long memberId) {
         try {
             return studyDiraryMapper.selectStudyDiariesByMemberId(memberId);
         } catch (Exception e) {
-            throw new RuntimeException("학습 일지 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
+            throw new RuntimeException("사용자 학습 일지 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
         }
     }
 
+    // ✅ 삭제 기능 추가
     @Override
-    public StudyDiarySelectResponseDto getStudyDiaryById(Long diaryId) {
-        StudyDiarySelectResponseDto result = studyDiraryMapper.selectStudyDiaryById(diaryId);
-        if (result == null) {
-            throw new RuntimeException("해당 일지를 찾을 수 없습니다. diaryId=" + diaryId);
-        }
-        return result;
-    }
-
-    @Override
-    public List<StudyDiarySelectPublicListResponseDto> selectStudyDiaryListPublic(String subject) {
+    @Transactional
+    public void deleteStudyDiary(Long diaryId) {
         try {
-            return studyDiraryMapper.selectStudyDiaryListPublic(subject);
+            int result = studyDiraryMapper.deleteDiary(diaryId);
+            if (result == 0) {
+                throw new RuntimeException("삭제할 학습 일지를 찾을 수 없습니다. diaryId=" + diaryId);
+            }
         } catch (Exception e) {
-            throw new RuntimeException("학습 일지 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
+            throw new RuntimeException("학습 일지 삭제 중 오류가 발생했습니다: " + e.getMessage(), e);
         }
     }
-
-    @Override
-    public int changeStudyDiaryLike(Long diaryId, boolean isLike) {
-        try {
-            return studyDiraryMapper.changeStudyDiaryLike(diaryId, isLike);
-        } catch (Exception e) {
-            throw new RuntimeException("학습 일지 좋아요 중 오류가 발생했습니다: " + e.getMessage(), e);
-        }
-    }
-
-
 }

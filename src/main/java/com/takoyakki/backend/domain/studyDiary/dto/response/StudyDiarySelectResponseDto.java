@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Schema(description = "학습 일지 조회 응답")
-@Builder
+// @Builder
 public class StudyDiarySelectResponseDto {
 
     @Schema(description = "학습 일지 ID", example = "10")
@@ -14,6 +14,9 @@ public class StudyDiarySelectResponseDto {
 
     @Schema(description = "회원 ID", example = "123")
     private Long memberId;
+
+    @Schema(description = "회원 이름", example = "홍길동")
+    private String memberName;
 
     @Schema(description = "제목", example = "Java")
     private String title;

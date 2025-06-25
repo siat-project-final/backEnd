@@ -6,6 +6,8 @@ server:
       enabled: true
   port: 8087
 spring:
+  config:
+    import: optional:application-secret.yml
   messages:
     encoding: UTF-8
   application:
