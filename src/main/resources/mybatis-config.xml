@@ -60,6 +60,8 @@
 
         <!-- 알림 DTO -->
         <typeAlias alias="NotificationChallengeToMenteeDto" type="com.takoyakki.backend.domain.notification.dto.NotificationChallengeToMenteeDto"/>
+        <typeAlias alias="NotificationToMenteeSelectResponseDto" type="com.takoyakki.backend.domain.notification.dto.response.NotificationToMenteeSelectResponseDto"/>
+        <typeAlias alias="NotificationToMentorSelectResponseDto" type="com.takoyakki.backend.domain.notification.dto.response.NotificationToMentorSelectResponseDto"/>
 
     </typeAliases>
 </configuration>

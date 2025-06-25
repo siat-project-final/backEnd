@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.takoyakki.backend.domain.notification.repository.NotificationMapper">
+    <!--    insertNotificationChallengeRankPointsToMentee-->
     <insert id="insertNotificationChallengeRankPointsToMentee" parameterType="NotificationChallengeToMenteeDto">
         INSERT INTO notification
         (
@@ -22,6 +23,16 @@
             NOW()
         );
     </insert>
+
+    <!--  selectNotificationToMentor  -->
+    <select id="selectNotificationToMentor" resultType="NotificationToMentorSelectResponseDto">
+
+    </select>
+
+    <!--  selectNotificationToMentee  -->
+    <select id="selectNotificationToMentee" resultType="NotificationToMenteeSelectResponseDto">
+
+    </select>
 
 
 </mapper>
