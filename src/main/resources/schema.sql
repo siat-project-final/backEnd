@@ -694,3 +694,5 @@ INSERT INTO problems (
     2,
     CAST('["1. Java 6, 객체지향 프로그래밍의 캡슐화 강화","2. Java 8, 함수형 프로그래밍 지원과 간결한 코드 작성","3. Java 7, 멀티스레드 프로그래밍의 성능 향상","4. Java 9, 모듈화 시스템 구현의 효율성 증대"]' AS jsonb)
 );
+
+CREATE INDEX idx_daily_learning_subject_date ON daily_learning(subject, date);
