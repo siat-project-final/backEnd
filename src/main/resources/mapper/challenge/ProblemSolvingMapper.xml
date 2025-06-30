@@ -86,4 +86,12 @@
         AND
             ps.member_id = #{memberId}
     </select>
+
+    <select id="countSubmissionsByMemberAndDate" resultType="int">
+        SELECT COUNT(*)
+        FROM problem_solving
+        WHERE member_id = #{memberId}
+        AND date::date = #{date}
+        AND is_deleted = FALSE
+    </select>
 </mapper>

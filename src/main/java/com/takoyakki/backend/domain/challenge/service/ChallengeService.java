@@ -28,4 +28,6 @@ public interface ChallengeService {
     List<ProblemSolvingResultResponseDto> selectProblemSolvingResult(Long memberId);
 
     int getPointsByDailyChallengeRank(Long memberId, int rank);
+
+    boolean checkParticipation(Long memberId, LocalDate date);
 }

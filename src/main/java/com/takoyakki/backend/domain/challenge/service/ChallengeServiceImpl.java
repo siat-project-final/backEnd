@@ -180,6 +180,11 @@ public class ChallengeServiceImpl implements ChallengeService{
             throw new RuntimeException("복습 문제 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
         }
     }
+    @Override
+    public boolean checkParticipation(Long memberId, LocalDate date) {
+        int count = problemSolvingMapper.countSubmissionsByMemberAndDate(memberId, date);
+        return count > 0;
+    }
 
 
 }
