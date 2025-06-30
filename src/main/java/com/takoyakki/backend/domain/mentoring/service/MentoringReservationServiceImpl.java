@@ -23,9 +23,9 @@ public class MentoringReservationServiceImpl implements MentoringReservationServ
 
             // 멘토에게 알림 전송
             String contents = requestDto.getMenteeName() + "님께서 " +
-                    requestDto.getDate().toLocalDate() + "에 멘토링을 신청하셨습니다. " +
-                    "멘티 자기소개 : " + requestDto.getIntroduction() + " " +
-                    "주제 : " + requestDto.getSubject() + "입니다. 멘토링 예약 페이지에서 확인해주세요.";
+                    requestDto.getDate().toLocalDate() + "에 멘토링을 신청하셨습니다. \n" +
+                    "멘티 자기소개 : " + requestDto.getIntroduction() + "\n" +
+                    "주제 : " + requestDto.getSubject() + "\n 멘토링 예약 페이지에서 확인해주세요.";
             requestDto.setNotificationContents(contents);
             notificationMapper.insertNotificationMentoringReservationToMentor(requestDto);
         } catch (RuntimeException e) {
@@ -62,9 +62,9 @@ public class MentoringReservationServiceImpl implements MentoringReservationServ
 
             // 멘티에게 알림 전송
             MentoringReservationResponseDto responseDto = reservationMapper.selectMentoringReservationInfoById(reservationId);
-            String contents = responseDto.getMenteeName() + "님, " +
+            String contents = responseDto.getMenteeName() + "님 \n" +
                     responseDto.getDate() + "에 예약된 " +
-                    responseDto.getMentorName() + "님과의 멘토링이 확정되었습니다. " +
+                    responseDto.getMentorName() + "님과의 멘토링이 확정되었습니다. \n" +
                     responseDto.getOpenChatUrl() + " 이 링크의 오픈채팅방에 참여해주세요.";
             notificationMapper.insertAcceptNotificationMentoringReservationToMentee(responseDto.getMenteeId(), reservationId, contents);
 
@@ -84,9 +84,9 @@ public class MentoringReservationServiceImpl implements MentoringReservationServ
 
             // 멘티에게 알림 전송
             MentoringReservationResponseDto responseDto = reservationMapper.selectMentoringReservationInfoById(reservationId);
-            String contents = responseDto.getMenteeName() + "님, " +
+            String contents = responseDto.getMenteeName() + "님 \n" +
                     responseDto.getDate().toLocalDate() + "에 예약된 " +
-                    responseDto.getMentorName() + "님과의 멘토링이 거절되었습니다. " +
+                    responseDto.getMentorName() + "님과의 멘토링이 거절되었습니다. \n" +
                     "거절 사유: " + (decisionDto.getRejectReason());
             notificationMapper.insertRejectNotificationMentoringReservationToMentee(responseDto.getMenteeId(), reservationId, contents);
         } catch (RuntimeException e) {
@@ -105,11 +105,32 @@ public class MentoringReservationServiceImpl implements MentoringReservationServ
 
             // 멘토에게 알림 전송
             MentoringReservationResponseDto responseDto = reservationMapper.selectMentoringReservationInfoById(reservationId);
-            String contents = responseDto.getMentorName() + "님, " +
+            String contents = responseDto.getMentorName() + "님 \n" +
                     responseDto.getDate().toLocalDate() + "에 예약된 " +
-                    responseDto.getMentorName() + "님과의 멘토링이 취소되었습니다. " +
+                    responseDto.getMentorName() + "님과의 멘토링이 취소되었습니다. \n" +
                     "취소 사유: " + (cancelDto.getCancelReason());
-            notificationMapper.insertCancelNotificationMentoringReservationToMentor(responseDto.getMentorId(), reservationId, contents);
+            notificationMapper.insertCancelNotificationMentoringReservationToMentor(responseDto.getMentorMemberId(), reservationId, contents);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void cancelReservationMentor(Long reservationId, MentoringReservationCancelRequestDto cancelDto) {
+        try {
+            // 테이블 업데이트
+            reservationMapper.cancelReservation(
+                    reservationId,
+                    cancelDto.getCancelReason()
+            );
+
+            // 멘토에게 알림 전송
+            MentoringReservationResponseDto responseDto = reservationMapper.selectMentoringReservationInfoById(reservationId);
+            String contents = responseDto.getMenteeName() + "님 \n" +
+                    responseDto.getDate().toLocalDate() + "에 예약된 " +
+                    responseDto.getMentorName() + "님과의 멘토링이 취소되었습니다. \n" +
+                    "취소 사유: " + (cancelDto.getCancelReason());
+            notificationMapper.insertCancelNotificationMentoringReservationToMentor(responseDto.getMenteeId(), reservationId, contents);
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }

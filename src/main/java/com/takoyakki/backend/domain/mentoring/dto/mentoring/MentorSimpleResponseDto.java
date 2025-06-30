@@ -11,4 +11,5 @@ public class MentorSimpleResponseDto {
     private String position;
     private String company;
     private String mentorImageUrl;
+    private String mentorMemberId;
 }

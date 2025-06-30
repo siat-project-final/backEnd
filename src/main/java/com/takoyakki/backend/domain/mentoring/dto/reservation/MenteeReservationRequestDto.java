@@ -30,6 +30,8 @@ public class MenteeReservationRequestDto {
 
     @JsonIgnore
     private String notificationContents;
+
+    private Long mentorMemberId;
 }
 
 

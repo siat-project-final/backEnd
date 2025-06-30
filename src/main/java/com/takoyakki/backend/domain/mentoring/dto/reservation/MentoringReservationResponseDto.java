@@ -39,4 +39,7 @@ public class MentoringReservationResponseDto {
 
     @Schema(description = "멘토링 주제", example = "Spring 심화")
     private String subject;
+
+    @Schema(description = "멘토 멤버 id", example = "1")
+    private Long mentorMemberId;
 }
