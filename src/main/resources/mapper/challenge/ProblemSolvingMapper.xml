@@ -94,4 +94,24 @@
         AND date::date = #{date}
         AND is_deleted = FALSE
     </select>
+
+    <select id="selectScoringDetailByMemberAndDate" resultType="ProblemSolvingResultResponseDto">
+        SELECT
+            p.problem_id AS problemId,
+            p.title AS title,
+            p.difficulty AS difficulty,
+            p.correct_answer AS correctAnswer,
+            ps.submit_answer AS submitAnswer,
+            ps.is_correct AS correct,
+            p.choices AS options,
+            p.type AS type 
+        FROM
+            problem_solving ps
+        LEFT JOIN
+            problems p ON ps.problem_id = p.problem_id
+        WHERE
+            ps.member_id = #{memberId}
+            AND ps.date::date = #{date}
+            AND ps.is_deleted = FALSE
+    </select>
 </mapper>

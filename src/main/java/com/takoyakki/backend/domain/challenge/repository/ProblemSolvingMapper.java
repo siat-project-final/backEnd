@@ -4,6 +4,7 @@ import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertIt
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemsInsertRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.response.ChallengeRankResponseDto;
+import com.takoyakki.backend.domain.challenge.dto.response.ProblemSolvingResultResponseDto;
 import com.takoyakki.backend.domain.challenge.dto.response.ProblemsSelectResponseDto;
 import com.takoyakki.backend.domain.myPage.dto.response.MyPageProblemSelectResponseDto;
 import org.apache.ibatis.annotations.Mapper;
@@ -24,4 +25,8 @@ public interface ProblemSolvingMapper {
 
     int countSubmissionsByMemberAndDate(@Param("memberId") Long memberId, @Param("date") LocalDate date);
 
+    List<ProblemSolvingResultResponseDto> selectScoringDetailByMemberAndDate(
+        @Param("memberId") Long memberId,
+        @Param("date") LocalDate date
+    );
 }

@@ -393,72 +393,6 @@ INSERT INTO mentorings (
  );
 
 -- 챌린지
-INSERT INTO problems (
-            title,
-            contents,
-            difficulty,
-            subject,
-            correct_answer,
-            created_at,
-            updated_at
-) VALUES (
-    'React.js: 1',
-    'React.js는 무엇인가요?',
-    1,
-    'React.js',
-    1,
-    '2025-06-22T21:36:55',
-    '2025-06-22T21:36:55'
-), (
-    'React.js: 2',
-    'React.js는 무엇인가요?',
-    2,
-    'React.js',
-    2,
-         '2025-06-22T21:36:55',
-         '2025-06-22T21:36:55'
-), (
-    'React.js: 3',
-    'React.js는 무엇인가요?',
-    3,
-    'React.js',
-    3,
-         '2025-06-22T21:36:55',
-         '2025-06-22T21:36:55'
-), (
-    'React.js: 4',
-    'React.js는 무엇인가요?',
-    4,
-    'React.js',
-    4,
-         '2025-06-22T21:36:55',
-         '2025-06-22T21:36:55'
-), (
-    'React.js: 5',
-    'React.js는 무엇인가요?',
-    5,
-    'React.js',
-    5,
-         '2025-06-22T21:36:55',
-         '2025-06-22T21:36:55'
-), (
-    'Vue.js: 5',
-    'Vue.js는 무엇인가요?',
-    5,
-    'Vue.js',
-    5,
-         '2025-06-22T21:36:55',
-         '2025-06-22T21:36:55'
-), (
-    'React.js: 5',
-    'React.js는 무엇인가요?',
-    5,
-    'React.js',
-    5,
-         '2025-06-23T21:36:55',
-         '2025-06-23T21:36:55'
-);
-
 INSERT INTO problem_solving
 (
     problem_id,
@@ -511,87 +445,8 @@ VALUES
         5,
         'Y',
         5,
-        '2025-06-25'
-    ),(
-          1,
-          2,
-          1,
-          'Y',
-          1,
-          '2025-06-25'
-      ),
-      (
-          2,
-          2,
-          2,
-          'Y',
-          2,
-          '2025-06-25'
-      ),
-      (
-          3,
-          2,
-          1,
-          'N',
-          0,
-          '2025-06-25'
-      ),
-      (
-          4,
-          2,
-          4,
-          'Y',
-          4,
-          '2025-06-25'
-      ),
-      (
-          5,
-          2,
-          5,
-          'Y',
-          4,
-          '2025-06-25'
-      ),
-      (
-          6,
-          2,
-          5,
-          'Y',
-          4,
-          CAST('2025-06-25' AS DATE)
-      ),
-      (
-          6,
-          3,
-          5,
-          'Y',
-          4,
-          CAST('2025-06-25' AS DATE)
-      ),
-      (
-          6,
-          4,
-          5,
-          'Y',
-          4,
-          CAST('2025-06-25' AS DATE)
-      ),
-      (
-          6,
-          4,
-          5,
-          'Y',
-          4,
-          CAST('2025-06-25' AS DATE)
-      ),
-      (
-          6,
-          5,
-          5,
-          'Y',
-          4,
-          CAST('2025-06-25' AS DATE)
-      );
+        '2025-06-30'
+    );
 
 INSERT INTO daily_challenge_rankings
 (
@@ -601,13 +456,13 @@ points,
 date
   )
 VALUES
-(1, 1, 15, CAST('2025-06-16' AS DATE)),
-(2, 2, 14, CAST('2025-06-16' AS DATE)),
-(3, 3, 13, CAST('2025-06-16' AS DATE)),
-(1, 1, 15, CAST('2025-06-18' AS DATE)),
-(2, 2, 12, CAST('2025-06-18' AS DATE)),
-(1, 1, 15, CAST('2025-06-17' AS DATE)),
-(2, 2, 14, CAST('2025-06-17' AS DATE));
+(1, 1, 14, CAST('2025-06-30' AS DATE)),
+(2, 2, 14, CAST('2025-06-30' AS DATE)),
+(3, 3, 13, CAST('2025-06-30' AS DATE)),
+(1, 1, 14, CAST('2025-06-25' AS DATE)),
+(2, 2, 12, CAST('2025-06-25' AS DATE)),
+(1, 1, 14, CAST('2025-06-30' AS DATE)),
+(2, 2, 14, CAST('2025-06-30' AS DATE));
 
 INSERT INTO study_diary
 (
@@ -694,5 +549,7 @@ INSERT INTO problems (
     2,
     CAST('["1. Java 6, 객체지향 프로그래밍의 캡슐화 강화","2. Java 8, 함수형 프로그래밍 지원과 간결한 코드 작성","3. Java 7, 멀티스레드 프로그래밍의 성능 향상","4. Java 9, 모듈화 시스템 구현의 효율성 증대"]' AS jsonb)
 );
+
+UPDATE problems SET type = 'multiple' WHERE problem_id BETWEEN 1 AND 5;
 
 CREATE INDEX idx_daily_learning_subject_date ON daily_learning(subject, date);

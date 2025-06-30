@@ -63,7 +63,7 @@
         WHERE
             ps.member_id = #{memberId}
         AND
-            date::date = CURRENT_DATE
+            date::date = #{date}
     </select>
 
 

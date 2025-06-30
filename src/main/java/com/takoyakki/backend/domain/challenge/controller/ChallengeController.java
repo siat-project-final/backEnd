@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -69,10 +70,13 @@ public class ChallengeController {
             @ApiResponse(responseCode = "500", description = "서버 오류")
     })
     @GetMapping("/{memberId}/scoring")
-    public ResponseEntity<List<ProblemSolvingResultResponseDto>> selectProblemSolvingResult(@PathVariable("memberId") Long memberId) {
-        List<ProblemSolvingResultResponseDto> responseDtos = challengeService.selectProblemSolvingResult(memberId);
-        return new ResponseEntity<>(responseDtos, responseDtos.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK);
-    }
+        public ResponseEntity<List<ProblemSolvingResultResponseDto>> getSubmissionResult(
+        @PathVariable Long memberId,
+        @RequestParam(required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date
+        ) {
+        LocalDate targetDate = (date != null) ? date : LocalDate.now();
+        return ResponseEntity.ok(challengeService.getScoringResult(memberId, targetDate));
+        }
 
     @Operation(summary = "챌린지 랭킹 조회", description = "지정된 날짜의 챌린지 랭킹을 조회합니다")
     @ApiResponses({
