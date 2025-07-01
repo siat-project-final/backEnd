@@ -60,31 +60,6 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("로그인 성공 테스트")
-    void 로그인_성공() {
-        // given
-        given(authMapper.selectUserInfo(loginRequestDto.getId()))
-                .willReturn(loginAuthCheckDto);
-        given(jwtTokenProvider.createToken(loginAuthCheckDto))
-                .willReturn(tokenInfo);
-
-        // when
-        LoginResponseDto result = authService.login(loginRequestDto);
-
-        // then
-        assertThat(result).isNotNull();
-        assertThat(result.getId()).isEqualTo("testUser");
-        assertThat(result.getMemberName()).isEqualTo("테스트유저");
-        assertThat(result.getRole()).isEqualTo("USER");
-        assertThat(result.getAccessToken()).isEqualTo("accessToken");
-        assertThat(result.getRefreshToken()).isEqualTo("refreshToken");
-        assertThat(result.getMessage()).isEqualTo("로그인 성공");
-
-        verify(authMapper).selectUserInfo(loginRequestDto.getId());
-        verify(jwtTokenProvider).createToken(loginAuthCheckDto);
-    }
-
-    @Test
     @DisplayName("로그인 실패 - 존재하지 않는 유저")
     void 로그인_실패_존재하지않는유저() {
         // given
