@@ -56,6 +56,7 @@ public class ChallengeServiceImpl implements ChallengeService{
 
 
     @Override
+    @Transactional
     public int insertChallengeProblem(String subject, int difficulty) {
         try {
             String problem = anthropicClient.createProblem(subject, difficulty);
