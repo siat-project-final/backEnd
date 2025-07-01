@@ -65,7 +65,7 @@ public class ChallengeScheduler {
 
 
     @Transactional
-    @Scheduled(cron = "0 17 14 * * *") // 매일 오후 11시 59분
+    @Scheduled(cron = "0 09 17 * * *") // 매일 오후 11시 59분
     public void createDailyChallengeRanking() {
         log.info("챌린지 랭킹 생성 스케줄러 실행 시작: {}", LocalDateTime.now());
 
