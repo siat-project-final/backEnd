@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.net.ssl.*;
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -27,7 +30,12 @@ public class AnthropicClient {
     private static final String ENDPOINT = "https://api.anthropic.com/v1/messages";
 
     public String createProblem(String subject, int difficulty) {
-        System.out.println("111111111111111");
+        try {
+            disableSslVerification();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         String response = "";
         try {
             URL url = new URL(ENDPOINT);
@@ -48,20 +56,15 @@ public class AnthropicClient {
                 }
                 """.formatted(difficulty, subject);
 
-            System.out.println("222222222222");
-
             try (OutputStream os = conn.getOutputStream()) {
                 os.write(jsonInput.getBytes(StandardCharsets.UTF_8));
             }
-
-            System.out.println("3333333333333");
 
             try (BufferedReader br = new BufferedReader(
                     new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
                 response = br.lines().collect(Collectors.joining());
                 return response.split("\"text\":\"")[1].split("\"")[0];
             }
-
 
         } catch (IOException e) {
             throw new RuntimeException("Anthropic API 호출 실패", e);
@@ -139,5 +142,24 @@ public class AnthropicClient {
         }
 
         return choices;
+    }
+
+    public static void disableSslVerification() throws Exception {
+        TrustManager[] trustAllCerts = new TrustManager[]{
+                new X509TrustManager() {
+                    public X509Certificate[] getAcceptedIssuers() { return new X509Certificate[0]; }
+                    public void checkClientTrusted(X509Certificate[] certs, String authType) {}
+                    public void checkServerTrusted(X509Certificate[] certs, String authType) {}
+                }
+        };
+
+        // SSL context 설정
+        SSLContext sc = SSLContext.getInstance("TLS");
+        sc.init(null, trustAllCerts, new SecureRandom());
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+        // 호스트 이름 검증 무시
+        HostnameVerifier allHostsValid = (hostname, session) -> true;
+        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
     }
 }
