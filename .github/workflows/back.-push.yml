@@ -56,13 +56,15 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             mkdir -p /home/ubuntu/backend
-            cat << EOF > /home/ubuntu/backend/docker-compose.yml
+            cat << 'EOF' > /home/ubuntu/backend/docker-compose.yml
             services:
               app:
                 image: ${{ secrets.DOCKERHUB_USERNAME }}/siat-git-action-backend:latest
                 ports:
                   - "8087:8087"
                 restart: always
+                environment:
+                  - SPRING_PROFILES_ACTIVE=prod
             EOF
 
       - name: Deploy docker-compose
