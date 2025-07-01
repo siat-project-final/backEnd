@@ -30,4 +30,6 @@ public interface ChallengeService {
     int getPointsByDailyChallengeRank(Long memberId, int rank);
 
     boolean checkParticipation(Long memberId, LocalDate date);
+
+    List<ProblemSolvingResultResponseDto> getScoringResult(Long memberId, LocalDate date);
 }

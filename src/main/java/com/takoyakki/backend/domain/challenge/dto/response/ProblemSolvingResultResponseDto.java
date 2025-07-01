@@ -18,7 +18,7 @@ public class ProblemSolvingResultResponseDto {
     private int difficulty;
 
     @Schema(description = "정답 (문자열)", example = "서비스 주입")
-    private String correctAnswer;
+    private Integer correctAnswer;
 
     @Schema(description = "제출한 답 (문자열)", example = "필드 주입")
     private String submitAnswer;
@@ -28,4 +28,7 @@ public class ProblemSolvingResultResponseDto {
 
     @Schema(description = "선택지", example = "1.생성자 주입\n2. 필드 주입\n3. 서비스 주입\n4. 메소드 주입")
     private String options;
+
+    @Schema(description = "문제 유형 (multiple/text)")
+    private String type;
 }

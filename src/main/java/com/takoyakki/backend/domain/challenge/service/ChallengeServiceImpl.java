@@ -6,6 +6,7 @@ import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertIt
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemsInsertRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.response.*;
+import com.takoyakki.backend.domain.challenge.model.ProblemSolving;
 import com.takoyakki.backend.domain.challenge.repository.DailyChallengeRankingsMapper;
 import com.takoyakki.backend.domain.challenge.repository.ProblemSolvingMapper;
 import com.takoyakki.backend.domain.challenge.repository.ProblemsMapper;
@@ -186,5 +187,8 @@ public class ChallengeServiceImpl implements ChallengeService{
         return count > 0;
     }
 
-
+    @Override
+    public List<ProblemSolvingResultResponseDto> getScoringResult(Long memberId, LocalDate date) {
+        return problemSolvingMapper.selectScoringDetailByMemberAndDate(memberId, date);
+    }
 }
