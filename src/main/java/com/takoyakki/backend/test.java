@@ -20,7 +20,7 @@ public class test {
     @ResponseBody
     public ResponseEntity<?> test2() {
         int i = challengeService.insertChallengeProblem("JAVA", 1);
-        return ResponseEntity.ok(i);
+        return ResponseEntity.ok(i + "개의 문제를 추가했습니다.");
 
     }
 }
