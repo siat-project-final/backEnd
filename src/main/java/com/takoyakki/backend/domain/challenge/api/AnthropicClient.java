@@ -27,6 +27,7 @@ public class AnthropicClient {
     private static final String ENDPOINT = "https://api.anthropic.com/v1/messages";
 
     public String createProblem(String subject, int difficulty) {
+        System.out.println("111111111111111");
         String response = "";
         try {
             URL url = new URL(ENDPOINT);
@@ -47,15 +48,20 @@ public class AnthropicClient {
                 }
                 """.formatted(difficulty, subject);
 
+            System.out.println("222222222222");
+
             try (OutputStream os = conn.getOutputStream()) {
                 os.write(jsonInput.getBytes(StandardCharsets.UTF_8));
             }
+
+            System.out.println("3333333333333");
 
             try (BufferedReader br = new BufferedReader(
                     new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
                 response = br.lines().collect(Collectors.joining());
                 return response.split("\"text\":\"")[1].split("\"")[0];
             }
+
 
         } catch (IOException e) {
             throw new RuntimeException("Anthropic API 호출 실패", e);

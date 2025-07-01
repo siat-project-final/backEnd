@@ -57,7 +57,6 @@ public class ChallengeServiceImpl implements ChallengeService{
 
     @Override
     public int insertChallengeProblem(String subject, int difficulty) {
-        try {
             String problem = anthropicClient.createProblem(subject, difficulty);
 
             String contents = anthropicClient.extractContents(problem);
@@ -76,9 +75,6 @@ public class ChallengeServiceImpl implements ChallengeService{
                     .build();
 
             return problemsMapper.insertProblem(requestDto);
-        } catch (Exception e) {
-            throw new RuntimeException("문제 생성 중 오류가 발생했습니다: " + e.getMessage(), e);
-        }
     }
 
     @Override
