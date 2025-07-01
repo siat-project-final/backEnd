@@ -9,3 +9,5 @@ services:
     ports:
       - "8087:8087"
     restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
