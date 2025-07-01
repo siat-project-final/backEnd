@@ -70,7 +70,7 @@ public class AuthServiceImpl implements AuthService{
         }
 
         // 2 중복 회원가입 체크
-        SignUpDuplicationCheckDto signUpDuplicationCheckDto = authMapper.checkSignUpDuplication(requestDto.getMemberName(), requestDto.getPhoneNumber());
+        SignUpDuplicationCheckDto signUpDuplicationCheckDto = authMapper.checkSignUpDuplication(requestDto.getId(), requestDto.getMemberName(), requestDto.getPhoneNumber());
 
         if (signUpDuplicationCheckDto != null) {
             throw new UnauthorizedException("이미 가입된 이름이거나 전화번호입니다.");

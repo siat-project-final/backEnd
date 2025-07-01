@@ -11,6 +11,6 @@ public interface AuthMapper {
 
     int selectStudentInfo(String memberName, String phoneNumber);
 
-    SignUpDuplicationCheckDto checkSignUpDuplication(String memberName, String phoneNumber);
+    SignUpDuplicationCheckDto checkSignUpDuplication(String id, String memberName, String phoneNumber);
 }
 

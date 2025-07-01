@@ -26,18 +26,22 @@
                 student_name = #{memberName}
         </select>
 
+<!--    checkSignUpDuplication-->
         <select id="checkSignUpDuplication" resultMap="SignUpDuplicationCheckMap">
             SELECT
+                id,
                 member_name,
                 phone_number
             FROM
                 members
             WHERE
                 phone_number = #{phoneNumber}
-            OR
+            AND
                 member_name = #{memberName}
+            OR
+                id = #{id}
         </select>
-
+<!--signUp-->
         <insert id="signUp" parameterType="SignUpRequestDto">
             INSERT INTO members
                 (
@@ -46,7 +50,8 @@
                     password,
                     phone_number,
                     nickname,
-                    role
+                    role,
+                    email
                 )
             VALUES
                 (
@@ -55,7 +60,8 @@
                     #{password},
                     #{phoneNumber},
                     #{nickname},
-                    'TRAINEE'
+                    'TRAINEE',
+                    #{email}
                 )
         </insert>
 

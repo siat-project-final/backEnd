@@ -159,7 +159,7 @@ class AuthServiceTest {
         // given
         given(authMapper.selectStudentInfo(signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber()))
                 .willReturn(1);
-        given(authMapper.checkSignUpDuplication(signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber()))
+        given(authMapper.checkSignUpDuplication(signUpRequestDto.getId(), signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber()))
                 .willReturn(null);
         given(authMapper.signUp(signUpRequestDto))
                 .willReturn(1);
@@ -170,7 +170,7 @@ class AuthServiceTest {
         // then
         assertThat(result).isEqualTo(1);
         verify(authMapper).selectStudentInfo(signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber());
-        verify(authMapper).checkSignUpDuplication(signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber());
+        verify(authMapper).checkSignUpDuplication(signUpRequestDto.getId(), signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber());
         verify(authMapper).signUp(signUpRequestDto);
     }
 
@@ -187,7 +187,7 @@ class AuthServiceTest {
                 .hasMessage("인증 실패 : 명단에 등록되지 않은 학생입니다.");
 
         verify(authMapper).selectStudentInfo(signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber());
-        verify(authMapper, never()).checkSignUpDuplication(any(), any());
+        verify(authMapper, never()).checkSignUpDuplication(any(), any(), any());
         verify(authMapper, never()).signUp(any());
     }
 
@@ -198,7 +198,7 @@ class AuthServiceTest {
         SignUpDuplicationCheckDto duplicateDto = SignUpDuplicationCheckDto.builder().build();
         given(authMapper.selectStudentInfo(signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber()))
                 .willReturn(1);
-        given(authMapper.checkSignUpDuplication(signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber()))
+        given(authMapper.checkSignUpDuplication(signUpRequestDto.getId(), signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber()))
                 .willReturn(duplicateDto);
 
         // when & then
@@ -207,7 +207,7 @@ class AuthServiceTest {
                 .hasMessage("이미 가입된 이름이거나 전화번호입니다.");
 
         verify(authMapper).selectStudentInfo(signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber());
-        verify(authMapper).checkSignUpDuplication(signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber());
+        verify(authMapper).checkSignUpDuplication(signUpRequestDto.getId(), signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber());
         verify(authMapper, never()).signUp(any());
     }
 
@@ -217,7 +217,7 @@ class AuthServiceTest {
         // given
         given(authMapper.selectStudentInfo(signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber()))
                 .willReturn(1);
-        given(authMapper.checkSignUpDuplication(signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber()))
+        given(authMapper.checkSignUpDuplication(signUpRequestDto.getId(), signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber()))
                 .willReturn(null);
         given(authMapper.signUp(signUpRequestDto))
                 .willThrow(new RuntimeException("DB 오류"));
@@ -228,7 +228,7 @@ class AuthServiceTest {
                 .hasMessage("회원가입에 실패했습니다.");
 
         verify(authMapper).selectStudentInfo(signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber());
-        verify(authMapper).checkSignUpDuplication(signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber());
+        verify(authMapper).checkSignUpDuplication(signUpRequestDto.getId(), signUpRequestDto.getMemberName(), signUpRequestDto.getPhoneNumber());
         verify(authMapper).signUp(signUpRequestDto);
     }
 
