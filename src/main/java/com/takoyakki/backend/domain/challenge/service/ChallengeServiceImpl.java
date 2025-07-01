@@ -57,6 +57,7 @@ public class ChallengeServiceImpl implements ChallengeService{
 
     @Override
     public int insertChallengeProblem(String subject, int difficulty) {
+        System.out.println("111111111111111111111111");
             String problem = anthropicClient.createProblem(subject, difficulty);
 
             String contents = anthropicClient.extractContents(problem);
