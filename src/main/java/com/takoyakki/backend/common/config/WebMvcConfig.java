@@ -26,7 +26,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         corsRegistry
                 .addMapping("/**")
                 .allowedHeaders("*")
-                .allowedOrigins("http://localhost:3000")
+//                .allowedOrigins("http://localhost:3000")
+                .allowedOrigins("http://siat-takoyakki-v1.s3-website.ap-northeast-2.amazonaws.com")
                 .allowedMethods("*")
                 .allowCredentials(true);
     }
