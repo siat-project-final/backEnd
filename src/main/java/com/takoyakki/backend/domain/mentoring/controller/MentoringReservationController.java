@@ -64,4 +64,16 @@ public class MentoringReservationController {
         reservationService.cancelReservation(reservationId, cancelDto);
         return ResponseEntity.ok().build();
     }
+
+    @PatchMapping("/mentee/{reservationId}/hide")
+    public ResponseEntity<Void> hideReservationByMentee(@PathVariable Long reservationId) {
+        reservationService.hideReservationByMentee(reservationId);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/reservations/mentor/{reservationId}/hide")
+    public ResponseEntity<Void> hideReservationByMentor(@PathVariable Long reservationId) {
+        reservationService.hideReservationByMentor(reservationId);
+        return ResponseEntity.ok().build();
+    }
 }
