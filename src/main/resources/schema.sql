@@ -212,6 +212,21 @@ CREATE TABLE daily_learning (
 	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NULL
 );
 
+-- 스케줄러 일정
+CREATE TABLE schedules (
+                           schedule_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                           member_id BIGINT NOT NULL,
+                           title VARCHAR(100) NOT NULL,
+                           content TEXT,
+                           start_datetime TIMESTAMP NOT NULL,
+                           end_datetime TIMESTAMP NOT NULL,
+                           is_all_day BOOLEAN NOT NULL DEFAULT FALSE,
+                           color_code VARCHAR(20),
+                           is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+                           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                           updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                           CONSTRAINT fk_schedule_member FOREIGN KEY (member_id) REFERENCES members(member_id)
+);
 
 -- # DML
 -- 1. members 테이블에 insert
