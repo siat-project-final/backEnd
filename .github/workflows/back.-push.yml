@@ -56,7 +56,7 @@ jobs:
               app:
                 image: ${{ secrets.DOCKERHUB_USERNAME }}/siat-git-action-backend:latest
                 ports:
-                  - "8808:8088"
+                  - "8087:8087"
                 restart: always
             EOF
 
