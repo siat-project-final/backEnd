@@ -21,6 +21,7 @@ public class test {
     public ResponseEntity<?> test2() {
         int i = challengeService.insertChallengeProblem("JAVA", 1);
         return ResponseEntity.ok(i);
+
     }
 }
 
