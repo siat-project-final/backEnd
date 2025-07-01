@@ -10,8 +10,6 @@ spring:
     init:
       mode: always
       encoding: UTF-8
-  config:
-    import: application-secret.yml
   messages:
     encoding: UTF-8
   application:
