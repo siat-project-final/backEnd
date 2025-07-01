@@ -30,5 +30,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://siat-takoyakki-v1.s3-website.ap-northeast-2.amazonaws.com/*")
                 .allowedMethods("*")
                 .allowCredentials(true);
+
     }
 }
