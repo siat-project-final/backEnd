@@ -17,4 +17,8 @@ public interface MentoringReservationService {
     void rejectReservation(Long reservationId, MentoringReservationRejectRequestDto decisionDto);
 
     void cancelReservation(Long reservationId, MentoringReservationCancelRequestDto cancelDto);
+
+    void hideReservationByMentee(Long reservationId);
+
+    void hideReservationByMentor(Long reservationId);
 }

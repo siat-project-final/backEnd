@@ -83,6 +83,7 @@
             mentors o ON r.mentor_id = o.mentor_id
         WHERE
             r.mentee_id = #{menteeId}
+            AND (r.is_hidden_by_mentee IS NULL OR r.is_hidden_by_mentee = FALSE)
         ORDER BY
             r.date DESC
     </select>
@@ -115,7 +116,7 @@
         UPDATE
             mentorings_reservation
         SET
-            status = 'CANCELED',
+            status = 'CANCELLED',
             cancel_reason = #{cancelReason},
             updated_at = NOW()
         WHERE
@@ -181,4 +182,19 @@
         WHERE
             r.reservation_id = #{reservationId}
     </select>
+    <!-- 예약 목록 닫기 -->
+    <update id="hideReservationByMentee" parameterType="java.lang.Long">
+        UPDATE mentorings_reservation
+        SET is_hidden_by_mentee = TRUE,
+            updated_at = NOW()
+        WHERE reservation_id = #{reservationId}
+    </update>
+
+    <!-- 예약 목록 닫기 / 멘토 -->
+    <update id="hideReservationByMentor" parameterType="long">
+        UPDATE mentorings_reservation
+        SET is_hidden_by_mentor = TRUE,
+            updated_at = NOW()
+        WHERE reservation_id = #{reservationId}
+    </update>
 </mapper>

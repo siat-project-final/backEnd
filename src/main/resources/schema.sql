@@ -59,7 +59,11 @@ CREATE TABLE mentorings_reservation (
   is_deleted BOOLEAN DEFAULT FALSE NOT NULL,
 
   cancel_reason	VARCHAR(255)		NULL,
-  reject_reason	VARCHAR(255)		NULL
+  reject_reason	VARCHAR(255)		NULL,
+
+  -- ✅ 추가: 멘티가 닫은 항목 여부
+  is_hidden_by_mentee BOOLEAN DEFAULT FALSE NOT NULL,
+  is_hidden_by_mentor BOOLEAN DEFAULT FALSE NOT NULL
 );
 
 CREATE TABLE mentorings (

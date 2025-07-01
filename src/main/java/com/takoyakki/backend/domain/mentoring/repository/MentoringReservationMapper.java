@@ -53,4 +53,8 @@ public interface MentoringReservationMapper {
     List<CalendarItemMentoringReservationByDateDto> selectMentoringReservationListInMonthByMemberId(Long memberId, LocalDate startDate, LocalDate endDate);
 
     MentoringReservationResponseDto selectMentoringReservationInfoById(Long reservationId);
+
+    int hideReservationByMentee(@Param("reservationId") Long reservationId);
+
+    int hideReservationByMentor(@Param("reservationId") Long reservationId);
 }
