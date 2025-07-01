@@ -1,0 +1,11 @@
+# aws endpoint version
+version : '3'
+
+services:
+
+  backend:
+    image: siatlth/siat-git-action-backend
+    container_name: backend-spring-container
+    ports:
+      - "8087:8087"
+    restart: always
