@@ -16,6 +16,7 @@ public class test {
     private final ChallengeService challengeService;
     private final ProblemSolvingMapper problemSolvingMapper;
 
+
     @GetMapping("/test2")
     @ResponseBody
     public ResponseEntity<?> test2() {
