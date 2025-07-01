@@ -16,9 +16,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authenticationInterceptor)
-            .excludePathPatterns("/**")
-            .excludePathPatterns("/v1/auth/signUp")
-            .order(1);
+                .excludePathPatterns("/**")
+                .excludePathPatterns("/v1/auth/signUp")
+                .order(1);
     }
 
     @Override
@@ -26,8 +26,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         corsRegistry
                 .addMapping("/**")
                 .allowedHeaders("*")
-                .allowedOrigins("http://localhost:3000"
-                                "http://13.125.170.63:8087")
+                .allowedOrigins("http://localhost:3000")
                 .allowedMethods("*")
                 .allowCredentials(true);
     }
