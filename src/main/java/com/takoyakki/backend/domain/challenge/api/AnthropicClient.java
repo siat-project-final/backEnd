@@ -30,15 +30,6 @@ public class AnthropicClient {
     private static final String ENDPOINT = "https://api.anthropic.com/v1/messages";
 
     public String createProblem(String subject, int difficulty) {
-        try {
-            System.out.println("11111111111111");
-            disableSslVerification();
-            System.out.println("22222222222222222");
-        } catch (Exception e) {
-            System.out.println("3333333333333");
-            throw new RuntimeException(e);
-        }
-
         String response = "";
         try {
             URL url = new URL(ENDPOINT);
