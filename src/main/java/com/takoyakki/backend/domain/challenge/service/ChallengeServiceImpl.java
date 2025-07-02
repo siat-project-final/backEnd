@@ -82,6 +82,7 @@ public class ChallengeServiceImpl implements ChallengeService{
         }
     }
 
+    @Transactional
     @Override
     public int insertProblemSolving(ProblemSolvingInsertRequestDto requestDto) {
         try {
@@ -122,6 +123,7 @@ public class ChallengeServiceImpl implements ChallengeService{
         }
     }
 
+    @Transactional
     @Override
     public int insertDailyChallengeRanking(List<ChallengeRankResponseDto> challengeRankResponseDtos) {
         try {
@@ -131,6 +133,7 @@ public class ChallengeServiceImpl implements ChallengeService{
         }
     }
 
+    @Transactional
     @Override
     public int getPointsByDailyChallengeRank(Long memberId, int rank) {
         try {
@@ -182,12 +185,14 @@ public class ChallengeServiceImpl implements ChallengeService{
             throw new RuntimeException("복습 문제 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
         }
     }
+    @Transactional
     @Override
     public boolean checkParticipation(Long memberId, LocalDate date) {
         int count = problemSolvingMapper.countSubmissionsByMemberAndDate(memberId, date);
         return count > 0;
     }
 
+    @Transactional
     @Override
     public List<ProblemSolvingResultResponseDto> getScoringResult(Long memberId, LocalDate date) {
         return problemSolvingMapper.selectScoringDetailByMemberAndDate(memberId, date);

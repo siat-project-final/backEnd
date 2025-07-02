@@ -16,7 +16,7 @@ public class TodoCreateRequestDto {
 
     @NotBlank(message = "사용자 ID는 필수입니다.")
     @Schema(description = "사용자 ID", example = "123")
-    private String memberId;
+    private Long memberId;
 
     @NotBlank(message = "내용은 필수입니다.")
     @Schema(description = "할 일 내용", example = "스터디 준비")
