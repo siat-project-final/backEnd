@@ -29,4 +29,10 @@ public interface ProblemSolvingMapper {
         @Param("memberId") Long memberId,
         @Param("date") LocalDate date
     );
+    int countCorrectByMemberAndProblems(
+            @Param("memberId") Long memberId,
+            @Param("problemIds") List<Long> problemIds
+    );
+    Integer sumPointsByMember(@Param("memberId") Long memberId);
+
 }

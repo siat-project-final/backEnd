@@ -32,4 +32,7 @@ public interface ChallengeService {
     boolean checkParticipation(Long memberId, LocalDate date);
 
     List<ProblemSolvingResultResponseDto> getScoringResult(Long memberId, LocalDate date);
+
+    int calculateXp(Long memberId, List<Long> problemIds);
+    int getTotalPoints(Long memberId);
 }
