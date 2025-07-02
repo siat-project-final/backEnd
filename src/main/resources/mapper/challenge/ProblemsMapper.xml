@@ -63,7 +63,7 @@
         WHERE
             ps.member_id = #{memberId}
         AND
-            date::date = #{date}
+            date::date = CAST(#{date} AS DATE)
     </select>
 
 

@@ -23,7 +23,7 @@
             is_deleted = FALSE
         <if test="date != null and date != ''">
             AND
-                date::date = #{date}
+                date::date = CAST(#{date} AS DATE)
         </if>
         ORDER BY
             date::date

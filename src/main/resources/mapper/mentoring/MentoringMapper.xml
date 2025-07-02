@@ -155,7 +155,7 @@
         LEFT OUTER JOIN
             mentors o ON m.mentor_id = o.mentor_id
         WHERE
-            m.created_at::date BETWEEN #{startDate} AND #{endDate}
+            m.created_at::date BETWEEN CAST(#{startDate} AS DATE) AND CAST(#{endDate} AS DATE)
         AND
             m.mentee_id = #{memberId}
     </select>

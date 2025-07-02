@@ -152,7 +152,7 @@
         LEFT OUTER JOIN
             mentors o ON m.mentor_id = o.mentor_id
         WHERE
-            m.date::date BETWEEN #{startDate} AND #{endDate}
+            m.date::date m.created_at::date BETWEEN CAST(#{startDate} AS DATE) AND CAST(#{endDate} AS DATE)
         AND
             status = 'COMPLETED'
         AND
