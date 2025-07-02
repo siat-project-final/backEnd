@@ -144,7 +144,8 @@
         WHERE
             mentor_id = #{mentorId}
     </select>
-    
+
+<!--    selectMentoringListInMonthByMemberId-->
     <select id="selectMentoringListInMonthByMemberId" resultType="CalendarItemMentoringByDateDto">
         SELECT
             m.created_at::date AS date,

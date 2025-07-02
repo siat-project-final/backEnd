@@ -47,6 +47,7 @@
             created_at::date = CURRENT_DATE
     </select>
 
+<!--    selectProblemSolvingResult-->
     <select id="selectProblemSolvingResult" resultType="ProblemSolvingResultResponseDto">
         SELECT
             ps.problem_id AS problemId,

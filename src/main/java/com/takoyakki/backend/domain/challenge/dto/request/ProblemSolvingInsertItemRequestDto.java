@@ -22,8 +22,8 @@ public class ProblemSolvingInsertItemRequestDto {
     @Schema(description = "답안", example = "1")
     private int answer;
 
-    @Schema(description = "정답 여부", example = "Y")
-    private String isCorrect;
+    @Schema(description = "정답 여부", example = "true")
+    private boolean isCorrect;
 
     @Schema(description = "점수", example = "2")
     private int points;

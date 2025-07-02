@@ -47,6 +47,7 @@
             ps.member_id, m.member_name, ps.date::date;
     </select>
 
+<!--    selectChallengeDetail-->
     <select id="selectChallengeDetail" resultType="MyPageProblemSelectResponseDto">
         SELECT
             p.difficulty AS difficulty,
