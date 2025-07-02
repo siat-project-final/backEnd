@@ -2,6 +2,7 @@ package com.takoyakki.backend.domain.todo.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
@@ -14,7 +15,7 @@ public class TodoCreateRequestDto {
     @Schema(description = "todo ID", example = "123", accessMode = Schema.AccessMode.READ_ONLY)
     private Long todoId;
 
-    @NotBlank(message = "사용자 ID는 필수입니다.")
+    @NotNull(message = "사용자 ID는 필수입니다.")
     @Schema(description = "사용자 ID", example = "123")
     private Long memberId;
 
