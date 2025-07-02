@@ -1,6 +1,8 @@
 package com.takoyakki.backend.domain.calendar.service;
 
+import com.takoyakki.backend.domain.calendar.dto.request.CalendarRequestDto;
 import com.takoyakki.backend.domain.calendar.dto.response.*;
+import com.takoyakki.backend.domain.calendar.repository.CalendarMapper;
 import com.takoyakki.backend.domain.dailyLearning.repository.DailyLearningMapper;
 import com.takoyakki.backend.domain.mentoring.repository.MentoringMapper;
 import com.takoyakki.backend.domain.mentoring.repository.MentoringReservationMapper;
@@ -25,6 +27,7 @@ public class CalendarServiceImpl implements CalendarService{
     private final MentoringReservationMapper mentoringReservationMapper;
     private final DailyLearningMapper dailyLearningMapper;
     private final TodosMapper todosMapper;
+    private final CalendarMapper calendarMapper;
 
     @Override
     public Map<LocalDate, CalendarScheduleListResponseDto> selectScheduleAllByMonth(Long memberId, YearMonth month) {
@@ -62,4 +65,40 @@ public class CalendarServiceImpl implements CalendarService{
 
         return resultMap;
     }
+
+
+// 일정목록 조회
+    @Override
+    public List<CalendarResponseDto> getSchedules(Long memberId, String startDate, String endDate) {
+        return calendarMapper.selectSchedules(memberId, startDate, endDate);
+    }
+
+//  일정 상세조회
+    @Override
+    public CalendarResponseDto getScheduleDetail(Long scheduleId) {
+        return calendarMapper.selectScheduleById(scheduleId);
+    }
+
+//   일정 등록
+    @Override
+    @Transactional
+    public void addSchedule(CalendarRequestDto dto) {
+        calendarMapper.insertSchedule(dto);
+    }
+
+//    일정 수정
+    @Override
+    @Transactional
+    public void updateSchedule(Long scheduleId, CalendarRequestDto dto) {
+       dto.setScheduleId(scheduleId);
+        calendarMapper.updateSchedule(dto);
+    }
+
+//   일정 삭제
+    @Override
+    @Transactional
+    public void deleteSchedule(Long scheduleId) {
+        calendarMapper.deleteSchedule(scheduleId);
+    }
 }
+
