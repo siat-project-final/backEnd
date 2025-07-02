@@ -27,7 +27,7 @@
             #{summary},
             NOW(),
             NOW(),
-            #{date},
+            CAST(#{date} AS DATE),
             #{isPublic},
             FALSE,
             0

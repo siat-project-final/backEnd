@@ -11,7 +11,7 @@
         FROM
             daily_learning
         WHERE
-            date = #{date}
+            date = CAST(#{date} AS DATE)
     </select>
 
     <select id="selectDailyLearningProgress" resultType="ChallengeReviewSelectResponseDto">

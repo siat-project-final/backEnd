@@ -20,7 +20,7 @@
         VALUES (
                    #{memberId},
                    #{contents},
-                   #{date},
+                    CAST(#{date} AS DATE),
                    #{time},
                    #{isImportant},
                    NOW(),

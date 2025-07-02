@@ -48,6 +48,7 @@
           AND is_deleted = FALSE
     </select>
     <!-- 할 일 등록 -->
+<!--    insertTodo-->
     <insert id="insertTodo" parameterType="TodoCreateRequestDto"
             useGeneratedKeys="true"
             keyProperty="todoId">
@@ -64,7 +65,7 @@
         (
             #{memberId},
             #{contents},
-            #{date},
+            CAST(#{date} AS DATE),
             FALSE,
             FALSE,
             NOW(),
