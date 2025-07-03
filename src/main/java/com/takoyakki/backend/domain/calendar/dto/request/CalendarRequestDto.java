@@ -2,13 +2,16 @@ package com.takoyakki.backend.domain.calendar.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 @Data
 @Schema(description = "일정 등록/수정 요청")
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CalendarRequestDto {
 
     @NotNull
