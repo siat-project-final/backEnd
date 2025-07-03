@@ -46,9 +46,10 @@
             ps.member_id, m.member_name, ps.date::date;
     </select>
 
-    <select id="selectChallengeDetail" resultType="com.takoyakki.backend.domain.challenge.dto.response.MyPageProblemSelectResponseDto">
-        SELECT
-            p.difficulty AS difficulty,
+    <select id="selectChallengeDetail"
+            resultType="com.takoyakki.backend.domain.myPage.dto.response.MyPageProblemSelectResponseDto">
+
+        p.difficulty AS difficulty,
             p.title AS title,
             p.contents AS content,
             ps.submit_answer AS submitAnswer,
