@@ -89,7 +89,6 @@ CREATE TABLE problems (
 	choices TEXT    DEFAULT '[]' NULL
 );
 
-
 CREATE TABLE problem_solving (
 	problem_solving_id	BIGINT		GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	problem_id	BIGINT		NOT NULL,
