@@ -1,12 +1,10 @@
 package com.takoyakki.backend.domain.challenge.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.takoyakki.backend.domain.challenge.api.AnthropicClient;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertItemRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemSolvingInsertRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.request.ProblemsInsertRequestDto;
 import com.takoyakki.backend.domain.challenge.dto.response.*;
-import com.takoyakki.backend.domain.challenge.model.ProblemSolving;
 import com.takoyakki.backend.domain.challenge.repository.DailyChallengeRankingsMapper;
 import com.takoyakki.backend.domain.challenge.repository.ProblemSolvingMapper;
 import com.takoyakki.backend.domain.challenge.repository.ProblemsMapper;
@@ -26,26 +24,20 @@ import java.util.concurrent.ThreadLocalRandom;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Slf4j
-public class ChallengeServiceImpl implements ChallengeService{
+public class ChallengeServiceImpl implements ChallengeService {
     private final ProblemsMapper problemsMapper;
     private final ProblemSolvingMapper problemSolvingMapper;
-
     private final DailyChallengeRankingsMapper dailyChallengeRankingsMapper;
     private final DailyLearningMapper dailyLearningMapper;
-
     private final MemberMapper memberMapper;
-
-
     private final AnthropicClient anthropicClient;
-
-    // 챌린지 메인
 
     @Override
     public List<ProblemsSelectResponseDto> selectChallengeProblems() {
         try {
             return problemsMapper.selectChallengeProblems();
         } catch (Exception e) {
-            throw new RuntimeException("문제 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
+            throw new RuntimeException("문제 조회 중 오류: " + e.getMessage(), e);
         }
     }
 
@@ -54,19 +46,17 @@ public class ChallengeServiceImpl implements ChallengeService{
         return problemsMapper.selectProblemSolvingResult(memberId);
     }
 
-
     @Override
+    @Transactional
     public int insertChallengeProblem(String subject, int difficulty) {
         try {
-            String problem = anthropicClient.createProblem(subject, difficulty);
-
+            String problem  = anthropicClient.createProblem(subject, difficulty);
             String contents = anthropicClient.extractContents(problem);
-            int answer = anthropicClient.extractAnswer(problem);
-
-            String title = anthropicClient.extractTitle(contents);
+            int answer      = anthropicClient.extractAnswer(problem);
+            String title    = anthropicClient.extractTitle(contents);
             List<String> choices = anthropicClient.extractChoice(contents);
 
-            ProblemsInsertRequestDto requestDto = ProblemsInsertRequestDto.builder()
+            ProblemsInsertRequestDto dto = ProblemsInsertRequestDto.builder()
                     .title(title)
                     .contents(contents)
                     .difficulty(difficulty)
@@ -75,40 +65,40 @@ public class ChallengeServiceImpl implements ChallengeService{
                     .choices(choices)
                     .build();
 
-            return problemsMapper.insertProblem(requestDto);
+            return problemsMapper.insertProblem(dto);
         } catch (Exception e) {
-            throw new RuntimeException("문제 생성 중 오류가 발생했습니다: " + e.getMessage(), e);
+            throw new RuntimeException("문제 생성 중 오류: " + e.getMessage(), e);
         }
     }
 
     @Override
+    @Transactional
     public int insertProblemSolving(ProblemSolvingInsertRequestDto requestDto) {
         try {
             List<Long> problemIds = requestDto.getProblemIds();
             List<Integer> answers = requestDto.getAnswers();
 
-            // Entity 리스트 생성
             List<ProblemSolvingInsertItemRequestDto> list = new ArrayList<>();
             for (int i = 0; i < problemIds.size(); i++) {
                 Long problemId = problemIds.get(i);
                 Integer answer = answers.get(i);
 
-                ProblemSolvingSubmitResponseDto responseDto = problemsMapper.selectProblem(problemId);
+                ProblemSolvingSubmitResponseDto resp = problemsMapper.selectProblem(problemId);
 
                 ProblemSolvingInsertItemRequestDto item = ProblemSolvingInsertItemRequestDto.builder()
                         .memberId(requestDto.getMemberId())
                         .problemId(problemId)
                         .createdAt(requestDto.getCreatedAt())
                         .answer(answer)
-                        .isCorrect(answer == responseDto.getAnswer()? "Y" : "N")
-                        .points(answer == responseDto.getAnswer()? responseDto.getDifficulty() : 0)
+                        .isCorrect(answer.equals(resp.getAnswer()) ? "Y" : "N")
+                        .points(answer.equals(resp.getAnswer()) ? resp.getDifficulty() : 0)
                         .build();
                 list.add(item);
             }
 
             return problemSolvingMapper.insertProblemSolving(list);
         } catch (Exception e) {
-            throw new RuntimeException("문제 풀이 제출 중 오류가 발생했습니다: " + e.getMessage(), e);
+            throw new RuntimeException("문제 풀이 제출 중 오류: " + e.getMessage(), e);
         }
     }
 
@@ -117,78 +107,74 @@ public class ChallengeServiceImpl implements ChallengeService{
         try {
             return problemSolvingMapper.calculateChallengeRank(date);
         } catch (Exception e) {
-            throw new RuntimeException("랭킹 조회 중 문제가 발생했습니다: " + e.getMessage(), e);
+            throw new RuntimeException("랭킹 조회 중 오류: " + e.getMessage(), e);
         }
     }
 
     @Override
-    public int insertDailyChallengeRanking(List<ChallengeRankResponseDto> challengeRankResponseDtos) {
+    @Transactional
+    public int insertDailyChallengeRanking(List<ChallengeRankResponseDto> dtos) {
         try {
-            return dailyChallengeRankingsMapper.insertDailyChallengeRanking(challengeRankResponseDtos);
+            return dailyChallengeRankingsMapper.insertDailyChallengeRanking(dtos);
         } catch (Exception e) {
-            throw new RuntimeException("랭킹 데이터 삽입 중 오류가 발생했습니다: " + e.getMessage(), e);
+            throw new RuntimeException("랭킹 삽입 중 오류: " + e.getMessage(), e);
         }
     }
 
     @Override
+    @Transactional
     public int getPointsByDailyChallengeRank(Long memberId, int rank) {
-        try {
-            int bonusPoints = 0;
-            switch (rank) {
-                case 1:
-                    bonusPoints = 30;
-                    break;
-                case 2:
-                    bonusPoints = 20;
-                    break;
-                case 3:
-                    bonusPoints = 10;
-                    break;
-                default:
-                    return 0;
-            }
-
-            log.info("포인트 지급 완료 - memberId: {}, rank: {}, 지급 포인트: {}",
-                    memberId, rank, bonusPoints);
-
-            return memberMapper.getPointsByDailyChallengeRank(memberId, bonusPoints);
-        } catch (Exception e) {
-            throw new RuntimeException("챌린지 포인트 지급 중 오류가 발생했습니다: " + e.getMessage(), e);
+        int bonus;
+        switch (rank) {
+            case 1: bonus = 30; break;
+            case 2: bonus = 20; break;
+            case 3: bonus = 10; break;
+            default: bonus = 0;
         }
+        log.info("포인트 지급 - memberId: {}, rank: {}, bonus: {}", memberId, rank, bonus);
+        return memberMapper.getPointsByDailyChallengeRank(memberId, bonus);
     }
-
-    // 챌린지 복습
 
     @Override
     public List<ChallengeReviewSelectResponseDto> selectChallengeReviewList() {
         try {
             return dailyLearningMapper.selectDailyLearningProgress();
         } catch (Exception e) {
-            throw new RuntimeException("챌린지 전체 문제 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
+            throw new RuntimeException("복습 리스트 조회 중 오류: " + e.getMessage(), e);
         }
     }
 
     @Override
     public ProblemsSelectResponseDto selectChallengeReviewProblem(Long memberId, String subject) {
         try {
-            List<ProblemsSelectResponseDto> list = problemSolvingMapper.selectChallengeReviewProblem(memberId, subject);
-            int randomIndex = ThreadLocalRandom.current().nextInt(list.size());
-            return list.stream()
-                    .skip(randomIndex)
-                    .findFirst()
-                    .orElseThrow(() -> new IllegalStateException("랜덤 요소를 찾을 수 없습니다."));
-        } catch (IllegalStateException e) {
-            throw new RuntimeException("복습 문제 조회 중 오류가 발생했습니다: " + e.getMessage(), e);
+            List<ProblemsSelectResponseDto> list =
+                    problemSolvingMapper.selectChallengeReviewProblem(memberId, subject);
+            int idx = ThreadLocalRandom.current().nextInt(list.size());
+            return list.get(idx);
+        } catch (Exception e) {
+            throw new RuntimeException("복습 문제 조회 중 오류: " + e.getMessage(), e);
         }
     }
+
     @Override
     public boolean checkParticipation(Long memberId, LocalDate date) {
-        int count = problemSolvingMapper.countSubmissionsByMemberAndDate(memberId, date);
-        return count > 0;
+        return problemSolvingMapper.countSubmissionsByMemberAndDate(memberId, date) > 0;
     }
 
     @Override
     public List<ProblemSolvingResultResponseDto> getScoringResult(Long memberId, LocalDate date) {
         return problemSolvingMapper.selectScoringDetailByMemberAndDate(memberId, date);
+    }
+
+    @Override
+    public int calculateXp(Long memberId, List<Long> problemIds) {
+        int correctCount = problemSolvingMapper.countCorrectByMemberAndProblems(memberId, problemIds);
+        return correctCount * 10;
+    }
+
+    @Override
+    public int getTotalPoints(Long memberId) {
+        Integer sum = problemSolvingMapper.sumPointsByMember(memberId);
+        return sum != null ? sum : 0;
     }
 }
