@@ -27,9 +27,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addMapping("/**")
                 .allowedHeaders("*")
 //                .allowedOrigins("http://localhost:3000")
-                .allowedOrigins("http://siathub.com")
+//                .allowedOrigins("http://siathub.com")
 //                .allowedOrigins("http://localhost:3000")
-//                .allowedOrigins("http://siathub.com.s3-website.ap-northeast-2.amazonaws.com")
+                .allowedOrigins("http://siathub.com.s3-website.ap-northeast-2.amazonaws.com")
                 .allowedMethods("*")
                 .allowCredentials(true);
 
