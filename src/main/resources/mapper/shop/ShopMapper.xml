@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.takoyakki.backend.domain.shop.repository.ShopMapper">
+
+    <!-- 전체 스티커 목록 -->
+    <select id="getAllStickers" resultType="com.takoyakki.backend.domain.shop.dto.response.StickerResponseDto">
+        SELECT id, name, image_url AS imageUrl, cost
+        FROM sticker
+    </select>
+
+    <!-- 이미 구매한 스티커 ID 목록 -->
+    <select id="getPurchasedStickerIds" resultType="long">
+        SELECT sticker_id
+        FROM user_sticker
+        WHERE user_id = #{memberId}
+    </select>
+
+    <!-- 중복 구매 여부 확인 -->
+    <select id="hasSticker" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM user_sticker
+        WHERE user_id = #{memberId} AND sticker_id = #{stickerId}
+    </select>
+
+    <!-- 유저 포인트 조회 -->
+    <select id="getUserPoint" resultType="int">
+        SELECT point
+        FROM user
+        WHERE id = #{memberId}
+    </select>
+
+    <!-- 스티커 가격 조회 -->
+    <select id="getStickerCost" resultType="int">
+        SELECT cost
+        FROM sticker
+        WHERE id = #{stickerId}
+    </select>
+
+    <!-- 유저 스티커 삽입 -->
+    <insert id="insertUserSticker">
+        INSERT INTO user_sticker (user_id, sticker_id, purchased_at)
+        VALUES (#{memberId}, #{stickerId}, NOW())
+    </insert>
+
+    <!-- 유저 포인트 차감 -->
+    <update id="deductUserPoint">
+        UPDATE user
+        SET point = point - #{cost}
+        WHERE id = #{memberId}
+    </update>
+
+    <!-- 인벤토리 조회 -->
+    <select id="getUserInventory" resultType="com.takoyakki.backend.domain.shop.dto.response.StickerResponseDto">
+        SELECT s.id, s.name, s.image_url AS imageUrl, s.cost
+        FROM user_sticker us
+                 JOIN sticker s ON us.sticker_id = s.id
+        WHERE us.user_id = #{memberId}
+    </select>
+
+    <!-- 가방 슬롯 조회 -->
+    <select id="getBagItems" resultType="com.takoyakki.backend.domain.shop.dto.response.BagItemResponseDto">
+        SELECT bs.sticker_id AS stickerId, s.name, s.image_url AS imageUrl, bs.slot_index
+        FROM bag_slot bs
+                 JOIN sticker s ON bs.sticker_id = s.id
+        WHERE bs.user_id = #{memberId}
+        ORDER BY bs.slot_index
+    </select>
+
+    <!-- 가방 슬롯 중복 여부 -->
+    <select id="bagSlotExists" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM bag_slot
+        WHERE user_id = #{memberId} AND sticker_id = #{stickerId}
+    </select>
+
+    <!-- 가방 슬롯 삽입 -->
+    <insert id="insertBagSlot">
+        INSERT INTO bag_slot (user_id, sticker_id, slot_index)
+        VALUES (#{memberId}, #{stickerId}, #{slotIndex})
+    </insert>
+
+    <!-- 가방 슬롯 제거 -->
+    <delete id="removeBagSlot">
+        DELETE FROM bag_slot
+        WHERE user_id = #{memberId} AND slot_index = #{slotIndex}
+    </delete>
+
+</mapper>
