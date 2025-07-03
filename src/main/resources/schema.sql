@@ -557,3 +557,41 @@ INSERT INTO problems (
 UPDATE problems SET type = 'multiple' WHERE problem_id BETWEEN 1 AND 5;
 
 CREATE INDEX idx_daily_learning_subject_date ON daily_learning(subject, date);
+
+-- 스티커 테이블
+CREATE TABLE sticker (
+                         id BIGINT PRIMARY KEY,
+                         name VARCHAR(255) NOT NULL,
+                         image_url VARCHAR(255),
+                         cost INTEGER NOT NULL,
+                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 멤버가 구매한 스티커
+CREATE TABLE member_sticker (
+                                member_id BIGINT NOT NULL,
+                                sticker_id BIGINT NOT NULL,
+                                purchased_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                PRIMARY KEY (member_id, sticker_id)
+
+);
+
+-- 가방 슬롯 테이블 (스티커 배치)
+CREATE TABLE bag_slot (
+                          member_id BIGINT NOT NULL,
+                          sticker_id BIGINT NOT NULL,
+                          slot_index INTEGER NOT NULL,
+                          PRIMARY KEY (member_id, slot_index)
+);
+
+
+INSERT INTO sticker (id, name, image_url, cost, created_at) VALUES
+(1,  '강심이',       '/assets/img/stickers/kangsim.png',       30, CURRENT_TIMESTAMP),
+(2,  '고심이',       '/assets/img/stickers/kosim.png',         40, CURRENT_TIMESTAMP),
+(3,  '사심이',       '/assets/img/stickers/sasim.png',         50, CURRENT_TIMESTAMP),
+(4,  '토심이',       '/assets/img/stickers/tosim.png',         35, CURRENT_TIMESTAMP),
+(11, 'basic_그림',   '/assets/img/stickers/basic_hospital.png', 10, CURRENT_TIMESTAMP),
+(12, 'basic_약국',   '/assets/img/stickers/basic_pharcay.png',  10, CURRENT_TIMESTAMP),
+(13, 'basic_자전거', '/assets/img/stickers/basic_bike.png',     10, CURRENT_TIMESTAMP),
+(14, 'basic_카메라', '/assets/img/stickers/basic_camera.png',   10, CURRENT_TIMESTAMP),
+(15, 'basic_AI',     '/assets/img/stickers/basic_AI.png',       10, CURRENT_TIMESTAMP);

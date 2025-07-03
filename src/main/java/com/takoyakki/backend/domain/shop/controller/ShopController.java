@@ -4,6 +4,7 @@ import com.takoyakki.backend.domain.shop.dto.request.AddToBagRequestDto;
 import com.takoyakki.backend.domain.shop.dto.request.PurchaseRequestDto;
 import com.takoyakki.backend.domain.shop.dto.response.StickerResponseDto;
 import com.takoyakki.backend.domain.shop.dto.response.BagItemResponseDto;
+import com.takoyakki.backend.domain.shop.dto.response.InventoryResponseDto;
 import com.takoyakki.backend.domain.shop.service.ShopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/shop")
+@RequestMapping("/shop")
 @RequiredArgsConstructor
 public class ShopController {
 
     private final ShopService shopService;
+
+    // 0. 사용자 포인트 조회
+    @GetMapping("/point")
+    public ResponseEntity<Integer> getUserPoint(@RequestParam Long memberId) {
+        int point = shopService.getMemberPoint(memberId);
+        return ResponseEntity.ok(point);
+    }
 
     // 1. 전체 상점 아이템 (구매 여부 포함)
     @GetMapping("/stickers")
@@ -34,8 +42,8 @@ public class ShopController {
 
     // 3. 내가 가진 스티커 (인벤토리)
     @GetMapping("/inventory")
-    public List<StickerResponseDto> getInventory(@RequestParam Long memberId) {
-        return shopService.getUserInventory(memberId);
+    public InventoryResponseDto getInventory(@RequestParam Long memberId) {
+        return shopService.getInventory(memberId);
     }
 
     // 4. 가방 슬롯 목록 조회

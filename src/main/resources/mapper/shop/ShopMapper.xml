@@ -5,87 +5,114 @@
 
 <mapper namespace="com.takoyakki.backend.domain.shop.repository.ShopMapper">
 
-    <!-- 전체 스티커 목록 -->
-    <select id="getAllStickers" resultType="com.takoyakki.backend.domain.shop.dto.response.StickerResponseDto">
-        SELECT id, name, image_url AS imageUrl, cost
-        FROM sticker
+    <!-- ✅ StickerResponseDto 매핑 -->
+    <resultMap id="StickerResponseMap" type="com.takoyakki.backend.domain.shop.dto.response.StickerResponseDto">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="imageUrl" column="imageUrl"/>
+        <result property="cost" column="cost"/>
+        <result property="purchased" column="purchased"/>
+    </resultMap>
+
+    <!-- ✅ 1. 전체 스티커 목록 + 구매 여부 포함 -->
+    <select id="getAllStickers" resultMap="StickerResponseMap">
+        SELECT
+            s.id,
+            s.name,
+            s.image_url AS imageUrl,
+            s.cost,
+            CASE WHEN ms.sticker_id IS NOT NULL THEN true ELSE false END AS purchased
+        FROM sticker s
+                 LEFT JOIN member_sticker ms ON s.id = ms.sticker_id AND ms.member_id = #{memberId}
     </select>
 
-    <!-- 이미 구매한 스티커 ID 목록 -->
+    <!-- ✅ 2. 구매한 스티커 ID 목록 -->
     <select id="getPurchasedStickerIds" resultType="long">
         SELECT sticker_id
-        FROM user_sticker
-        WHERE user_id = #{memberId}
+        FROM member_sticker
+        WHERE member_id = #{memberId}
     </select>
 
-    <!-- 중복 구매 여부 확인 -->
-    <select id="hasSticker" resultType="boolean">
-        SELECT COUNT(*) > 0
-        FROM user_sticker
-        WHERE user_id = #{memberId} AND sticker_id = #{stickerId}
+    <!-- ✅ 3. 중복 구매 여부 확인 -->
+    <select id="hasSticker" resultType="int">
+        SELECT COUNT(*)
+        FROM member_sticker
+        WHERE member_id = #{memberId}
+          AND sticker_id = #{stickerId}
     </select>
 
-    <!-- 유저 포인트 조회 -->
-    <select id="getUserPoint" resultType="int">
-        SELECT point
-        FROM user
-        WHERE id = #{memberId}
+    <!-- ✅ 4. 사용자 보유 포인트 조회 -->
+    <select id="getMemberPoint" resultType="int">
+        SELECT usable_points
+        FROM members
+        WHERE member_id = #{memberId}
     </select>
 
-    <!-- 스티커 가격 조회 -->
+    <!-- ✅ 5. 스티커 가격 조회 -->
     <select id="getStickerCost" resultType="int">
         SELECT cost
         FROM sticker
         WHERE id = #{stickerId}
     </select>
 
-    <!-- 유저 스티커 삽입 -->
-    <insert id="insertUserSticker">
-        INSERT INTO user_sticker (user_id, sticker_id, purchased_at)
+    <!-- ✅ 6. 구매한 스티커 등록 -->
+    <insert id="insertMemberSticker">
+        INSERT INTO member_sticker (member_id, sticker_id, purchased_at)
         VALUES (#{memberId}, #{stickerId}, NOW())
     </insert>
 
-    <!-- 유저 포인트 차감 -->
-    <update id="deductUserPoint">
-        UPDATE user
-        SET point = point - #{cost}
-        WHERE id = #{memberId}
+    <!-- ✅ 7. 포인트 차감 -->
+    <update id="deductMemberPoint">
+        UPDATE members
+        SET usable_points = usable_points - #{cost}
+        WHERE member_id = #{memberId}
     </update>
 
-    <!-- 인벤토리 조회 -->
-    <select id="getUserInventory" resultType="com.takoyakki.backend.domain.shop.dto.response.StickerResponseDto">
-        SELECT s.id, s.name, s.image_url AS imageUrl, s.cost
-        FROM user_sticker us
-                 JOIN sticker s ON us.sticker_id = s.id
-        WHERE us.user_id = #{memberId}
+    <!-- ✅ 8. 인벤토리 조회 (purchased = true 강제 세팅) -->
+    <select id="getMemberInventory" resultMap="StickerResponseMap">
+        SELECT
+            s.id,
+            s.name,
+            s.image_url AS imageUrl,
+            s.cost,
+            true AS purchased
+        FROM member_sticker ms
+                 JOIN sticker s ON ms.sticker_id = s.id
+        WHERE ms.member_id = #{memberId}
     </select>
 
-    <!-- 가방 슬롯 조회 -->
+    <!-- ✅ 9. 가방 슬롯 목록 -->
     <select id="getBagItems" resultType="com.takoyakki.backend.domain.shop.dto.response.BagItemResponseDto">
-        SELECT bs.sticker_id AS stickerId, s.name, s.image_url AS imageUrl, bs.slot_index
+        SELECT
+            bs.sticker_id AS stickerId,
+            s.name,
+            s.image_url AS imageUrl,
+            bs.slot_index
         FROM bag_slot bs
                  JOIN sticker s ON bs.sticker_id = s.id
-        WHERE bs.user_id = #{memberId}
+        WHERE bs.member_id = #{memberId}
         ORDER BY bs.slot_index
     </select>
 
-    <!-- 가방 슬롯 중복 여부 -->
+    <!-- ✅ 10. 가방에 이미 있는지 확인 -->
     <select id="bagSlotExists" resultType="boolean">
         SELECT COUNT(*) > 0
         FROM bag_slot
-        WHERE user_id = #{memberId} AND sticker_id = #{stickerId}
+        WHERE member_id = #{memberId}
+          AND sticker_id = #{stickerId}
     </select>
 
-    <!-- 가방 슬롯 삽입 -->
+    <!-- ✅ 11. 가방에 스티커 추가 -->
     <insert id="insertBagSlot">
-        INSERT INTO bag_slot (user_id, sticker_id, slot_index)
+        INSERT INTO bag_slot (member_id, sticker_id, slot_index)
         VALUES (#{memberId}, #{stickerId}, #{slotIndex})
     </insert>
 
-    <!-- 가방 슬롯 제거 -->
+    <!-- ✅ 12. 가방 슬롯 제거 -->
     <delete id="removeBagSlot">
         DELETE FROM bag_slot
-        WHERE user_id = #{memberId} AND slot_index = #{slotIndex}
+        WHERE member_id = #{memberId}
+          AND slot_index = #{slotIndex}
     </delete>
 
 </mapper>

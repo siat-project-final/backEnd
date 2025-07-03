@@ -14,17 +14,16 @@ public interface ShopMapper {
 
     List<Long> getPurchasedStickerIds(@Param("memberId") Long memberId);
 
-    boolean hasSticker(@Param("memberId") Long memberId, @Param("stickerId") Long stickerId);
-
-    int getUserPoint(@Param("memberId") Long memberId);
+    int hasSticker(@Param("memberId") Long memberId, @Param("stickerId") Long stickerId); // ✅ 수정된 부분
+    int getMemberPoint(@Param("memberId") Long memberId);
 
     int getStickerCost(@Param("stickerId") Long stickerId);
 
-    void insertUserSticker(@Param("memberId") Long memberId, @Param("stickerId") Long stickerId);
+    void insertMemberSticker(@Param("memberId") Long memberId, @Param("stickerId") Long stickerId);
 
-    void deductUserPoint(@Param("memberId") Long memberId, @Param("cost") int cost);
+    void deductMemberPoint(@Param("memberId") Long memberId, @Param("cost") int cost);
 
-    List<StickerResponseDto> getUserInventory(@Param("memberId") Long memberId);
+    List<StickerResponseDto> getMemberInventory(@Param("memberId") Long memberId);
 
     List<BagItemResponseDto> getBagItems(@Param("memberId") Long memberId);
 
