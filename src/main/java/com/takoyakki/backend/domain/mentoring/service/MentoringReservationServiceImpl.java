@@ -5,17 +5,20 @@ import com.takoyakki.backend.domain.mentoring.repository.MentoringReservationMap
 import com.takoyakki.backend.domain.notification.repository.NotificationMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MentoringReservationServiceImpl implements MentoringReservationService {
 
     private final MentoringReservationMapper reservationMapper;
     private final NotificationMapper notificationMapper;
 
     @Override
+    @Transactional
     public void createReservation(MenteeReservationRequestDto requestDto) {
         try {
             // 테이블 insert
@@ -55,6 +58,7 @@ public class MentoringReservationServiceImpl implements MentoringReservationServ
     }
 
     @Override
+    @Transactional
     public void acceptReservation(Long reservationId) {
         try {
             // 테이블 업데이트
@@ -74,6 +78,7 @@ public class MentoringReservationServiceImpl implements MentoringReservationServ
     }
 
     @Override
+    @Transactional
     public void rejectReservation(Long reservationId, MentoringReservationRejectRequestDto decisionDto) {
         try {
             // 테이블 업데이트
@@ -95,6 +100,7 @@ public class MentoringReservationServiceImpl implements MentoringReservationServ
     }
 
     @Override
+    @Transactional
     public void cancelReservation(Long reservationId, MentoringReservationCancelRequestDto cancelDto) {
         try {
             // 테이블 업데이트

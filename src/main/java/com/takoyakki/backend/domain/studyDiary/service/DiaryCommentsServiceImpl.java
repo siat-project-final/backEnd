@@ -34,6 +34,7 @@ public class DiaryCommentsServiceImpl implements DiaryCommentsService{
     }
 
     @Override
+    @Transactional
     public int insertDiaryComment(DiaryCommentsInsertRequestDto requestDto) {
         try {
             return diaryCommentMapper.insertDiaryComment(requestDto);

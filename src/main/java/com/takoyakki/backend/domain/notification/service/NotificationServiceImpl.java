@@ -26,6 +26,7 @@ public class NotificationServiceImpl implements NotificationService{
     }
 
     @Override
+    @Transactional
     public boolean softDeleteNotification(Long notificationId) {
         return notificationMapper.softDeleteNotification(notificationId);
     }

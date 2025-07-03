@@ -25,6 +25,7 @@ public class AuthServiceImpl implements AuthService{
 
     private final JwtTokenProvider jwtTokenProvider;
 
+    @Transactional
     @Override
     public LoginResponseDto login(LoginRequestDto request) {
         LoginAuthCheckDto loginAuthCheckDto = Optional.ofNullable(authMapper.selectUserInfo(request.getId()))
@@ -50,6 +51,7 @@ public class AuthServiceImpl implements AuthService{
                 .build();
     }
 
+    @Transactional
     public String reissueAccessToken(String refreshToken) {
         return jwtTokenProvider.reissueAccessToken(refreshToken);
     }

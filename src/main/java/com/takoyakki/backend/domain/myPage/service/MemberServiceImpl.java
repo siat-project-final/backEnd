@@ -29,6 +29,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional
     public int updateMemberInfo(Long memberId, MemberUpdateRequestDto updateDto) {
         updateDto.setMemberId(memberId);
         MemberSelectResponseDto memberSelectResponseDto = memberMapper.selectMemberInfo(memberId);

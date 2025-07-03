@@ -8,6 +8,7 @@ import com.takoyakki.backend.domain.mentoring.repository.MentoringReservationMap
 import com.takoyakki.backend.domain.mentoring.repository.MentorMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class MentoringServiceImpl implements MentoringService {
     private final MentorMapper mentorMapper;
 
     @Override
+    @Transactional
     public void completeMentoring(Long reservationId, MentoringCompleteRequestDto requestDto) {
         requestDto.setMentoringReservationId(reservationId);
         mentoringMapper.completeMentoring(requestDto);
@@ -27,6 +29,7 @@ public class MentoringServiceImpl implements MentoringService {
     }
 
     @Override
+    @Transactional
     public void updateMentoringStatus(Long reservationId, String status) {
         mentoringMapper.updateMentoringStatus(reservationId, status);
     }
