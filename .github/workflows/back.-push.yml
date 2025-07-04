@@ -47,25 +47,14 @@ jobs:
       - name: dockerhub push
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/siat-git-action-backend:latest
 
-      # aws setting
-      - name: Write docker-compose.yml on EC2 via SSH
-        uses: appleboy/ssh-action@v1.0.0
+      - name: Upload docker-compose.yml and nginx folder to EC2
+        uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          script: |
-            mkdir -p /home/ubuntu/backend
-            cat << 'EOF' > /home/ubuntu/backend/docker-compose.yml
-            services:
-              app:
-                image: ${{ secrets.DOCKERHUB_USERNAME }}/siat-git-action-backend:latest
-                ports:
-                  - "8087:8087"
-                restart: always
-                environment:
-                  - SPRING_PROFILES_ACTIVE=prod
-            EOF
+          source: "./docker-compose.yml,./nginx"
+          target: "/home/ubuntu/backend"
 
       - name: Deploy docker-compose
         uses: appleboy/ssh-action@v1.0.0
@@ -79,8 +68,8 @@ jobs:
             sudo docker compose down
             echo "이미지 삭제"
             sudo docker image prune -af
-            sudo docker compose pull ${{ secrets.DOCKERHUB_USERNAME }}/siat-git-action-backend:latest
-            sudo docker compose up -d  
+            echo "재실행"
+            sudo docker compose up -d
             
 
 
