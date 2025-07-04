@@ -16,8 +16,11 @@ services:
     container_name: nginx-reverse-proxy
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - /var/www/certbot:/var/www/certbot   # 👈 추가
+      - ./nginx:/etc/nginx/conf.d
+      - /etc/letsencrypt/live/api.siathub.com/fullchain.pem:/etc/nginx/ssl/api.siathub.crt
+      - /etc/letsencrypt/live/api.siathub.com/privkey.pem:/etc/nginx/ssl/api.siathub.key   # 👈 추가
     depends_on:
-      - backend
+      - backend.
 
