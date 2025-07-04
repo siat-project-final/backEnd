@@ -46,7 +46,8 @@
                     password,
                     phone_number,
                     nickname,
-                    role
+                    role,
+                    email
                 )
             VALUES
                 (
@@ -55,7 +56,8 @@
                     #{password},
                     #{phoneNumber},
                     #{nickname},
-                    'TRAINEE'
+                    'TRAINEE',
+                    #{email}
                 )
         </insert>
 
