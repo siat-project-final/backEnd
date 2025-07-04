@@ -23,8 +23,8 @@
         updated_at AS updatedAt
         FROM schedules
         WHERE member_id = #{memberId}
-          AND start_datetime &gt;= #{startDate}
-          AND end_datetime &lt;= #{endDate}
+          AND start_datetime &gt;= CAST(#{startDate} AS TIMESTAMP)
+          AND end_datetime &lt;= CAST(#{endDate} AS TIMESTAMP)
         AND is_deleted = FALSE
     </select>
 
