@@ -90,7 +90,7 @@ public class ChallengeServiceImpl implements ChallengeService {
                         .problemId(problemId)
                         .createdAt(requestDto.getCreatedAt())
                         .answer(answer)
-                        .isCorrect(answer.equals(resp.getAnswer()) ? "Y" : "N")
+                        .isCorrect(answer.equals(resp.getAnswer()) )
                         .points(answer.equals(resp.getAnswer()) ? resp.getDifficulty() : 0)
                         .build();
                 list.add(item);
