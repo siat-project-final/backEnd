@@ -45,6 +45,7 @@
             problems
         WHERE
             created_at::date = CURRENT_DATE
+        LIMIT 5;
     </select>
 
 <!--    selectProblemSolvingResult-->
