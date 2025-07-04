@@ -22,5 +22,5 @@ services:
       - /etc/letsencrypt/live/api.siathub.com/fullchain.pem:/etc/nginx/ssl/api.siathub.crt
       - /etc/letsencrypt/live/api.siathub.com/privkey.pem:/etc/nginx/ssl/api.siathub.key   # 👈 추가
     depends_on:
-      - backend.
+      - backend
 
