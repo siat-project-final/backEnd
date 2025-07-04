@@ -16,6 +16,8 @@ services:
     container_name: nginx-reverse-proxy
     ports:
       - "80:80"
+    volumes:
+      - /var/www/certbot:/var/www/certbot   # 👈 추가
     depends_on:
       - backend
 
