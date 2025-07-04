@@ -2,7 +2,6 @@
 version : '3'
 
 services:
-
   backend:
     image: siatlth/siat-git-action-backend
     container_name: backend-spring-container
@@ -11,3 +10,12 @@ services:
     restart: always
     environment:
       - SPRING_PROFILES_ACTIVE=prod
+  nginx:
+    build:
+      context: ./nginx
+    container_name: nginx-reverse-proxy
+    ports:
+      - "443:443"
+    depends_on:
+      - backend
+
