@@ -71,6 +71,7 @@ jobs:
             echo "재실행"
             sudo docker compose up -d
             
+            
 
 
 
