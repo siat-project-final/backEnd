@@ -29,6 +29,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .allowedOrigins(
                         "http://localhost:3000",
                         "http://siathub.com",
+                        "https://siathub.com",
                         "http://siathub.com.s3-website.ap-northeast-2.amazonaws.com"
                 )
                 .allowedMethods("*")
