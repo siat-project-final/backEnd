@@ -15,4 +15,6 @@ public interface MemberMapper {
     int updateMemberInfo(MemberUpdateRequestDto updateDto);
 
     int getPointsByDailyChallengeRank(Long memberId, int points);
+
+    void getPointsByStudyLog(Long memberId, int points);
 }

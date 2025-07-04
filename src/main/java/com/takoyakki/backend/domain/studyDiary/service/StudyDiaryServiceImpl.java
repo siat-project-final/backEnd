@@ -1,5 +1,6 @@
 package com.takoyakki.backend.domain.studyDiary.service;
 
+import com.takoyakki.backend.domain.myPage.repository.MemberMapper;
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryAISummaryRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryInsertRequestDto;
 import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryUpdateRequestDto;
@@ -21,12 +22,20 @@ public class StudyDiaryServiceImpl implements StudyDiaryService {
 
     private final StudyDiraryMapper studyDiraryMapper;
     private final SummaryAnthropicClient summaryAnthropicClient;
+    private final MemberMapper  memberMapper;
 
     @Override
     @Transactional
     public int insertStudyDiary(StudyDiaryInsertRequestDto requestDto) {
         try {
-            return studyDiraryMapper.insertStudyDiary(requestDto);
+
+            // 1 학습일지 insert
+            int retVal = studyDiraryMapper.insertStudyDiary(requestDto);
+
+            // 2 학습일지 작성 성공시 포인트 지급
+            memberMapper.getPointsByStudyLog(1L, 10);
+
+            return retVal;
         } catch (Exception e) {
             throw new RuntimeException("학습 일지 작성 중 오류가 발생했습니다: " + e.getMessage(), e);
         }
