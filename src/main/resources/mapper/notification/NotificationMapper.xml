@@ -43,7 +43,7 @@
         )
         VALUES
         (
-            #{mentorId},
+            #{mentorMemberId},
             'REGISTER',
             '멘토링 예약 알림',
             #{notificationContents},
