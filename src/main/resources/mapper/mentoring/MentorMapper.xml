@@ -11,7 +11,8 @@
             mentor_name AS mentorName,
             position,
             company,
-            mentor_image_url AS mentorImageUrl
+            mentor_image_url AS mentorImageUrl,
+            member_id AS mentorMemberId
         FROM mentors
         ORDER BY mentor_name ASC
     </select>

@@ -14,10 +14,11 @@
         <result property="openChatUrl" column="open_chat_url" />
         <result property="date" column="date" />
         <result property="status" column="status" />
-        <result property="subject" column="subject" /> <!-- ✅ 추가됨 -->
+        <result property="subject" column="subject" />
+        <result property="mentorMemberId" column="mentor_member_id" />
     </resultMap>
 
-    <!-- 예약 생성 -->
+    <!-- insertReservation -->
     <insert id="insertReservation"
             parameterType="MenteeReservationRequestDto"
             useGeneratedKeys="true"
@@ -173,7 +174,9 @@
             m.member_name AS mentee_name,
             o.mentor_name AS mentor_name,
             o.mentor_image_url AS mentor_image_url,
-            o.open_chat_url AS open_chat_url
+            o.open_chat_url AS open_chat_url,
+            o.open_chat_url AS open_chat_url,
+            o.member_id AS mentor_member_id
         FROM
             mentorings_reservation r
         LEFT OUTER JOIN

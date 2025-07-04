@@ -17,6 +17,8 @@ public class MentoringReservationController {
 
     private final MentoringReservationService reservationService;
 
+    // 멘티
+
     // 멘티 - 멘토링 예약 생성
     @PostMapping
     public ResponseEntity<Void> createReservation(@RequestBody MenteeReservationRequestDto requestDto) {
@@ -30,6 +32,18 @@ public class MentoringReservationController {
         List<MentoringReservationResponseDto> reservations = reservationService.getReservationsByMenteeId(menteeId);
         return ResponseEntity.ok(reservations);
     }
+
+    //멘티 - 예약 취소
+    @PutMapping("/mentee/{reservationId}/cancel")
+    public ResponseEntity<Void> cancelReservation(
+            @PathVariable Long reservationId,
+            @RequestBody MentoringReservationCancelRequestDto cancelDto
+    ) {
+        reservationService.cancelReservation(reservationId, cancelDto);
+        return ResponseEntity.ok().build();
+    }
+
+    // 멘토
 
     //멘토 - 본인 예약 목록 조회
     @GetMapping("/mentor/{mentorId}")
@@ -55,13 +69,15 @@ public class MentoringReservationController {
         return ResponseEntity.ok().build();
     }
 
-    //멘티 - 예약 취소
-    @PutMapping("/mentee/{reservationId}/cancel")
-    public ResponseEntity<Void> cancelReservation(
+
+
+    //멘토 - 예약 취소
+    @PutMapping("/mentor/{reservationId}/cancel")
+    public ResponseEntity<Void> cancelReservationMentor(
             @PathVariable Long reservationId,
             @RequestBody MentoringReservationCancelRequestDto cancelDto
     ) {
-        reservationService.cancelReservation(reservationId, cancelDto);
+        reservationService.cancelReservationMentor(reservationId, cancelDto);
         return ResponseEntity.ok().build();
     }
 
