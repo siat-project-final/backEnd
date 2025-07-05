@@ -4,11 +4,13 @@ import com.takoyakki.backend.domain.mentoring.dto.reservation.*;
 import com.takoyakki.backend.domain.mentoring.repository.MentoringReservationMapper;
 import com.takoyakki.backend.domain.notification.repository.NotificationMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -143,11 +145,14 @@ public class MentoringReservationServiceImpl implements MentoringReservationServ
     }
 
     @Override
-    public void hideReservationByMentee(Long reservationId) {
+    public String hideReservationByMentee(Long reservationId) {
         try {
             reservationMapper.hideReservationByMentee(reservationId);
+            return "success";
         } catch (RuntimeException e) {
-            throw new RuntimeException("멘토링 예약 닫기 실패", e);
+            System.out.println("닫기 실패 이유" + e.getMessage());
+            log.error(e.getMessage());
+            return e.getMessage();
         }
     }
 
