@@ -9,7 +9,7 @@ import java.util.List;
 public interface MentoringService {
 
     // 멘토링 완료 처리
-    String completeMentoring(Long reservationId, MentoringCompleteRequestDto requestDto);
+    void completeMentoring(Long reservationId, MentoringCompleteRequestDto requestDto);
 
     // 멘토링 상태 수동 업데이트 (강제완료, 취소 등)
     void updateMentoringStatus(Long reservationId, String status);
