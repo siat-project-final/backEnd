@@ -22,10 +22,16 @@ public class MentoringServiceImpl implements MentoringService {
 
     @Override
     @Transactional
-    public void completeMentoring(Long reservationId, MentoringCompleteRequestDto requestDto) {
-        requestDto.setMentoringReservationId(reservationId);
-        mentoringMapper.completeMentoring(requestDto);
-        mentoringReservationMapper.updateReservationToCompleted(reservationId);
+    public String completeMentoring(Long reservationId, MentoringCompleteRequestDto requestDto) {
+        try {
+            requestDto.setMentoringReservationId(reservationId);
+            mentoringMapper.completeMentoring(requestDto);
+            mentoringReservationMapper.updateReservationToCompleted(reservationId);
+            return "success";
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+
     }
 
     @Override

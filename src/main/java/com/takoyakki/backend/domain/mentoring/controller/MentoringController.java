@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +23,10 @@ public class MentoringController {
 
     @Operation(summary = "멘토링 완료 처리 (멘토)")
     @PostMapping("/mentor/{reservationId}/complete")
-    public void completeMentoring(@PathVariable Long reservationId,
-                                  @RequestBody @Valid MentoringCompleteRequestDto requestDto) {
-        mentoringService.completeMentoring(reservationId, requestDto);
+    public ResponseEntity<?> completeMentoring(@PathVariable Long reservationId,
+                                            @RequestBody @Valid MentoringCompleteRequestDto requestDto) {
+        String s = mentoringService.completeMentoring(reservationId, requestDto);
+        return ResponseEntity.ok(s);
     }
 
     @Operation(summary = "멘토링 단건 조회")

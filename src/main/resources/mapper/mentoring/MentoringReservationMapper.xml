@@ -157,7 +157,7 @@
         WHERE
             m.date::date BETWEEN CAST(#{startDate} AS DATE) AND CAST(#{endDate} AS DATE)
         AND
-            status = 'COMPLETED'
+            status NOT IN ('COMPLETED', 'REJECTED')
         AND
             m.mentee_id = #{memberId}
     </select>
