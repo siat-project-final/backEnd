@@ -18,7 +18,7 @@ public interface MentoringReservationService {
 
     void cancelReservation(Long reservationId, MentoringReservationCancelRequestDto cancelDto);
 
-    String hideReservationByMentee(Long reservationId);
+    void hideReservationByMentee(Long reservationId);
 
     void hideReservationByMentor(Long reservationId);
 
