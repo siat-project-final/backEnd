@@ -122,6 +122,7 @@ public class MentoringReservationServiceImpl implements MentoringReservationServ
     }
 
     @Override
+    @Transactional
     public void cancelReservationMentor(Long reservationId, MentoringReservationCancelRequestDto cancelDto) {
         try {
             // 테이블 업데이트
@@ -143,6 +144,7 @@ public class MentoringReservationServiceImpl implements MentoringReservationServ
     }
 
     @Override
+    @Transactional
     public void hideReservationByMentee(Long reservationId) {
         try {
             reservationMapper.hideReservationByMentee(reservationId);
@@ -152,6 +154,7 @@ public class MentoringReservationServiceImpl implements MentoringReservationServ
     }
 
     @Override
+    @Transactional
     public void hideReservationByMentor(Long reservationId) {
         reservationMapper.hideReservationByMentor(reservationId);
     }
