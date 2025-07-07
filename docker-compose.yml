@@ -2,6 +2,13 @@
 version : '3'
 
 services:
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+    restart: always
+
   backend:
     image: siatlth/siat-git-action-backend
     container_name: backend-spring-container
@@ -10,6 +17,9 @@ services:
     restart: always
     environment:
       - SPRING_PROFILES_ACTIVE=prod
+    depends_on:
+      - redis
+
   nginx:
     build:
       context: ./nginx
@@ -20,7 +30,7 @@ services:
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - /etc/letsencrypt/live/api.siathub.com/fullchain.pem:/etc/nginx/ssl/api.siathub.crt
-      - /etc/letsencrypt/live/api.siathub.com/privkey.pem:/etc/nginx/ssl/api.siathub.key   # 👈 추가
+      - /etc/letsencrypt/live/api.siathub.com/privkey.pem:/etc/nginx/ssl/api.siathub.key
     depends_on:
       - backend
 

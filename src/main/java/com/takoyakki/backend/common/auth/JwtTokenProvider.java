@@ -3,6 +3,7 @@ package com.takoyakki.backend.common.auth;
 import com.takoyakki.backend.common.auth.dto.LoginAuthCheckDto;
 import com.takoyakki.backend.common.auth.dto.LoginResponseDto;
 import com.takoyakki.backend.common.auth.mapper.AuthMapper;
+import com.takoyakki.backend.common.auth.service.RedisService;
 import com.takoyakki.backend.common.exception.UnauthorizedException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -33,8 +34,7 @@ public class JwtTokenProvider {
 
     private Key key;
 
-    private final Map<String, String> refreshTokenStore = new HashMap<>();
-
+    private final RedisService redisService;
     private final AuthMapper authMapper;
 
     @PostConstruct
@@ -57,8 +57,12 @@ public class JwtTokenProvider {
         // Refresh Token 생성
         String refreshToken = createRefreshToken(loginAuthCheckDto);
 
-        // Refresh Token 저장
-        refreshTokenStore.put(loginAuthCheckDto.getId(), refreshToken);
+        // Redis에 Refresh Token 저장
+        redisService.saveRefreshToken(
+                loginAuthCheckDto.getId(),
+                refreshToken,
+                60 * 60 * 24 * 14 // 14일 (초 단위)
+        );
 
         return new TokenInfo(accessToken, refreshToken);
     }
@@ -113,7 +117,6 @@ public class JwtTokenProvider {
 
     public String reissueAccessToken(String refreshToken) {
         try {
-            // 리프레시 토큰 검증
             Claims claims = Jwts.parser()
                     .verifyWith((SecretKey) key)
                     .build()
@@ -122,18 +125,16 @@ public class JwtTokenProvider {
 
             String id = claims.getSubject();
 
-            // 저장된 리프레시 토큰과 비교
-            String savedRefreshToken = refreshTokenStore.get(id);
+            // Redis에서 저장된 리프레시 토큰 조회
+            String savedRefreshToken = redisService.getRefreshToken(id);
             if (savedRefreshToken == null || !savedRefreshToken.equals(refreshToken)) {
                 throw new JwtException("Invalid refresh token");
             }
 
-            // 새로운 액세스 토큰 생성
             LoginAuthCheckDto loginAuthCheckDto = Optional.ofNullable(authMapper.selectUserInfo(id))
-                    .orElseThrow(() -> new JwtException("Member not found"));// 실제로는 DB에서 조회해야 함
+                    .orElseThrow(() -> new JwtException("Member not found"));
 
             loginAuthCheckDto.setId(id);
-
             return createAccessToken(loginAuthCheckDto);
         } catch (JwtException e) {
             log.error("Error during access token reissue: {}", e.getMessage(), e);
@@ -184,7 +185,7 @@ public class JwtTokenProvider {
     }
 
     public void removeRefreshToken(String id) {
-        refreshTokenStore.remove(id);
+        redisService.deleteRefreshToken(id);
     }
 
 }
