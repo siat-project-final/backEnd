@@ -124,7 +124,7 @@
         <foreach collection="problemIds" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
-        AND is_correct = 'Y'
+        AND is_correct = true
     </select>
 
     <select id="sumPointsByMember" resultType="int">
