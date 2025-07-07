@@ -247,15 +247,27 @@ INSERT INTO members (
     'TRAINEE', 'ACTIVE', 3000, 500, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
 ),
 (
-    'alice', '1234', '최수정', 'alice@example.com', '010-4567-8901', '수정이',
+    'alice', '1234', '이수현', 'alice@example.com', '010-4567-8901', '수현이',
     'MENTOR', 'ACTIVE', 800, 150, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
 ),
 (
-    'bob', '1234', '박지훈', 'bob@example.com', '010-5678-9012', '지훈박',
+    'bob', '1234', '최형규', 'bob@example.com', '010-5678-9012', '형규',
     'MENTOR', 'INACTIVE', 200, 50, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
 ),
 (
-    'carol', '1234', '한예린', 'carol@example.com', '010-6789-0123', '예린쨩',
+    'carol', '1234', '박신형', 'carol@example.com', '010-6789-0123', '신형',
+    'MENTOR', 'ACTIVE', 4000, 700, 7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
+),
+(
+    'hannah', '1234', '최은정', 'alice@example.com', '010-4567-8901', '오랑이',
+    'MENTOR', 'ACTIVE', 800, 150, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
+),
+(
+    'jo', '1234', '조영석', 'bob@example.com', '010-5678-9012', '영초',
+    'MENTOR', 'INACTIVE', 200, 50, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
+),
+(
+    'kwon', '1234', '권태현', 'carol@example.com', '010-6789-0123', '태현짱',
     'MENTOR', 'ACTIVE', 4000, 700, 7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE
 );
 
@@ -274,46 +286,77 @@ INSERT INTO mentors (
     updated_at,
     member_id
 )
+
 SELECT
     m.member_name,
-    NULL,  -- 이미지 URL 미리 없으면 NULL로
+    /* ---------- 이미지 경로 ---------- */
     CASE m.id
-        WHEN 'user' THEN 'AI 스타트업'
-        WHEN 'alice' THEN '삼성전자'
-        WHEN 'bob' THEN '네이버'
-        WHEN 'carol' THEN '카카오'
-        ELSE '기타'
-    END,
-    CASE m.id
-        WHEN 'user' THEN 'AI 리서처'
-        WHEN 'alice' THEN 'Frontend Developer'
-        WHEN 'bob' THEN 'Backend Developer'
-        WHEN 'carol' THEN 'DevOps Engineer'
-        ELSE '멘토'
-    END,
-    CASE m.id
-        WHEN 'user' THEN '머신러닝과 딥러닝 연구 중심의 교육 설계자입니다.'
-        WHEN 'alice' THEN 'React, TypeScript 기반 UI 설계 경험을 나눕니다.'
-        WHEN 'bob' THEN 'Spring Boot, JPA 성능 최적화를 도와드립니다.'
-        WHEN 'carol' THEN 'CI/CD, Docker, Kubernetes 멘토링 가능'
-        ELSE ''
-    END,
-    'MON,TUE,WED', -- 공통 요일 예시
-    '2025-12-31 23:59:59',
-    CASE m.id
-        WHEN 'user' THEN 'https://open.kakao.com/o/younghee-ai'
-        WHEN 'alice' THEN 'https://open.kakao.com/o/alice-dev'
-        WHEN 'bob' THEN 'https://open.kakao.com/o/bob-dev'
-        WHEN 'carol' THEN 'https://open.kakao.com/o/carol-dev'
-        ELSE ''
-    END,
-    FALSE,
-    NOW(),
-    NOW(),
-    m.member_id
-FROM members m
-WHERE m.role = 'MENTOR';
+        WHEN 'alice'  THEN '/assets/img/mentors/mentor_suhyun.png'     -- 이수현
+        WHEN 'bob'    THEN '/assets/img/mentors/mentor_hyung.png'      -- 최형규
+        WHEN 'carol'  THEN '/assets/img/mentors/mentor_sinhyung.png'   -- ?
+        WHEN 'hannah' THEN '/assets/img/mentors/mentor_eunjung.png'    -- 최은정
+        WHEN 'jo'     THEN '/assets/img/mentors/mentor_youngseok.png'  -- 조영석
+        WHEN 'kwon'   THEN '/assets/img/mentors/mentor_taehyun.png'    -- 권태현
+        ELSE NULL
+        END                                   AS mentor_image_url,
 
+    /* ---------- 회사 ---------- */
+    CASE m.id
+        WHEN 'alice'  THEN '삼성전자'
+        WHEN 'bob'    THEN '네이버'
+        WHEN 'carol'  THEN '카카오'
+        WHEN 'hannah' THEN '라인플러스'
+        WHEN 'jo'     THEN '쿠팡'
+        WHEN 'kwon'   THEN '토스'
+        ELSE '기타'
+        END                                   AS company,
+
+    /* ---------- 직무 ---------- */
+    CASE m.id
+        WHEN 'alice'  THEN 'Frontend Developer'
+        WHEN 'bob'    THEN 'Backend Developer'
+        WHEN 'carol'  THEN 'DevOps Engineer'
+        WHEN 'hannah' THEN 'Product Designer'
+        WHEN 'jo'     THEN 'Data Engineer'
+        WHEN 'kwon'   THEN 'Android Developer'
+        ELSE '멘토'
+        END                                   AS position,
+
+        /* ---------- 소개 ---------- */
+        CASE m.id
+            WHEN 'alice'  THEN 'React · TypeScript UI 설계 멘토링'
+            WHEN 'bob'    THEN 'Spring Boot · JPA 최적화 코칭'
+            WHEN 'carol'  THEN 'CI/CD · Kubernetes 실전 경험 공유'
+            WHEN 'hannah' THEN 'UX/UI 디자인 시스템 구축 경험 공유'
+            WHEN 'jo'     THEN '데이터 파이프라인 · ETL 실무 사례 제공'
+            WHEN 'kwon'   THEN 'Jetpack Compose · Kotlin 심화 지도'
+            ELSE ''
+END                                   AS description,
+
+        /* ---------- 공통/임시 값 ---------- */
+        'MON,TUE,WED'                         AS avail_weekdays,
+        '2025-12-31 23:59:59'                 AS completion_date,
+
+        /* ---------- 오픈채팅 ---------- */
+        CASE m.id
+            WHEN 'alice'  THEN 'https://open.kakao.com/o/alice-dev'
+            WHEN 'bob'    THEN 'https://open.kakao.com/o/bob-dev'
+            WHEN 'carol'  THEN 'https://open.kakao.com/o/carol-dev'
+            WHEN 'hannah' THEN 'https://open.kakao.com/o/eunjung-ux'
+            WHEN 'jo'     THEN 'https://open.kakao.com/o/youngseok-data'
+            WHEN 'kwon'   THEN 'https://open.kakao.com/o/taehyun-android'
+            ELSE ''
+END                                   AS open_chat_url,
+
+        /* ---------- 공통 메타 ---------- */
+        FALSE                                 AS is_deleted,
+        NOW()                                 AS created_at,
+        NOW()                                 AS updated_at,
+        m.member_id                           -- FK
+FROM
+        members m
+WHERE
+        m.role = 'MENTOR';
 
 INSERT INTO students (student_name, phone_number)
 VALUES
