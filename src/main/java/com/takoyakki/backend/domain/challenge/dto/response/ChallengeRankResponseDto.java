@@ -28,5 +28,6 @@ public class ChallengeRankResponseDto {
     @Schema(description = "날짜", example = "2025-06-01")
     private LocalDate date;
 
-
+    @Schema(description = "과목", example = "java")
+    private String subject;
 }
