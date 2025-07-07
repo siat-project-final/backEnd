@@ -178,4 +178,14 @@
         WHERE diary_id = #{diaryId}
     </delete>
 
+    <select id="selectStudyDiaryCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            study_diary
+        WHERE
+            member_id = #{memberId}
+        AND
+            is_deleted = FALSE
+    </select>
 </mapper>

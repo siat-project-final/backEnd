@@ -28,5 +28,7 @@ public interface StudyDiraryMapper {
     int deleteDiary(@Param("diaryId") Long diaryId);
     int changeStudyDiaryLike(Long diaryId, boolean isLike);
 
+    int selectStudyDiaryCount(Long memberId);
+
     //퍼블릭이랑 안퍼블랙.
 }

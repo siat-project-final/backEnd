@@ -8,6 +8,7 @@ import com.takoyakki.backend.domain.myPage.dto.MemberSelectResponseDto;
 import com.takoyakki.backend.domain.myPage.dto.MemberUpdateRequestDto;
 import com.takoyakki.backend.domain.myPage.dto.response.MyPageStatisticsResponseDto;
 import com.takoyakki.backend.domain.myPage.repository.MemberMapper;
+import com.takoyakki.backend.domain.studyDiary.repository.StudyDiraryMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberMapper memberMapper;
     private final DailyChallengeRankingsMapper dailyChallengeRankingsMapper;
     private final MentoringMapper mentoringMapper;
+    private final StudyDiraryMapper studyDiraryMapper;
 
     @Override
     public MemberSelectResponseDto selectMemberInfo(Long memberId) {
@@ -44,11 +46,13 @@ public class MemberServiceImpl implements MemberService {
     public MyPageStatisticsResponseDto getStatistics(Long memberId) {
         try {
             // 학습일지 추가 필요
+            int studyDiaryCount = studyDiraryMapper.selectStudyDiaryCount(memberId);
             int challengeCount = dailyChallengeRankingsMapper.selectChallengeCount(memberId);
             int mentoringCount = mentoringMapper.selectMentoringCount(memberId);
             int totalXp = memberMapper.selectMemberInfo(memberId).getTotalXp();
 
             return MyPageStatisticsResponseDto.builder()
+                    .studyDiaryCount(studyDiaryCount)
                     .challengeCount(challengeCount)
                     .mentoringCount(mentoringCount)
                     .totalXp(totalXp)
