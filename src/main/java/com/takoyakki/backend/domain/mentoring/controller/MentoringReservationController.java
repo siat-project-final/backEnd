@@ -87,7 +87,7 @@ public class MentoringReservationController {
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/reservations/mentor/{reservationId}/hide")
+    @PatchMapping("/mentor/{reservationId}/hide")
     public ResponseEntity<Void> hideReservationByMentor(@PathVariable Long reservationId) {
         reservationService.hideReservationByMentor(reservationId);
         return ResponseEntity.ok().build();
