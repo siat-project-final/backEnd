@@ -531,43 +531,37 @@ INSERT INTO problems (
     difficulty,
     subject,
     correct_answer,
-    choices
-) VALUES (
-             '다음 중 Java에서 사용되는 기본 데이터 타입(Primitive Type)이 아닌 것은?',
-             '다음 중 Java에서 사용되는 기본 데이터 타입(Primitive Type)이 아닌 것은?\n\n1. byte\n2. String\n3. int\n4. char\n\n',
-             1,
-             'JAVA',
-             2,
-             CAST('["1. byte","2. String","3. int","4. char"]' AS jsonb)
-         ), (
-            'Java에서 추상 클래스(Abstract Class)에 대한 설명으로 옳지 않은 것은?',
-            'Java에서 추상 클래스(Abstract Class)에 대한 설명으로 옳지 않은 것은?\n\n1. 추상 클래스는 abstract 키워드를 사용하여 선언한다\n2. 추상 클래스는 new 연산자를 통해 직접 인스턴스를 생성할 수 있다\n3. 추상 클래스는 일반 메소드와 추상 메소드를 모두 포함할 수 있다\n4. 추상 클래스를 상속받은 자식 클래스는 추상 메소드를 반드시 구현해야 한다\n\n',
-            2,
-            'JAVA',
-            2,
-            CAST('["1. 추상 클래스는 abstract 키워드를 사용하여 선언한다","2. 추상 클래스는 new 연산자를 통해 직접 인스턴스를 생성할 수 있다","3. 추상 클래스는 일반 메소드와 추상 메소드를 모두 포함할 수 있다","4. 추상 클래스를 상속받은 자식 클래스는 추상 메소드를 반드시 구현해야 한다"]' AS jsonb)
-        ),(
-    'Java에서 Thread의 상태 중 ''BLOCKED'' 상태가 발생하는 경우는 무엇인가?',
-    'Java에서 Thread의 상태 중 ''BLOCKED'' 상태가 발생하는 경우는 무엇인가?\n\n1. Thread가 sleep() 메소드를 호출하여 일시 정지된 경우\n2. 다른 Thread가 점유하고 있는 모니터 락(monitor lock)을 획득하기 위해 대기하는 경우\n3. Thread가 join() 메소드를 호출하여 다른 Thread의 종료를 기다리는 경우\n4. Thread가 wait() 메소드를 호출하여 notify()를 기다리는 경우\n\n',
-    3,
-    'JAVA',
-    2,
-    CAST('["1. Thread가 sleep() 메소드를 호출하여 일시 정지된 경우","2. 다른 Thread가 점유하고 있는 모니터 락(monitor lock)을 획득하기 위해 대기하는 경우","3. Thread가 join() 메소드를 호출하여 다른 Thread의 종료를 기다리는 경우","4. Thread가 wait() 메소드를 호출하여 notify()를 기다리는 경우"]' AS jsonb)
-),(
-    'Java에서 다음 중 ''Interface''의 특징으로 올바르지 않은 것은?',
-    'Java에서 다음 중 ''Interface''의 특징으로 올바르지 않은 것은?\n\n1. 인터페이스의 모든 메소드는 기본적으로 public abstract이다\n2. 인터페이스는 다중 상속이 가능하다\n3. 인터페이스의 모든 필드는 public static final이다\n4. 인터페이스는 생성자를 가질 수 있다\n\n',
-    4,
-    'JAVA',
-    4,
-    CAST('["1. 인터페이스의 모든 메소드는 기본적으로 public abstract이다","2. 인터페이스는 다중 상속이 가능하다","3. 인터페이스의 모든 필드는 public static final이다","4. 인터페이스는 생성자를 가질 수 있다"]' AS jsonb)
-),(
-    'Java에서 람다식(Lambda Expression)이 등장한 버전은 무엇이며, 이를 도입한 주된 목적으로 가장 적절한 것은?',
-    'Java에서 람다식(Lambda Expression)이 등장한 버전은 무엇이며, 이를 도입한 주된 목적으로 가장 적절한 것은?\n\n1. Java 6, 객체지향 프로그래밍의 캡슐화 강화\n2. Java 8, 함수형 프로그래밍 지원과 간결한 코드 작성\n3. Java 7, 멀티스레드 프로그래밍의 성능 향상\n4. Java 9, 모듈화 시스템 구현의 효율성 증대\n\n',
-    5,
-    'JAVA',
-    2,
-    CAST('["1. Java 6, 객체지향 프로그래밍의 캡슐화 강화","2. Java 8, 함수형 프로그래밍 지원과 간결한 코드 작성","3. Java 7, 멀티스레드 프로그래밍의 성능 향상","4. Java 9, 모듈화 시스템 구현의 효율성 증대"]' AS jsonb)
+    choices,
+    created_at
+) VALUES 
+(
+  '다음 중 Java에서 사용되는 기본 데이터 타입(Primitive Type)이 아닌 것은?',
+  '다음 중 Java에서 사용되는 기본 데이터 타입(Primitive Type)이 아닌 것은?\n\n1. byte\n2. String\n3. int\n4. char\n\n',
+  1,
+  'JAVA',
+  2,
+  CAST('["1. byte","2. String","3. int","4. char"]' AS jsonb),
+  CAST('2025-06-30 00:00:00' AS TIMESTAMP)
+),
+(
+  'Java에서 추상 클래스(Abstract Class)에 대한 설명으로 옳지 않은 것은?',
+  'Java에서 추상 클래스(Abstract Class)에 대한 설명으로 옳지 않은 것은?\n\n1. 추상 클래스는 abstract 키워드를 사용하여 선언한다\n2. 추상 클래스는 new 연산자를 통해 직접 인스턴스를 생성할 수 있다\n3. 추상 클래스는 일반 메소드와 추상 메소드를 모두 포함할 수 있다\n4. 추상 클래스를 상속받은 자식 클래스는 추상 메소드를 반드시 구현해야 한다\n\n',
+  2,
+  'JAVA',
+  2,
+  CAST('["1. 추상 클래스는 abstract 키워드를 사용하여 선언한다","2. 추상 클래스는 new 연산자를 통해 직접 인스턴스를 생성할 수 있다","3. 추상 클래스는 일반 메소드와 추상 메소드를 모두 포함할 수 있다","4. 추상 클래스를 상속받은 자식 클래스는 추상 메소드를 반드시 구현해야 한다"]' AS jsonb),
+  CAST('2025-06-30 00:00:00' AS TIMESTAMP)
+),
+(
+  'Java에서 Thread의 상태 중 ''BLOCKED'' 상태가 발생하는 경우는 무엇인가?',
+  'Java에서 Thread의 상태 중 ''BLOCKED'' 상태가 발생하는 경우는 무엇인가?\n\n1. Thread가 sleep() 메소드를 호출하여 일시 정지된 경우\n2. 다른 Thread가 점유하고 있는 모니터 락(monitor lock)을 획득하기 위해 대기하는 경우\n3. Thread가 join() 메소드를 호출하여 다른 Thread의 종료를 기다리는 경우\n4. Thread가 wait() 메소드를 호출하여 notify()를 기다리는 경우\n\n',
+  3,
+  'JAVA',
+  2,
+  CAST('["1. Thread가 sleep() 메소드를 호출하여 일시 정지된 경우","2. 다른 Thread가 점유하고 있는 모니터 락(monitor lock)을 획득하기 위해 대기하는 경우","3. Thread가 join() 메소드를 호출하여 다른 Thread의 종료를 기다리는 경우","4. Thread가 wait() 메소드를 호출하여 notify()를 기다리는 경우"]' AS jsonb),
+  CAST('2025-06-30 00:00:00' AS TIMESTAMP)
 );
+
 
 UPDATE problems SET type = 'multiple' WHERE problem_id BETWEEN 1 AND 5;
 
