@@ -317,11 +317,13 @@ WHERE m.role = 'MENTOR';
 
 INSERT INTO students (student_name, phone_number)
 VALUES
-    ('김철수', '01012345678'),
+    ('김정섭', '01012345678'),
     ('이영희', '01087654321'),
     ('최지은', '01098765432'),
-    ('박준호', '01011223344'),
-    ('이수민', '01055667788');
+    ('최영구', '01011223344'),
+    ('이수연', '01023456789'),
+    ('박신영', '01084369852'),
+    ('최은성', '01055667784');
 
 INSERT INTO daily_learning (contents, title, subject, date)
 VALUES

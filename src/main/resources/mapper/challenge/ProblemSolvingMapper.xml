@@ -82,7 +82,7 @@
                 LEFT OUTER JOIN
             problems p ON ps.problem_id = p.problem_id
         WHERE
-            p.subject = #{subject}
+            p.subject ILIKE #{subject}
           AND
             ps.member_id = #{memberId}
     </select>

@@ -153,7 +153,7 @@
             sd.is_public = TRUE
             AND sd.is_deleted = FALSE
         <if test="subject != null and subject != 'ALL'">
-            AND sd.subject = #{subject}
+            AND sd.subject ILIKE #{subject}
         </if>
         ORDER BY
             sd.study_date DESC
