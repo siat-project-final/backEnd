@@ -39,4 +39,5 @@ public interface MentoringMapper {
 
     List<CalendarItemMentoringByDateDto> selectMentoringListInMonthByMemberId(Long memberId, LocalDate startDate, LocalDate endDate);
 
+    int selectMentorIdByMemberId(Long mentorMemberId);
 }

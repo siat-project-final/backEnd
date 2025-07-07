@@ -123,7 +123,8 @@
             m.mentor_id AS mentorId,
             mt.mentor_name AS mentorName,
             mt.mentor_image_url AS imageUrl,
-            mr.subject AS subject
+            mr.subject AS subject,
+            mr.date::date AS date
         FROM
             mentorings m
         LEFT OUTER JOIN
@@ -159,5 +160,14 @@
             m.created_at::date BETWEEN CAST(#{startDate} AS DATE) AND CAST(#{endDate} AS DATE)
         AND
             m.mentee_id = #{memberId}
+    </select>
+
+    <select id="selectMentorIdByMemberId">
+        SELECT
+            mentor_id
+        FROM
+            mentors
+        WHERE
+            member_id = #{mentorMemberId}
     </select>
 </mapper>

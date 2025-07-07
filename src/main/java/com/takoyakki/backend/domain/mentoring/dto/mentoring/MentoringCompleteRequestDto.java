@@ -15,6 +15,7 @@ import java.time.LocalTime;
 public class MentoringCompleteRequestDto {
 
     private Long mentoringReservationId;               // 예약 ID
+    private Long mentorMemberId;                // 멘토 id
     private Long mentorId;                // 멘토 id
     private Long menteeId;                //멘티 id
     private LocalDate createdAt;           // 멘토링 완료된 날짜

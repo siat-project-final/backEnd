@@ -24,6 +24,9 @@ public class MentoringServiceImpl implements MentoringService {
     @Transactional
     public void completeMentoring(Long reservationId, MentoringCompleteRequestDto requestDto) {
         requestDto.setMentoringReservationId(reservationId);
+
+        int mentorId = mentoringMapper.selectMentorIdByMemberId(requestDto.getMentorMemberId());
+        requestDto.setMentorId((long) mentorId);
         mentoringMapper.completeMentoring(requestDto);
         mentoringReservationMapper.updateReservationToCompleted(reservationId);
     }
