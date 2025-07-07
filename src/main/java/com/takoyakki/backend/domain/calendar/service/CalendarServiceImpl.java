@@ -70,35 +70,58 @@ public class CalendarServiceImpl implements CalendarService{
 // 일정목록 조회
     @Override
     public List<CalendarResponseDto> getSchedules(Long memberId, String startDate, String endDate) {
-        return calendarMapper.selectSchedules(memberId, startDate, endDate);
+        try {
+            return calendarMapper.selectSchedules(memberId, startDate, endDate);
+        } catch (Exception e) {
+            throw new RuntimeException("스케쥴 조회 중 문제가 발생했습니다: " + e.getMessage(), e);
+        }
     }
 
 //  일정 상세조회
     @Override
     public CalendarResponseDto getScheduleDetail(Long scheduleId) {
-        return calendarMapper.selectScheduleById(scheduleId);
+        try {
+            return calendarMapper.selectScheduleById(scheduleId);
+        } catch (Exception e) {
+            throw new RuntimeException("문제가 발생했습니다: " + e.getMessage(), e);
+        }
+
     }
 
 //   일정 등록
     @Override
     @Transactional
     public void addSchedule(CalendarRequestDto dto) {
-        calendarMapper.insertSchedule(dto);
+        try {
+            calendarMapper.insertSchedule(dto);
+        } catch (Exception e) {
+            throw new RuntimeException("문제가 발생했습니다: " + e.getMessage(), e);
+        }
+
     }
 
 //    일정 수정
     @Override
     @Transactional
     public void updateSchedule(Long scheduleId, CalendarRequestDto dto) {
-       dto.setScheduleId(scheduleId);
-        calendarMapper.updateSchedule(dto);
+        try {
+            dto.setScheduleId(scheduleId);
+            calendarMapper.updateSchedule(dto);
+        } catch (Exception e) {
+            throw new RuntimeException("문제가 발생했습니다: " + e.getMessage(), e);
+        }
+
     }
 
 //   일정 삭제
     @Override
     @Transactional
     public void deleteSchedule(Long scheduleId) {
-        calendarMapper.deleteSchedule(scheduleId);
+        try {
+            calendarMapper.deleteSchedule(scheduleId);
+        } catch (Exception e) {
+            throw new RuntimeException("문제가 발생했습니다: " + e.getMessage(), e);
+        }
     }
 }
 

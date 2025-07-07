@@ -53,12 +53,20 @@ public class AuthServiceImpl implements AuthService{
 
     @Transactional
     public String reissueAccessToken(String refreshToken) {
-        return jwtTokenProvider.reissueAccessToken(refreshToken);
+        try {
+            return jwtTokenProvider.reissueAccessToken(refreshToken);
+        } catch (Exception e) {
+            throw new RuntimeException("토큰 재발급 중 문제가 발생했습니다: " + e.getMessage(), e);
+        }
     }
 
     @Override
     public void logout(String id) {
-        jwtTokenProvider.removeRefreshToken(id);
+        try {
+            jwtTokenProvider.removeRefreshToken(id);
+        } catch (Exception e) {
+            throw new RuntimeException("로그아웃 중 문제가 발생했습니다: " + e.getMessage(), e);
+        }
     }
 
     @Override
@@ -88,7 +96,11 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public int checkStudentList(SignUpRequestDto requestDto) {
-        int retVal = authMapper.selectStudentInfo(requestDto.getMemberName(), requestDto.getPhoneNumber());
-        return Math.max(retVal, 0);
+        try {
+            int retVal = authMapper.selectStudentInfo(requestDto.getMemberName(), requestDto.getPhoneNumber());
+            return Math.max(retVal, 0);
+        } catch (Exception e) {
+            throw new RuntimeException("교육생 확인 중 문제가 발생했습니다: " + e.getMessage(), e);
+        }
     }
 }
