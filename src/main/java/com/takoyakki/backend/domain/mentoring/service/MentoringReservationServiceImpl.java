@@ -156,6 +156,10 @@ public class MentoringReservationServiceImpl implements MentoringReservationServ
     @Override
     @Transactional
     public void hideReservationByMentor(Long reservationId) {
-        reservationMapper.hideReservationByMentor(reservationId);
+        try {
+            reservationMapper.hideReservationByMentor(reservationId);
+        } catch (RuntimeException e) {
+            throw new RuntimeException("멘토링 예약 닫기 실패", e);
+        }
     }
 }
