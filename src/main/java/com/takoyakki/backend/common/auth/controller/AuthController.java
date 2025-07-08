@@ -98,10 +98,10 @@ public class AuthController {
     @Operation(
         summary = "멘토 ID 조회",
         description = "memberId로 mentors 테이블에서 mentorId를 조회합니다 (MENTOR 전용)"
-        )
-        @GetMapping("/mentor-id")
-        public ResponseEntity<Long> getMentorId(@RequestParam Long memberId) {
+    )
+    @GetMapping("/mentor-id")
+    public ResponseEntity<Long> getMentorId(@RequestParam Long memberId) {
         Long mentorId = mentorQueryService.getMentorIdByMemberId(memberId);
         return ResponseEntity.ok(mentorId);
-        }
+    }
 }
