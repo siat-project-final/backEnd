@@ -24,8 +24,6 @@ spring:
 mybatis:
   mapper-locations: classpath*:mapper/**/*.xml
   config-location: classpath:/mybatis-config.xml
-jwt:
-  secret: yourSecretKey123456789012345678901234567890
 logging:
   level:
     com.takoyakki.backend: DEBUG
