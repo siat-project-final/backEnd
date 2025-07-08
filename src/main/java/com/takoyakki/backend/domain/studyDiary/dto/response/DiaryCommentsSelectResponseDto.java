@@ -1,6 +1,7 @@
 package com.takoyakki.backend.domain.studyDiary.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,6 +11,11 @@ import java.time.LocalDate;
 @Schema(description = "학습 일지 댓글 전체 조회 응답")
 @Builder
 public class DiaryCommentsSelectResponseDto {
+
+    @Schema(description = "댓글 ID", example = "1")
+    @NotNull
+    private Long commentId;
+
     @Schema(description = "이름", example = "홍길동")
     private String memberName;
 

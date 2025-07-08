@@ -1,10 +1,7 @@
 package com.takoyakki.backend.domain.studyDiary.service;
 
 import com.takoyakki.backend.domain.studyDiary.api.SummaryAnthropicClient;
-import com.takoyakki.backend.domain.studyDiary.dto.request.DiaryCommentsInsertRequestDto;
-import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryAISummaryRequestDto;
-import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryInsertRequestDto;
-import com.takoyakki.backend.domain.studyDiary.dto.request.StudyDiaryUpdateRequestDto;
+import com.takoyakki.backend.domain.studyDiary.dto.request.*;
 import com.takoyakki.backend.domain.studyDiary.dto.response.DiaryCommentsSelectResponseDto;
 import com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiaryAISummaryResponseDto;
 import com.takoyakki.backend.domain.studyDiary.dto.response.StudyDiarySelectPublicListResponseDto;
@@ -42,4 +39,17 @@ public class DiaryCommentsServiceImpl implements DiaryCommentsService{
             throw new RuntimeException("댓글 입력 중 오류가 발생했습니다: " + e.getMessage(), e);
         }
     }
+
+    @Override
+    @Transactional
+    public void updateComment(Long commentId, DiaryCommentsUpdateRequestDto dto) {
+        diaryCommentMapper.updateDiaryComment(commentId, dto);
+    }
+
+    @Override
+    @Transactional
+    public void deleteComment(Long commentId, DiaryCommentsDeleteRequestDto dto) {
+        diaryCommentMapper.deleteDiaryComment(commentId, dto);
+    }
+
 }
