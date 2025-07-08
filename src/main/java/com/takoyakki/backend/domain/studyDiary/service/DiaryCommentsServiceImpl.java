@@ -41,11 +41,13 @@ public class DiaryCommentsServiceImpl implements DiaryCommentsService{
     }
 
     @Override
+    @Transactional
     public void updateComment(Long commentId, DiaryCommentsUpdateRequestDto dto) {
         diaryCommentMapper.updateDiaryComment(commentId, dto);
     }
 
     @Override
+    @Transactional
     public void deleteComment(Long commentId, DiaryCommentsDeleteRequestDto dto) {
         diaryCommentMapper.deleteDiaryComment(commentId, dto);
     }

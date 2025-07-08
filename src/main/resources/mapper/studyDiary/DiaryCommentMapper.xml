@@ -33,6 +33,7 @@
             #{contents}
         )
     </insert>
+
     <update id="updateDiaryComment">
         UPDATE diary_comments
         SET contents = #{dto.contents},
