@@ -39,3 +39,4 @@ out/
 application-prod.yml
 src/main/java/com/takoyakki/backend/test
 src/main/resources/application-secret.yml
+src/main/resources/application-prod.yml
