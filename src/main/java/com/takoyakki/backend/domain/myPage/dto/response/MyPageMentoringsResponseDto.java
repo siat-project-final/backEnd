@@ -17,7 +17,7 @@ public class MyPageMentoringsResponseDto {
     private String mentorName;
 
     @Schema(description = "멘토 이미지 url", example = "https://example.com/image.jpg")
-    private String imageUrl;
+    private String mentorImageUrl;
 
     @Schema(description = "대화 주제", example = "JAVA")
     private String subject;
