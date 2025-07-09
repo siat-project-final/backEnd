@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ChallengeService {
-    String insertChallengeProblem(String subject, int difficulty);
+    int insertChallengeProblem(String subject, int difficulty);
 
     int insertProblemSolving(@Valid ProblemSolvingInsertRequestDto requestDto);
 

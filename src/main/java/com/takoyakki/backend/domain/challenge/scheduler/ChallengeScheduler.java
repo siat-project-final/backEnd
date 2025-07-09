@@ -28,7 +28,7 @@ public class ChallengeScheduler {
     private final ChallengeService challengeService;
 
     @Transactional
-    @Scheduled(cron = "0 13 11 * * *") // 매일 오전 7시
+    @Scheduled(cron = "0 0 7 * * *") // 매일 오전 7시
     public void createDailyChallengeProblems() {
         log.info("챌린지 문제 생성 스케줄러 실행 시작: {}", LocalDateTime.now());
 
@@ -53,7 +53,6 @@ public class ChallengeScheduler {
 
             // 난이도 1~5 문제 생성
             for (int i = 1; i <= 5; i++) {
-                System.out.println("111111111111" + subjects.get(0));
                 challengeService.insertChallengeProblem(subjects.get(0), i);
             }
 
