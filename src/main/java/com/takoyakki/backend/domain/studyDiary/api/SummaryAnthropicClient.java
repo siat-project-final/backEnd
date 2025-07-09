@@ -55,7 +55,7 @@ public class SummaryAnthropicClient {
             }
 
         } catch (IOException e) {
-            throw new RuntimeException("Anthropic API 호출 실패", e);
+            return e.getMessage();
         }
     }
 
