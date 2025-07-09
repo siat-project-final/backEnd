@@ -33,15 +33,18 @@
             m.member_name AS memberName,
             SUM(ps.points) AS totalPoints,
             RANK() OVER (ORDER BY SUM(ps.points) DESC) AS rank,
-            ps.date::date AS date
+            ps.date::date AS date,
+            p.subject AS subject
         FROM
             problem_solving ps
-                LEFT OUTER JOIN
+        LEFT OUTER JOIN
             members m ON ps.member_id = m.member_id
+        LEFT OUTER JOIN
+            problems p ON ps.problem_id = p.problem_id
         WHERE
             ps.is_deleted = FALSE
           AND
-            ps.date::date = #{date}
+            ps.date::date = CAST(#{date} AS DATE)
         GROUP BY
             ps.member_id, m.member_name, ps.date::date;
     </select>
