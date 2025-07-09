@@ -67,6 +67,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
             return "ok";
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return e.getMessage();
         }
     }
