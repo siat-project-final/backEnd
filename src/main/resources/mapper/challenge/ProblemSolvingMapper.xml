@@ -46,7 +46,7 @@
           AND
             ps.date::date = CAST(#{date} AS DATE)
         GROUP BY
-            ps.member_id, m.member_name, ps.date::date;
+            ps.member_id, m.member_name, ps.date::date, p.subject;
     </select>
 
     <select id="selectChallengeDetail"
