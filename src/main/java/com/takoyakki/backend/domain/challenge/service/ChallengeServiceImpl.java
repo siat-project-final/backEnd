@@ -48,7 +48,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     @Transactional
-    public int insertChallengeProblem(String subject, int difficulty) {
+    public String insertChallengeProblem(String subject, int difficulty) {
         try {
             String problem  = anthropicClient.createProblem(subject, difficulty);
             String contents = anthropicClient.extractContents(problem);
@@ -65,9 +65,9 @@ public class ChallengeServiceImpl implements ChallengeService {
                     .choices(choices)
                     .build();
 
-            return problemsMapper.insertProblem(dto);
+            return "ok";
         } catch (Exception e) {
-            throw new RuntimeException("문제 생성 중 오류: " + e.getMessage(), e);
+            return e.getMessage();
         }
     }
 
