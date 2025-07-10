@@ -156,7 +156,7 @@
             AND sd.subject ILIKE #{subject}
         </if>
         ORDER BY
-            sd.created_at DESC
+            sd.created_at DESC, sd.study_date DESC
     </select>
 
     <!-- 좋아요 증가/감소 -->
