@@ -85,7 +85,7 @@
             member_id = #{memberId}
             AND is_deleted = FALSE
         ORDER BY
-            created_at DESC
+            study_date DESC
     </select>
 
     <!-- 회원 기준 전체 일지 조회 -->
@@ -156,7 +156,7 @@
             AND sd.subject ILIKE #{subject}
         </if>
         ORDER BY
-            sd.study_date DESC
+            sd.created_at DESC
     </select>
 
     <!-- 좋아요 증가/감소 -->
