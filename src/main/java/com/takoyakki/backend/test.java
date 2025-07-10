@@ -5,6 +5,7 @@ import com.takoyakki.backend.domain.studyDiary.api.SummaryAnthropicClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.takoyakki.backend.domain.challenge.repository.ProblemSolvingMapper;
@@ -23,9 +24,8 @@ public class test {
 
     @GetMapping("/test2")
     @ResponseBody
-    public ResponseEntity<?> test2() {
-        int j =1;
-        int i = challengeService.insertChallengeProblem("Spring", j++);
+    public ResponseEntity<?> test2(@RequestParam int j) {
+        int i = challengeService.insertChallengeProblem("Spring", j);
 
         return ResponseEntity.ok(i + "개의 문제를 추가했습니다. 현재 난이도는 " + j);
 
