@@ -38,4 +38,11 @@
 - 250618 myBatis dto 매핑시 칼럼 순서와 멤버 순서 일치해야함
 - 250626 챌린지 복습 리스트 조회시 통신이 30초 이상 걸리는 문제 발생 > 원인 파악 결과 슬로우 쿼리 발생 > 쿼리 수정으로 해결 > trouble-shooting.txt #2 참고
 
+# 패치 로그
+- 250629 최초 기본 CI/CD 파이프라인 구축 완료(git action 기반 S3와 EC2에 workflow trigger 배포)
+- 250701 router 53에서 구매한 siathub.com 도메인에 A, NS 레코드 추가하여 배포된 cloudfront 연결
+- 250703 letsencrypt를 통해 인증서 발급 후 서버 통신 https 변경
+- 250704 프리티어 한도 내 서버 유지를 위해 elasticache 대신 EC2 내 redis 추가
+- 250719 포트폴리오 확인용 임시 게스트 계정 추가
+
 
