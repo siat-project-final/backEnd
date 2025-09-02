@@ -36,7 +36,7 @@ public class ChallengeScheduler {
         try {
             List<String> subjects = null;
             LocalDate searchDate = LocalDate.now();
-            int maxDays = 30;
+            int maxDays = 300;
 
             for (int i = 0; i < maxDays; i++) {
                 subjects = dailyLearningMapper.selectDailyLearning(searchDate);
